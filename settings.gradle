@@ -1,0 +1,38 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Quilt'
+			url = 'https://maven.quiltmc.org/repository/release'
+		}
+		// Currently needed for Intermediary and other temporary dependencies
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		gradlePluginPortal()
+	}
+}
+
+dependencyResolutionManagement {
+	versionCatalogs {
+		libs {
+			def mc_major = '1.19'
+			def mc = mc_major + '.2'
+			def mappings = 21
+
+			// // Base // //
+			version('minecraft', mc)
+			version('quilt.loader', "0.17.6")
+			version('qsl', "3.0.0-beta.21+${mc}")
+			version('quilt.mappings', "${mc}+build.${mappings}")
+			version('qfapi', "4.0.0-beta.21+0.67.0-${mc}")
+
+			library('minecraft', 'mojang', 'minecraft').versionRef('minecraft')
+			library('quilt.loader', 'org.quiltmc', 'quilt-loader').versionRef('quilt.loader')
+			library('qsl', 'org.quiltmc', 'qsl').versionRef('qsl')
+			library('quilt.mappings', 'org.quiltmc', 'quilt-mappings').versionRef('quilt.mappings')
+			library('qfapi', 'org.quiltmc.quilted-fabric-api', 'quilted-fabric-api', ).versionRef('qfapi')
+
+		}
+	}
+}
