@@ -18,6 +18,9 @@
 			"icon": "assets/pollinators-paradise/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "garden.hestia.pollinators_paradise.PollinatorsParadise"
+		},
 		"depends": [
 			{
 				"id": "quilt_loader",

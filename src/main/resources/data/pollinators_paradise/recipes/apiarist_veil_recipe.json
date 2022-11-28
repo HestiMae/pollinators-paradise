@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "pollinators_paradise:honeyed_wool"
+    }
+  },
+  "result": {
+    "item": "pollinators_paradise:apiarist_veil"
+  }
+}
