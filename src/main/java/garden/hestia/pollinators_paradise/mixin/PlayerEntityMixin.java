@@ -32,10 +32,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void tick(CallbackInfo ci)
 	{
-		Vec3d pos = this.getPos();
-		List<Entity> localEntities = this.world.getOtherEntities(this, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
 		if (this.getEquippedStack(EquipmentSlot.HEAD).isOf(PollinatorsParadise.APIARIST_VEIL))
 		{
+			Vec3d pos = this.getPos();
+			List<Entity> localEntities = this.world.getOtherEntities(this, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
 			localEntities.stream().filter(x -> x instanceof BeeEntity).filter(y -> ((BeeEntity) y).getAngryAt() == this.uuid).forEach(y -> ((BeeEntity) y).stopAnger());
 		}
 
