@@ -8,15 +8,12 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 
 public class HoneyableItem extends Item {
-	private int honeyLevel;
 	public HoneyableItem(Settings settings) {
 		super(settings);
 	}
 	@Override
 	public boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-		int initialHoneyLevel = this.honeyLevel;
-		this.honeyLevel = HoneyableUtil.onClicked(thisStack, otherStack, thisSlot, clickType, player, this.honeyLevel);
-		return this.honeyLevel != initialHoneyLevel;
+		return HoneyableUtil.onClicked(thisStack, otherStack, thisSlot, clickType, player);
 	}
 
 
@@ -24,15 +21,15 @@ public class HoneyableItem extends Item {
 
 	@Override
 	public int getItemBarColor(ItemStack stack) {
-		return HoneyableUtil.ITEM_BAR_COLOR;
+		return HoneyableUtil.getItemBarColor(stack);
 	}
 	@Override
 	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
+		return HoneyableUtil.isItemBarVisible(stack);
 	}
 
 	@Override
-	public int getItemBarStep(ItemStack stack) {return Math.round(13.0F/(float) HoneyableUtil.MAX_HONEY_LEVEL * (float) honeyLevel);
+	public int getItemBarStep(ItemStack stack) {return HoneyableUtil.getItemBarStep(stack);
 	}
 
 
