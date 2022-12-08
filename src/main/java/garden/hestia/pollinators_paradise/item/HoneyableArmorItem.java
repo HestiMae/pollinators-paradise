@@ -32,4 +32,9 @@ public class HoneyableArmorItem extends ArmorItem {
 	@Override
 	public int getItemBarStep(ItemStack stack) {return HoneyableUtil.getItemBarStep(stack);
 	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
+	}
 }
