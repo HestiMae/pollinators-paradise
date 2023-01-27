@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c c",
+    "h h"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "h": {
+      "item": "minecraft:honeycomb_block"
+    }
+  },
+  "result": {
+    "item": "pollinators_paradise:apiarist_wellies"
+  }
+}
