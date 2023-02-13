@@ -10,8 +10,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ClickType;
 
 public class HoneyableUtil {
-	public static final int MAX_HONEY_LEVEL = 64;
-	public static final int HONEY_VALUE = 16;
+	public static final int MAX_HONEY_LEVEL = 4096;
+	public static final int HONEY_VALUE = 1024;
 	public static final int ITEM_BAR_COLOR = 0xff9116;
 	public static final String HONEY_NBT_KEY = "HoneyLevel";
 

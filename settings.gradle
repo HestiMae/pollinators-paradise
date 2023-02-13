@@ -21,13 +21,13 @@ dependencyResolutionManagement {
 			def mappings = 21
 
 			// // Base // //
-			version('minecraft', mc)
-			version('quilt.loader', "0.17.6")
-			version('qsl', "3.0.0-beta.28+${mc}")
+			version('mc', mc)
+			version('quilt.loader', "0.17.11")
+			version('qsl', "3.0.0-beta.29+${mc}")
 			version('quilt.mappings', "${mc}+build.${mappings}")
-			version('qfapi', "4.0.0-beta.26+0.72.0-${mc}")
+			version('qfapi', "4.0.0-beta.28+0.73.2-${mc}")
 
-			library('minecraft', 'mojang', 'minecraft').versionRef('minecraft')
+			library('mc', 'mojang', 'minecraft').versionRef('mc')
 			library('quilt.loader', 'org.quiltmc', 'quilt-loader').versionRef('quilt.loader')
 			library('qsl', 'org.quiltmc', 'qsl').versionRef('qsl')
 			library('quilt.mappings', 'org.quiltmc', 'quilt-mappings').versionRef('quilt.mappings')

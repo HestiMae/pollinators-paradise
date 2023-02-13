@@ -39,7 +39,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			List<Entity> localEntities = this.world.getOtherEntities(this, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
 			localEntities.stream().filter(x -> x instanceof BeeEntity).filter(y -> ((BeeEntity) y).getAngryAt() == this.uuid).forEach(y -> {
 				((BeeEntity) y).stopAnger();
-				HoneyableUtil.putHoneyLevel(getEquippedStack(EquipmentSlot.HEAD), HoneyableUtil.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) - 1);
+				HoneyableUtil.putHoneyLevel(getEquippedStack(EquipmentSlot.HEAD), HoneyableUtil.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) - 64);
 			});
 
 		}

@@ -26,12 +26,13 @@ public abstract class BlockMixin extends AbstractBlock {
 	}
 
 	@Inject(method = "onSteppedOn", at = @At(value = "TAIL"))
-	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci)
+	public void honeyOnSteppedOn(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci)
 	{
 		if ((Object) this instanceof HoneyBlock) {
 			if (entity instanceof PlayerEntity player && player.getEquippedStack(EquipmentSlot.FEET).isOf(PollinatorsParadise.APIARIST_WELLIES)
 					&& HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) > 0 && player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
+				HoneyableUtil.putHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET), HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) - 4);
 			}
 		}
 	}

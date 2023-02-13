@@ -22,7 +22,7 @@ public abstract class EntityMixin
 	@Shadow
 	protected abstract BlockPos getVelocityAffectingPos();
 	@ModifyVariable(method = "getJumpVelocityMultiplier", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/Block;getJumpVelocityMultiplier()F"), index = 1)
-	protected float getJumpVelocityMultiplier(float original)
+	protected float applyHoneyBounce(float original)
 	{
 		Block block = this.world.getBlockState(this.getVelocityAffectingPos()).getBlock();
 		if (block instanceof HoneyBlock)
@@ -30,6 +30,7 @@ public abstract class EntityMixin
 			if ((Object) this instanceof PlayerEntity player && player.getEquippedStack(EquipmentSlot.FEET).isOf(PollinatorsParadise.APIARIST_WELLIES)
 					&& HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) > 0 && !player.isSneaking())
 			{
+				HoneyableUtil.putHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET), HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) - 32);
 				return 1.8F;
 			}
 		}
