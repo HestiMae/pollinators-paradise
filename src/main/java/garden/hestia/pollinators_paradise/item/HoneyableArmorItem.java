@@ -1,6 +1,5 @@
 package garden.hestia.pollinators_paradise.item;
 
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ArmorItem;
@@ -12,7 +11,7 @@ import net.minecraft.util.ClickType;
 public class HoneyableArmorItem extends ArmorItem {
 
 
-	public HoneyableArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
+	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings) {
 		super(material, slot, settings);
 	}
 

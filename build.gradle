@@ -23,7 +23,7 @@ if (System.getenv("GITHUB_TOKEN")) {
 archivesBaseName = project.archives_base_name
 
 def mc_major = '1.19'
-def mc = mc_major + '.2'
+def mc = mc_major + '.4'
 
 def origVersion = project.version
 project.version = project.version + "+" + mc_major
@@ -52,7 +52,7 @@ processResources {
 	final Map<String, String> map = [
 			"version": version.toString(),
 			"mc"  : libs.versions.mc.get(),
-			"quilt.loader"  : libs.versions.quilt.loader.get(),
+			"quilt_loader"  : libs.versions.quilt.loader.get(),
 			"qsl"  : libs.versions.qsl.get(),
 			"qfapi"  : libs.versions.qfapi.get(),
 
