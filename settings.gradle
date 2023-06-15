@@ -18,14 +18,14 @@ dependencyResolutionManagement {
 		libs {
 			def mc_major = '1.19'
 			def mc = mc_major + '.4'
-			def mappings = 5
+			def mappings = 10
 
 			// // Base // //
 			version('mc', mc)
-			version('quilt.loader', "0.17.11")
-			version('qsl', "5.0.0-beta.1+${mc}")
+			version('quilt.loader', "0.18.10")
+			version('qsl', "5.0.0-beta.6+${mc}")
 			version('quilt.mappings', "${mc}+build.${mappings}")
-			version('qfapi', "6.0.0-beta.2+0.76.0-${mc}")
+			version('qfapi', "6.0.0-beta.6+0.79.0-${mc}")
 
 			library('mc', 'mojang', 'minecraft').versionRef('mc')
 			library('quilt.loader', 'org.quiltmc', 'quilt-loader').versionRef('quilt.loader')
