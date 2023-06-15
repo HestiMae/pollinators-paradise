@@ -10,7 +10,7 @@ buildscript {
 
 plugins {
 	id 'maven-publish'
-	id 'org.quiltmc.loom' version '1.0.+'
+	alias libs.plugins.loom
 }
 
 if (System.getenv("MODRINTH_TOKEN")) {
@@ -22,8 +22,8 @@ if (System.getenv("GITHUB_TOKEN")) {
 
 archivesBaseName = project.archives_base_name
 
-def mc_major = '1.19'
-def mc = mc_major + '.4'
+def mc_major = '1.20'
+def mc = mc_major
 
 def origVersion = project.version
 project.version = project.version + "+" + mc_major
