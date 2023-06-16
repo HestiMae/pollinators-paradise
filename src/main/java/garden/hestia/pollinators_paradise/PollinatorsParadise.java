@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise;
 
 import garden.hestia.pollinators_paradise.item.ApiaristArmorMaterial;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
+import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -17,9 +18,11 @@ public class PollinatorsParadise implements ModInitializer {
 	public static final String ID = "pollinators_paradise";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 	public static final ApiaristArmorMaterial APIARIST_ARMOR_MATERIAL = new ApiaristArmorMaterial();
-	public static final Item APIARIST_VEIL = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings());
-	public static final Item APIARIST_WELLIES = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings());
-	public static final Item APIARIST_SUIT = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings());
+	public static final Item APIARIST_VEIL = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings(), 4, 16);
+	public static final Item APIARIST_WELLIES = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings(), 4, 512);
+	public static final Item APIARIST_SUIT = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings(), 4, 64);
+	public static final Item APIARIST_LEGGINGS = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings(), 4, 128);
+	public static final Item APIARIST_SHEARS = new HoneyableShearsItem(new QuiltItemSettings(), 4, 32);
 	public static final Item HONEYED_WOOL = new Item(new QuiltItemSettings());
 	@Override
 	public void onInitialize(ModContainer mod)
@@ -30,7 +33,11 @@ public class PollinatorsParadise implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), APIARIST_WELLIES);
 		LOGGER.info("Initialised apiarist wellies");
 		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), APIARIST_SUIT);
-		LOGGER.info("Initialised apiarist plate");
+		LOGGER.info("Initialised apiarist suit");
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), APIARIST_LEGGINGS);
+		LOGGER.info("Initialised apiarist leggings");
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_shears"), APIARIST_SHEARS);
+		LOGGER.info("Initialised apiarist leggings");
 		Registry.register(Registries.ITEM, new Identifier(ID, "honeyed_wool"), HONEYED_WOOL);
 		LOGGER.info("Initialised honeyed wool");
 

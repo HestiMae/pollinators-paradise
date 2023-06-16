@@ -1,7 +1,7 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import garden.hestia.pollinators_paradise.item.HoneyableUtil;
+import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,6 +11,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,14 +27,21 @@ public abstract class BlockMixin extends AbstractBlock {
 	}
 
 	@Inject(method = "onSteppedOn", at = @At(value = "TAIL"))
+	@SuppressWarnings("ConstantConditions")
 	public void honeyOnSteppedOn(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci)
 	{
 		if ((Object) this instanceof HoneyBlock) {
-			if (entity instanceof PlayerEntity player && player.getEquippedStack(EquipmentSlot.FEET).isOf(PollinatorsParadise.APIARIST_WELLIES)
-					&& HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) > 0 && player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)) {
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
-				HoneyableUtil.putHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET), HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) - 4);
+			if (entity instanceof PlayerEntity player)
+			{
+				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
+				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
+						&& equippedFeetStack.getItem() instanceof Honeyable honeyItem
+						&& honeyItem.getHoneyLevel(equippedFeetStack) > 0 && player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+					player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
+					honeyItem.putHoneyLevel(equippedFeetStack, honeyItem.getHoneyLevel(equippedFeetStack) - 2);
+				}
 			}
+
 		}
 	}
 	@Inject(method = "getJumpVelocityMultiplier", at = @At("RETURN"))

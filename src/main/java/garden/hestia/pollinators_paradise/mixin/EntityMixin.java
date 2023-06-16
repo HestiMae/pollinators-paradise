@@ -1,7 +1,7 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import garden.hestia.pollinators_paradise.item.HoneyableUtil;
+import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.Block;
 import net.minecraft.block.HoneyBlock;
 import net.minecraft.entity.Entity;
@@ -10,6 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityAnimationS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -25,38 +26,50 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityMixin
 {
 	@Shadow
-	public World world;
+	private World world;
 	@Shadow
 	protected abstract BlockPos getVelocityAffectingPos();
 	@ModifyVariable(method = "getJumpVelocityMultiplier", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/Block;getJumpVelocityMultiplier()F"), index = 1)
+	@SuppressWarnings("ConstantConditions")
 	protected float applyHoneyBounce(float original)
 	{
 		Block block = this.world.getBlockState(this.getVelocityAffectingPos()).getBlock();
 		if (block instanceof HoneyBlock)
 		{
-			if ((Object) this instanceof PlayerEntity player && player.getEquippedStack(EquipmentSlot.FEET).isOf(PollinatorsParadise.APIARIST_WELLIES)
-					&& HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) > 0 && !player.isSneaking())
+			if ((Object) this instanceof PlayerEntity player)
 			{
-				HoneyableUtil.putHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET), HoneyableUtil.getHoneyLevel(player.getEquippedStack(EquipmentSlot.FEET)) - 32);
-				return 1.8F;
+				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
+				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
+						&& honeyItem.getHoneyLevel(equippedFeetStack) > 0 && !player.isSneaking())
+				{
+					honeyItem.putHoneyLevel(equippedFeetStack, honeyItem.getHoneyLevel(equippedFeetStack) - 1);
+					return 1.8F;
+				}
 			}
+
 		}
 		return original;
 	}
 	@Inject(method = "applyDamageEffects", at = @At(value = "TAIL"))
 	public void applyDamageEffects(LivingEntity attacker, Entity target, CallbackInfo ci)
 	{
-		if (target instanceof LivingEntity livingTarget && livingTarget.getEquippedStack(EquipmentSlot.CHEST).isOf(PollinatorsParadise.APIARIST_SUIT)
-		 && HoneyableUtil.getHoneyLevel(livingTarget.getEquippedStack(EquipmentSlot.CHEST)) > 0)
+		if (target instanceof LivingEntity livingTarget)
 		{
-			HoneyableUtil.putHoneyLevel(livingTarget.getEquippedStack(EquipmentSlot.CHEST), HoneyableUtil.getHoneyLevel(livingTarget.getEquippedStack(EquipmentSlot.CHEST)) - 16);
-
-			attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
-			if (target.getWorld() instanceof ServerWorld serverWorld)
+			ItemStack equippedChestStack = livingTarget.getEquippedStack(EquipmentSlot.CHEST);
+			if (equippedChestStack.isOf(PollinatorsParadise.APIARIST_SUIT)
+					&& equippedChestStack.getItem() instanceof Honeyable honeyItem
+					&& honeyItem.getHoneyLevel(equippedChestStack) > 0)
 			{
-				serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(attacker, EntityAnimationS2CPacket.CRIT));
-			}
+				honeyItem.putHoneyLevel(equippedChestStack, honeyItem.getHoneyLevel(equippedChestStack) - 1);
 
+				attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
+				if (target.getWorld() instanceof ServerWorld serverWorld)
+				{
+					serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(attacker, EntityAnimationS2CPacket.CRIT));
+				}
+
+			}
 		}
+
 	}
 }

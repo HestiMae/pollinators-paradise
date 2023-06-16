@@ -1,7 +1,7 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import garden.hestia.pollinators_paradise.item.HoneyableUtil;
+import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -33,13 +33,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void tick(CallbackInfo ci)
 	{
-		if (this.getEquippedStack(EquipmentSlot.HEAD).isOf(PollinatorsParadise.APIARIST_VEIL) && HoneyableUtil.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) > 0)
+		if (getEquippedStack(EquipmentSlot.HEAD).isOf(PollinatorsParadise.APIARIST_VEIL) &&
+		getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof Honeyable honeyItem &&
+				honeyItem.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) > 0)
 		{
 			Vec3d pos = this.getPos();
 			List<Entity> localEntities = this.getWorld().getOtherEntities(this, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
 			localEntities.stream().filter(x -> x instanceof BeeEntity).filter(y -> ((BeeEntity) y).getAngryAt() == this.uuid).forEach(y -> {
 				((BeeEntity) y).stopAnger();
-				HoneyableUtil.putHoneyLevel(getEquippedStack(EquipmentSlot.HEAD), HoneyableUtil.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) - 64);
+				honeyItem.putHoneyLevel(getEquippedStack(EquipmentSlot.HEAD), honeyItem.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) - 1);
 			});
 
 		}

@@ -2,18 +2,17 @@ package garden.hestia.pollinators_paradise.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 
-public class HoneyableArmorItem extends ArmorItem implements Honeyable {
-	private final int bottleCapacity;
-	private final int bottlePoints;
+public class HoneyableShearsItem extends ShearsItem implements Honeyable {
+	private int bottleCapacity;
+	private int bottlePoints;
 
-	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints) {
-		super(material, slot, settings);
+	public HoneyableShearsItem(Settings settings, int bottleCapacity, int bottlePoints) {
+		super(settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
 	}
@@ -33,11 +32,6 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 
 	@Override
 	public int getItemBarStep(ItemStack stack) {return Honeyable.super.getItemBarStep(stack);
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
 	}
 
 	@Override

@@ -6,10 +6,12 @@
   "mixins": [
     "BlockMixin",
     "EntityMixin",
+    "ItemPredicateMixin",
+    "ItemStackMixin",
     "PlayerEntityMixin"
   ],
   "client": [],
   "injectors": {
     "defaultRequire": 1
-  }
+	}
 }

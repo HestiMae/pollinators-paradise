@@ -7,31 +7,41 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 
-public class HoneyableItem extends Item {
-	public HoneyableItem(Settings settings) {
+public class HoneyableItem extends Item implements Honeyable {
+	private final int bottleCapacity;
+	private final int bottlePoints;
+
+	public HoneyableItem(Settings settings, int bottleCapacity, int bottlePoints) {
 		super(settings);
+		this.bottleCapacity = bottleCapacity;
+		this.bottlePoints = bottlePoints;
 	}
 	@Override
 	public boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-		return HoneyableUtil.onClicked(thisStack, otherStack, thisSlot, clickType, player);
+		return onClicked(thisStack, otherStack, thisSlot, clickType, player);
 	}
-
-
-
 
 	@Override
 	public int getItemBarColor(ItemStack stack) {
-		return HoneyableUtil.getItemBarColor(stack);
+		return Honeyable.super.getItemBarColor(stack);
 	}
 	@Override
 	public boolean isItemBarVisible(ItemStack stack) {
-		return HoneyableUtil.isItemBarVisible(stack);
+		return Honeyable.super.isItemBarVisible(stack);
 	}
 
 	@Override
-	public int getItemBarStep(ItemStack stack) {return HoneyableUtil.getItemBarStep(stack);
+	public int getItemBarStep(ItemStack stack) {return Honeyable.super.getItemBarStep(stack);
 	}
 
 
+	@Override
+	public int bottleCapacity() {
+		return bottleCapacity;
+	}
 
+	@Override
+	public int bottlePoints() {
+		return bottlePoints;
+	}
 }
