@@ -6,8 +6,10 @@
   "mixins": [
     "BlockMixin",
     "EntityMixin",
+    "HoneyBlockMixin",
     "ItemPredicateMixin",
     "ItemStackMixin",
+    "LivingEntityMixin",
     "PlayerEntityMixin"
   ],
   "client": [],
