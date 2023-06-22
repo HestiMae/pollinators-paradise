@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  h",
+    "s  "
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "h": {
+      "item": "minecraft:honeycomb_block"
+    }
+  },
+  "result": {
+    "item": "pollinators_paradise:apiarist_wand"
+  }
+}

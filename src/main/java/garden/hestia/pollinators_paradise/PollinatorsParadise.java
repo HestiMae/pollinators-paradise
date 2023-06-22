@@ -23,23 +23,25 @@ public class PollinatorsParadise implements ModInitializer {
 	public static final Item APIARIST_SUIT = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings(), 4, 64);
 	public static final Item APIARIST_LEGGINGS = new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings(), 4, 128);
 	public static final Item APIARIST_SHEARS = new HoneyableShearsItem(new QuiltItemSettings(), 4, 32);
+	public static final Item APIARIST_WAND = new Item(new QuiltItemSettings());
 	public static final Item HONEYED_WOOL = new Item(new QuiltItemSettings());
 	@Override
 	public void onInitialize(ModContainer mod)
 	{
-		LOGGER.info("Mod initialising...");
 		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), APIARIST_VEIL);
-		LOGGER.info("Initialised apiarist veil");
-		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), APIARIST_WELLIES);
-		LOGGER.info("Initialised apiarist wellies");
-		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), APIARIST_SUIT);
-		LOGGER.info("Initialised apiarist suit");
-		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), APIARIST_LEGGINGS);
-		LOGGER.info("Initialised apiarist leggings");
-		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_shears"), APIARIST_SHEARS);
-		LOGGER.info("Initialised apiarist leggings");
-		Registry.register(Registries.ITEM, new Identifier(ID, "honeyed_wool"), HONEYED_WOOL);
-		LOGGER.info("Initialised honeyed wool");
 
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), APIARIST_WELLIES);
+
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), APIARIST_SUIT);
+
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), APIARIST_LEGGINGS);
+
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_shears"), APIARIST_SHEARS);
+
+		Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wand"), APIARIST_WAND);
+
+		Registry.register(Registries.ITEM, new Identifier(ID, "honeyed_wool"), HONEYED_WOOL);
+
+		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
 	}
 }
