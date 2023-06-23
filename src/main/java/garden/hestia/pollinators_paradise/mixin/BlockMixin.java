@@ -36,9 +36,9 @@ public abstract class BlockMixin extends AbstractBlock {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
 						&& equippedFeetStack.getItem() instanceof Honeyable honeyItem
-						&& honeyItem.getHoneyLevel(equippedFeetStack) > 0 && player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+						&& honeyItem.getHoneyLevel(equippedFeetStack) > 1 && player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)) {
 					player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
-					honeyItem.putHoneyLevel(equippedFeetStack, honeyItem.getHoneyLevel(equippedFeetStack) - 2);
+					honeyItem.decrementHoneyLevel(equippedFeetStack, 2);
 				}
 			}
 

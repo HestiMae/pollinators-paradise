@@ -54,4 +54,13 @@ public interface Honeyable {
 	{
 		stack.getOrCreateNbt().putInt(HONEY_NBT_KEY, newLevel);
 	}
+
+	default void decrementHoneyLevel(ItemStack stack)
+	{
+		putHoneyLevel(stack, getHoneyLevel(stack) - 1);
+	}
+	default void decrementHoneyLevel(ItemStack stack, int amount)
+	{
+		putHoneyLevel(stack, getHoneyLevel(stack) - amount);
+	}
 }

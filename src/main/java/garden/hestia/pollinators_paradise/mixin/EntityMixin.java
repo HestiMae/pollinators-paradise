@@ -42,7 +42,7 @@ public abstract class EntityMixin
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
 						&& honeyItem.getHoneyLevel(equippedFeetStack) > 0 && !player.isSneaking())
 				{
-					honeyItem.putHoneyLevel(equippedFeetStack, honeyItem.getHoneyLevel(equippedFeetStack) - 1);
+					honeyItem.decrementHoneyLevel(equippedFeetStack);
 					return 1.8F;
 				}
 			}
@@ -60,7 +60,7 @@ public abstract class EntityMixin
 					&& equippedChestStack.getItem() instanceof Honeyable honeyItem
 					&& honeyItem.getHoneyLevel(equippedChestStack) > 0)
 			{
-				honeyItem.putHoneyLevel(equippedChestStack, honeyItem.getHoneyLevel(equippedChestStack) - 1);
+				honeyItem.decrementHoneyLevel(equippedChestStack);
 
 				attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
 				if (target.getWorld() instanceof ServerWorld serverWorld)

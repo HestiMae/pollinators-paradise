@@ -30,7 +30,7 @@ public class HoneyBlockMixin {
 					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0)
 					{
 						pollinatorPlayer.pollinators$wallJump();
-						honeyItem.putHoneyLevel(equippedLegStack, honeyItem.getHoneyLevel(equippedLegStack) - 1);
+						honeyItem.decrementHoneyLevel(equippedLegStack);
 					}
 					ci.cancel();
 				}

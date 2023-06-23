@@ -33,6 +33,7 @@ public abstract class BeehiveBlockMixin {
 		if (state.getBlock() == Blocks.BEE_NEST && itemStack.getItem() instanceof HoneyableShearsItem honeyableShearsItem && honeyableShearsItem.getHoneyLevel(itemStack) > 0)
 		{
 			dropHoneycomb(world, pos);
+			honeyableShearsItem.decrementHoneyLevel(itemStack);
 		}
 	}
 
