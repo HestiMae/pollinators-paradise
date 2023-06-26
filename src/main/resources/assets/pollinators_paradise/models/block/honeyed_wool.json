@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "pollinators_paradise:block/honeyed_wool"
+  }
+}
+

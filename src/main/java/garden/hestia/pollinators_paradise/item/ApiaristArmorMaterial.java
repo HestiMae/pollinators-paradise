@@ -14,7 +14,7 @@ public class ApiaristArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public int getProtection(ArmorItem.ArmorSlot slot) {
-		return 0;
+		return 1;
 	}
 
 	@Override

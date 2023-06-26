@@ -21,6 +21,12 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	public boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
 		return onClicked(thisStack, otherStack, thisSlot, clickType, player);
 	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
+	}
+
 	@Override
 	public int getItemBarColor(ItemStack stack) {
 		return Honeyable.super.getItemBarColor(stack);

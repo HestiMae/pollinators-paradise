@@ -5,6 +5,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ClickType;
@@ -26,6 +28,12 @@ public interface Honeyable {
 			playInsertSound(player);
 			ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1));
 			putHoneyLevel(thisStack, Math.min(getHoneyLevel(thisStack) + bottlePoints(), pointCapacity()));
+			return true;
+		}
+		else if (clickType == ClickType.RIGHT && PotionUtil.getPotion(otherStack) == Potions.WATER && getHoneyLevel(thisStack) > 0) {
+			playInsertSound(player);
+			ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1));
+			putHoneyLevel(thisStack, 0);
 			return true;
 		}
 		return false;
