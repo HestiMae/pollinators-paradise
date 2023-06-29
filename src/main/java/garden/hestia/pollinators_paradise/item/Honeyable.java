@@ -58,6 +58,11 @@ public interface Honeyable {
 	{
 		return stack.getNbt() != null ? Math.min(stack.getNbt().getInt(Honeyable.HONEY_NBT_KEY), pointCapacity())  : 0;
 	}
+
+	default int getHoneyQuartile(ItemStack stack)
+	{
+		return (int) Math.ceil(4 * ((float) getHoneyLevel(stack))/pointCapacity());
+	}
 	default void putHoneyLevel(ItemStack stack, int newLevel)
 	{
 		stack.getOrCreateNbt().putInt(HONEY_NBT_KEY, newLevel);
