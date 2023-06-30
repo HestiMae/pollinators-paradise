@@ -67,6 +67,7 @@ As an upshot - bees are also affected by more status effects!<br>
 ---
 
 ### Afterword
+A very special thank you to [@sisby-folk](https://modrinth.com/user/sisby-folk) who helped out a lot with teaching me to make minecraft mods. Thank you for sharing your passion with me! This mod wouldn't exist without them, so check out their stuff <3
 
 This mod was released early for inclusion in [BlanketCon 2023](https://blanketcon.modfest.net/)! (Aug 26-29 2023)
 
