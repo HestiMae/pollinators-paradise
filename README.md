@@ -1,4 +1,7 @@
-<center>Adds equipment and mechanics that expand the progression and rewards of beekeeping.</center>
+<center>
+<img alt="screenshot" src="https://github.com/HestiMae/pollinators-paradise/assets/62225435/abd211ce-a257-4173-bc50-6f49205e4366"><br/>
+Adds equipment and mechanics that expand the progression and rewards of beekeeping.
+</center>
 
 ---
 
