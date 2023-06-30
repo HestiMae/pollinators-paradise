@@ -2,7 +2,7 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "garden.hestia",
-		"id": "pollinators-paradise",
+		"id": "pollinators_paradise",
 		"version": "${version}",
 		"metadata": {
 			"name": "Pollinators Paradise",
@@ -15,7 +15,7 @@
 				"issues": "https://github.com/HestiMae/pollinators-paradise/issues",
 				"sources": "https://github.com/HestiMae/pollinators-paradise"
 			},
-			"icon": "assets/pollinators-paradise/icon.png"
+			"icon": "assets/pollinators_paradise/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
@@ -36,5 +36,5 @@
 			}
 		]
 	},
-	"mixin": "pollinators-paradise.mixins.json"
+	"mixin": "pollinators_paradise.mixins.json"
 }
