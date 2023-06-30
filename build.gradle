@@ -119,6 +119,7 @@ if (System.getenv("MODRINTH_TOKEN")) {
 		dependencies {
 		}
 		changelog = "Changelog: https://github.com/HestiMae/pollinators-paradise/releases/tag/v" + origVersion
+		syncBodyFrom = rootProject.file("README.md").text
 	}
 }
 
