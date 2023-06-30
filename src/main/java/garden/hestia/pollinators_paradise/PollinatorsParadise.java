@@ -4,14 +4,13 @@ import garden.hestia.pollinators_paradise.item.ApiaristArmorMaterial;
 import garden.hestia.pollinators_paradise.item.HoneyWandItem;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
 import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -38,6 +37,19 @@ public class PollinatorsParadise implements ModInitializer {
 	@Override
 	public void onInitialize(ModContainer mod)
 	{
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+			entries.addItem(APIARIST_VEIL);
+			entries.addItem(APIARIST_SUIT);
+			entries.addItem(APIARIST_LEGGINGS);
+			entries.addItem(APIARIST_WELLIES);
+			entries.addItem(APIARIST_WAND);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS_AND_UTILITIES).register(entries -> {
+			entries.addAfter(Items.SHEARS, APIARIST_SHEARS);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+			entries.addAfter(Items.HONEYCOMB, HONEYED_WOOL_ITEM);
+		});
 		StatusEffects.SPEED.addAttributeModifier(EntityAttributes.GENERIC_FLYING_SPEED, "847abf1d-d98e-4cc8-9a8e-3d097b6c8268", 0.2F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
 	}

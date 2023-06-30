@@ -1,10 +1,14 @@
 package garden.hestia.pollinators_paradise.item;
 
+import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 public class ApiaristArmorMaterial implements ArmorMaterial {
 	@Override
@@ -45,5 +49,10 @@ public class ApiaristArmorMaterial implements ArmorMaterial {
 	@Override
 	public float getKnockbackResistance() {
 		return 0;
+	}
+
+	@Override
+	public @ClientOnly @NotNull Identifier getTexture() {
+		return new Identifier(PollinatorsParadise.ID, "models/armor/apiarist");
 	}
 }

@@ -5,8 +5,8 @@
 		"id": "pollinators_paradise",
 		"version": "${version}",
 		"metadata": {
-			"name": "Pollinators Paradise",
-			"description": "A minecraft mod to expand progression + rewards of beekeeping",
+			"name": "Pollinators' Paradise",
+			"description": "Adds equipment and mechanics that expand the progression and rewards of beekeeping.",
 			"contributors": {
 				"Hestia": "Owner"
 			},
