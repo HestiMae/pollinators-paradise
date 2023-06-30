@@ -1,21 +1,22 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "garden.hestia.pollinators_paradise.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"BeaconBlockEntityMixin",
-		"BeehiveBlockMixin",
-		"BlockMixin",
-		"EntityMixin",
-		"HoneyBlockMixin",
-		"ItemPredicateMixin",
-		"ItemStackMixin",
-		"LivingEntityMixin",
-		"PlayerEntityMixin"
-	],
-	"client": [],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "garden.hestia.pollinators_paradise.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BeaconBlockEntityMixin",
+    "BeehiveBlockEntityMixin",
+    "BeehiveBlockMixin",
+    "BlockMixin",
+    "EntityMixin",
+    "HoneyBlockMixin",
+    "ItemPredicateMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
