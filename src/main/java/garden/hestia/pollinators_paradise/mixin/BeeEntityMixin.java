@@ -7,6 +7,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
@@ -16,6 +17,18 @@ public abstract class BeeEntityMixin extends LivingEntity {
 	protected BeeEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
+	@Shadow
+	protected abstract void setHasStung(boolean hasStung);
+
+	@ModifyArg(method = "mobTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 1), index = 1)
+	protected float regenerateStinger(float amount) {
+		if (this.hasStatusEffect(StatusEffects.RESISTANCE) || this.hasStatusEffect(StatusEffects.REGENERATION))
+		{
+			this.setHasStung(false);
+			return 1.0F;
+		}
+		return amount;
+	}
 
 	@ModifyArg(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/entity/effect/StatusEffect;II)V"), index = 2)
 	private int strengthDoublesPoison(int amplifier)
@@ -23,6 +36,7 @@ public abstract class BeeEntityMixin extends LivingEntity {
 		return this.hasStatusEffect(StatusEffects.STRENGTH) ? 1 : amplifier;
 	}
 
+	@SuppressWarnings("DataFlowIssue")
 	@ModifyArg(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/entity/effect/StatusEffect;II)V"), index = 0)
 	private StatusEffect strengthAppliesWither(StatusEffect originalEffect)
 	{
