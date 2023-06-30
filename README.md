@@ -44,6 +44,8 @@ Instilled with the magic of pollen, this tool can't be honeyed itself, but draws
 *When Draining Honey*: Deals magical honey damage based on the amount of honey in all equipment.<br/>
 *When Draining ■■■■■■*: NYI.
 
+When accidentally hitting bees, they'll be healed instead.
+
 ## Mechanics
 
 ### Honeying
@@ -63,6 +65,8 @@ As an upshot - bees are also affected by more status effects!<br>
 *Strength*: Bees inflict Poison II, or Wither II at level II.<br/>
 *Resistance/Regeneration*: As well as their base effect, bees will survive regrowing their stingers.<br/>
 *Speed*: Bees fly more erratically, and debatably faster.<br/>
+
+If you're extra worried about bee welfare, [feed the bees](https://modrinth.com/mod/feed-the-bees) prevents stinger death altogether and adds direct healing via sugar.
 
 ---
 
