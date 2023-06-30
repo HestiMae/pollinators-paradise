@@ -2,7 +2,6 @@ package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -28,7 +27,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
-	private static final double BOX_SIZE = 3;
+	private static final double BOX_SIZE = 5;
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void tick(CallbackInfo ci)
@@ -38,9 +37,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 				honeyItem.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) > 0)
 		{
 			Vec3d pos = this.getPos();
-			List<Entity> localEntities = this.getWorld().getOtherEntities(this, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
-			localEntities.stream().filter(x -> x instanceof BeeEntity).filter(y -> ((BeeEntity) y).getAngryAt() == this.uuid).forEach(y -> {
-				((BeeEntity) y).stopAnger();
+			List<BeeEntity> localEntities = this.getWorld().getNonSpectatingEntities(BeeEntity.class, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
+			localEntities.stream().filter(y -> y.getAngryAt() == this.uuid).forEach(y -> {
+				y.stopAnger();
 				honeyItem.decrementHoneyLevel(getEquippedStack(EquipmentSlot.HEAD));
 			});
 
