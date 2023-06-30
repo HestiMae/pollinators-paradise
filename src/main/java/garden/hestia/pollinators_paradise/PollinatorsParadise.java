@@ -38,11 +38,8 @@ public class PollinatorsParadise implements ModInitializer {
 	public void onInitialize(ModContainer mod)
 	{
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
-			entries.addItem(APIARIST_VEIL);
-			entries.addItem(APIARIST_SUIT);
-			entries.addItem(APIARIST_LEGGINGS);
-			entries.addItem(APIARIST_WELLIES);
-			entries.addItem(APIARIST_WAND);
+			entries.addBefore(Items.LEATHER_HELMET, APIARIST_VEIL, APIARIST_SUIT, APIARIST_LEGGINGS, APIARIST_WELLIES);
+			entries.addAfter(Items.TRIDENT, APIARIST_WAND);
 		});
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS_AND_UTILITIES).register(entries -> {
 			entries.addAfter(Items.SHEARS, APIARIST_SHEARS);

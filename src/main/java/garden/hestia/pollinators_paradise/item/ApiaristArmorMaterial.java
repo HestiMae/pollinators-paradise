@@ -53,6 +53,6 @@ public class ApiaristArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public @ClientOnly @NotNull Identifier getTexture() {
-		return new Identifier(PollinatorsParadise.ID, "models/armor/apiarist");
+		return new Identifier(PollinatorsParadise.ID, "textures/models/armor/apiarist");
 	}
 }

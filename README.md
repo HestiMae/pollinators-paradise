@@ -57,7 +57,7 @@ Beacons with a honey block staining their beam become *beecons*, which affect bo
 
 As an upshot - bees are also affected by more status effects!<br>
 *Haste*: Bees process honey in hives faster.<br/>
-*Strength*: Bees inflict poison II, or Wither II at level II.<br/>
+*Strength*: Bees inflict Poison II, or Wither II at level II.<br/>
 *Resistance/Regeneration*: As well as their base effect, bees will survive regrowing their stingers.<br/>
 *Speed*: Bees fly more erratically, and debatably faster.<br/>
 
