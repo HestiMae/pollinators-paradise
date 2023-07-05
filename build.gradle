@@ -48,6 +48,10 @@ dependencies {
 	modImplementation libs.qfapi
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/pollinators_paradise.accesswidener")
+}
+
 processResources {
 	final Map<String, String> map = [
 			"version": version.toString(),

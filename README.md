@@ -12,7 +12,7 @@ Adds equipment and mechanics that expand the progression and rewards of beekeepi
 
 These articles sport little in the way of protection, but provide costly utility.
 
-Most pieces are made from a composite wax-honey-wool material, *honeyed wool*.
+Most pieces are made from a composite wax-honey-wool material, *waxed wool*.
 
 **Apiarist's Veil**<br/>
 *When Honeyed*: Calms bees targeting the wearer.<br/>

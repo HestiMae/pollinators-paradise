@@ -37,5 +37,6 @@
 			}
 		]
 	},
-	"mixin": "pollinators_paradise.mixins.json"
+	"mixin": "pollinators_paradise.mixins.json",
+	"access_widener": "pollinators_paradise.accesswidener"
 }

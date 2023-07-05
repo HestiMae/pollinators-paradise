@@ -1,0 +1,7 @@
+accessWidener v1 named
+
+accessible class net/minecraft/screen/BrewingStandScreenHandler$PotionSlot
+accessible field net/minecraft/recipe/BrewingRecipeRegistry ITEM_RECIPES Ljava/util/List;
+accessible class net/minecraft/recipe/BrewingRecipeRegistry$Recipe
+extendable method net/minecraft/block/HoneyBlock updateSlidingVelocity (Lnet/minecraft/entity/Entity;)V
+extendable method net/minecraft/block/HoneyBlock isSliding (Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Z
