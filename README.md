@@ -16,35 +16,45 @@ Most pieces are made from a composite wax-honey-wool material, *waxed wool*.
 
 **Apiarist's Veil**<br/>
 *When Honeyed*: Calms bees targeting the wearer.<br/>
-*When ■■■■■■ed*: NYI.
+*When Chorus Honeyed*: NYI.
 
 **Apiarist's Suit**<br/>
 *When Honeyed*: Immobilizes attackers in honey.<br/>
-*When ■■■■■■ed*: NYI.
+*When Chorus Honeyed*: NYI.
 
 **Apiarist's Leggings**<br/>
 *When Honeyed*: Allows wall-jumping up honey blocks.<br/>
-*When ■■■■■■ed*: NYI.
+*When Chorus Honeyed*: NYI.
 
 **Apiarist's Wellies**<br/>
 *Milled from full waxed copper blocks, and full honeycomb blocks for the soles.*<br/>
 *When Honeyed*: Crystallises against honey blocks while sneaking, improving defense. Allows jumping easily on honey.<br/>
-*When ■■■■■■ed*: NYI.
+*When Chorus Honeyed*: NYI.
 
 #### Apiarist's Shears
 
 This hardy set of shears made from honeycomb blocks is familiar to bees.<br/>
 *When Honeyed*: Won't anger wild or hived bees on collection. Can collect more honeycombs from nests.<br/>
-*When ■■■■■■ed*: NYI.
+*When Chorus Honeyed*: NYI.
 
 #### Honeyed Wand
 
 Instilled with the magic of pollen, this tool can't be honeyed itself, but draws from the honey on your hands and clothes.
 
 *When Draining Honey*: Deals magical honey damage based on the amount of honey in all equipment.<br/>
-*When Draining ■■■■■■*: NYI.
+*When Draining Chorus Honey*: NYI.
 
 When accidentally hitting bees, they'll be healed instead.
+
+#### Chorus Honey
+
+This purple nectar is invigorated from honey by the pollens of the End's own forbidden fruit in a brewing stand.
+
+*When Consumed*: Teleports the player upwards, safely through any ceiling starting up to 8 blocks above. Great for caving!
+
+#### Chorus Honey Blocks
+
+Retains the strange properties of chorus honey in a crystallised form, causing entities to slide upward into the air.
 
 ## Mechanics
 
