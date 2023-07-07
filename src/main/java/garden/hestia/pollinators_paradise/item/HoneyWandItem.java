@@ -41,8 +41,8 @@ public class HoneyWandItem extends Item {
 			int amount = 0;
 			for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
 				if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {
-					amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot));
-					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), 1);
+					amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
+					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
 				}
 			}
 			amount /= 2;

@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import garden.hestia.pollinators_paradise.item.Honeyable;
 import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
@@ -30,10 +31,10 @@ public abstract class BeehiveBlockMixin {
 	void apiaristShearsDoubleDrops(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
 	{
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (state.getBlock() == Blocks.BEE_NEST && itemStack.getItem() instanceof HoneyableShearsItem honeyableShearsItem && honeyableShearsItem.getHoneyLevel(itemStack) > 0)
+		if (state.getBlock() == Blocks.BEE_NEST && itemStack.getItem() instanceof HoneyableShearsItem honeyableShearsItem && honeyableShearsItem.getHoneyLevel(itemStack, Honeyable.HoneyType.HONEY) > 0)
 		{
 			dropHoneycomb(world, pos);
-			honeyableShearsItem.decrementHoneyLevel(itemStack);
+			honeyableShearsItem.decrementHoneyLevel(itemStack, Honeyable.HoneyType.HONEY);
 		}
 	}
 
@@ -41,7 +42,7 @@ public abstract class BeehiveBlockMixin {
 	boolean apiaristShearsBypassCampfire(World world, BlockPos pos, BlockState state, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit)
 	{
 		return (player.getStackInHand(hand).getItem() instanceof HoneyableShearsItem honeyableShearsItem
-				&& honeyableShearsItem.getHoneyLevel(player.getStackInHand(hand)) > 0)
+				&& honeyableShearsItem.getHoneyType(player.getStackInHand(hand)) != Honeyable.HoneyType.NONE)
 				|| CampfireBlock.isLitCampfireInRange(world, pos);
 	}
 }

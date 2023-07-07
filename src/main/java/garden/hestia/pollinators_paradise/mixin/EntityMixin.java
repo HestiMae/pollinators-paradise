@@ -1,9 +1,9 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.Block;
-import net.minecraft.block.HoneyBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -34,16 +34,16 @@ public abstract class EntityMixin
 	protected float applyHoneyBounce(float original)
 	{
 		Block block = this.world.getBlockState(this.getVelocityAffectingPos()).getBlock();
-		if (block instanceof HoneyBlock)
+		if (block instanceof ChorusHoneyBlock)
 		{
 			if ((Object) this instanceof PlayerEntity player)
 			{
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
-						&& honeyItem.getHoneyLevel(equippedFeetStack) > 0 && !player.isSneaking())
+						&& player.isSneaking()
+						&& honeyItem.decrementHoneyLevel(equippedFeetStack, Honeyable.HoneyType.HONEY))
 				{
-					honeyItem.decrementHoneyLevel(equippedFeetStack);
-					return 1.8F;
+					return 5.0F;
 				}
 			}
 
@@ -58,10 +58,8 @@ public abstract class EntityMixin
 			ItemStack equippedChestStack = livingTarget.getEquippedStack(EquipmentSlot.CHEST);
 			if (equippedChestStack.isOf(PollinatorsParadise.APIARIST_SUIT)
 					&& equippedChestStack.getItem() instanceof Honeyable honeyItem
-					&& honeyItem.getHoneyLevel(equippedChestStack) > 0)
+					&& honeyItem.decrementHoneyLevel(equippedChestStack, Honeyable.HoneyType.HONEY))
 			{
-				honeyItem.decrementHoneyLevel(equippedChestStack);
-
 				attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
 				if (target.getWorld() instanceof ServerWorld serverWorld)
 				{

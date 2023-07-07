@@ -33,14 +33,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	public void tick(CallbackInfo ci)
 	{
 		if (getEquippedStack(EquipmentSlot.HEAD).isOf(PollinatorsParadise.APIARIST_VEIL) &&
-		getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof Honeyable honeyItem &&
-				honeyItem.getHoneyLevel(getEquippedStack(EquipmentSlot.HEAD)) > 0)
+		getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof Honeyable honeyItem)
 		{
 			Vec3d pos = this.getPos();
 			List<BeeEntity> localEntities = this.getWorld().getNonSpectatingEntities(BeeEntity.class, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
 			localEntities.stream().filter(y -> y.getAngryAt() == this.uuid).forEach(y -> {
-				y.stopAnger();
-				honeyItem.decrementHoneyLevel(getEquippedStack(EquipmentSlot.HEAD));
+				if (honeyItem.decrementHoneyLevel(getEquippedStack(EquipmentSlot.HEAD), Honeyable.HoneyType.HONEY))
+				{
+					y.stopAnger();
+				}
 			});
 
 		}

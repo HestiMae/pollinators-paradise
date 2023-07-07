@@ -24,15 +24,13 @@ public abstract class HoneyBlockMixin implements Stainable {
 		if (entity instanceof PlayerEntity player)
 		{
 			ItemStack equippedLegStack = player.getEquippedStack(EquipmentSlot.LEGS);
-			if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && equippedLegStack.getItem() instanceof Honeyable honeyItem
-					&& honeyItem.getHoneyLevel(equippedLegStack) > 0)
+			if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && equippedLegStack.getItem() instanceof Honeyable honeyItem)
 			{
 				if (player instanceof PollinatorLivingEntity pollinatorPlayer && pollinatorPlayer.pollinators$jumping())
 				{
-					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0)
+					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0 && honeyItem.decrementHoneyLevel(equippedLegStack, Honeyable.HoneyType.HONEY))
 					{
 						pollinatorPlayer.pollinators$wallJump();
-						honeyItem.decrementHoneyLevel(equippedLegStack);
 					}
 					ci.cancel();
 				}

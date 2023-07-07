@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public abstract class BlockMixin extends AbstractBlock {
@@ -36,17 +35,12 @@ public abstract class BlockMixin extends AbstractBlock {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
 						&& equippedFeetStack.getItem() instanceof Honeyable honeyItem
-						&& honeyItem.getHoneyLevel(equippedFeetStack) > 1 && player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+						&& player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)
+						&& honeyItem.decrementHoneyLevel(equippedFeetStack, 2, Honeyable.HoneyType.HONEY)) {
 					player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
-					honeyItem.decrementHoneyLevel(equippedFeetStack, 2);
 				}
 			}
 
 		}
-	}
-	@Inject(method = "getJumpVelocityMultiplier", at = @At("RETURN"))
-	public void getJumpVelocityMultiplier(CallbackInfoReturnable<Float> cir)
-	{
-
 	}
 }
