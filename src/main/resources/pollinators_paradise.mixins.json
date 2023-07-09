@@ -10,6 +10,7 @@
 		"BeehiveBlockMixin",
 		"BlockMixin",
 		"BrewingRecipeRegistryMixin",
+		"BrewingStandScreenHandlerMixin",
 		"EntityMixin",
 		"HoneyBlockMixin",
 		"ItemPredicateMixin",
