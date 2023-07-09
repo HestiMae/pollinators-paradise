@@ -33,7 +33,7 @@ Most pieces are made from a composite wax-honey-wool material, *waxed wool*.
 
 #### Apiarist's Shears
 
-This hardy set of shears made from honeycomb blocks is familiar to bees.<br/>
+This hardy set of shears made from waxed copper blocks is familiar to bees.<br/>
 *When Honeyed*: Won't anger wild or hived bees on collection. Can collect more honeycombs from nests.<br/>
 *When Chorus Honeyed*: NYI.
 
