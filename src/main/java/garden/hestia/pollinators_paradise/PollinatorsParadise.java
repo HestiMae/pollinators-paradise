@@ -8,14 +8,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
+import net.minecraft.network.listener.ServerPacketListener;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.ModContainer;
@@ -23,6 +26,7 @@ import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoaderEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +35,7 @@ import org.slf4j.LoggerFactory;
 public class PollinatorsParadise implements ModInitializer {
 	public static final String ID = "pollinators_paradise";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
+	public static final Identifier C2S_WALLJUMP = new Identifier(ID, "walljump");
 	public static final ApiaristArmorMaterial APIARIST_ARMOR_MATERIAL = new ApiaristArmorMaterial();
 	public static final Item APIARIST_VEIL = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings(), 4, 16));
 	public static final Item APIARIST_WELLIES = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings(), 4, 512));
@@ -67,6 +72,13 @@ public class PollinatorsParadise implements ModInitializer {
 		BrewingRecipeRegistry.ITEM_RECIPES.add(new BrewingRecipeRegistry.Recipe<>(Items.HONEY_BOTTLE, Ingredient.ofItems(Items.CHORUS_FRUIT), CHORUS_HONEY_BOTTLE));
 		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(context -> {
 		});
+		ServerPlayNetworking.registerGlobalReceiver(C2S_WALLJUMP, ((server, player, handler, buf, responseSender) -> {
+			if (player.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof Honeyable honeyItem
+					&& honeyItem.decrementHoneyLevel(player.getEquippedStack(EquipmentSlot.LEGS), Honeyable.HoneyType.HONEY))
+			{
+				player.fallDistance = 0;
+			}
+		}));
 
 		StatusEffects.SPEED.addAttributeModifier(EntityAttributes.GENERIC_FLYING_SPEED, "847abf1d-d98e-4cc8-9a8e-3d097b6c8268", 0.2F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
