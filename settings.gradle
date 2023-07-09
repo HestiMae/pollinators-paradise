@@ -17,15 +17,14 @@ dependencyResolutionManagement {
 	versionCatalogs {
 		libs {
 			def mc_major = '1.20'
-			def mc = mc_major
-			def mappings = 4
+			def mc = "${mc_major}.1"
 
 			// // Base // //
 			version('mc', mc)
-			version('quilt.loader', "0.19.0")
-			version('qsl', "6.0.1+${mc}")
-			version('quilt.mappings', "${mc}+build.${mappings}")
-			version('qfapi', "7.0.1+0.83.0-${mc}")
+			version('quilt.loader', "0.19.2")
+			version('qsl', "6.0.4+${mc}")
+			version('quilt.mappings', "${mc}+build.13")
+			version('qfapi', "7.0.5+0.84.0-${mc}")
 			version('loom', '1.2.+')
 
 			plugin('loom', 'org.quiltmc.loom').versionRef('loom')

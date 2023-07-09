@@ -20,7 +20,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "garden.hestia.pollinators_paradise.PollinatorsParadise"
+			"init": "garden.hestia.pollinators_paradise.PollinatorsParadise",
+			"client_init": "garden.hestia.pollinators_paradise.client.PollinatorsParadiseClient"
 		},
 		"depends": [
 			{

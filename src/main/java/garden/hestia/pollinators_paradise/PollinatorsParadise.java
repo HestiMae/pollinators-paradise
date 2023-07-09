@@ -68,8 +68,6 @@ public class PollinatorsParadise implements ModInitializer {
 		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(context -> {
 		});
 
-		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), CHORUS_HONEY_BLOCK);
-
 		StatusEffects.SPEED.addAttributeModifier(EntityAttributes.GENERIC_FLYING_SPEED, "847abf1d-d98e-4cc8-9a8e-3d097b6c8268", 0.2F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
 	}
