@@ -10,7 +10,8 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 
-public class ApiaristArmorMaterial implements ArmorMaterial {
+public enum ApiaristArmorMaterial implements ArmorMaterial {
+	APIARIST;
 	@Override
 	public int getDurability(ArmorItem.ArmorSlot slot) {
 		return 0;
@@ -18,6 +19,10 @@ public class ApiaristArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public int getProtection(ArmorItem.ArmorSlot slot) {
+		if (slot == ArmorItem.ArmorSlot.BOOTS)
+		{
+			return 2;
+		}
 		return 1;
 	}
 

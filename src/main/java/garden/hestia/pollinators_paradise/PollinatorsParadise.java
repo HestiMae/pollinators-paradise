@@ -31,16 +31,17 @@ import org.quiltmc.qsl.resource.loader.api.ResourceLoaderEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static garden.hestia.pollinators_paradise.item.ApiaristArmorMaterial.APIARIST;
+
 @SuppressWarnings("unused")
 public class PollinatorsParadise implements ModInitializer {
 	public static final String ID = "pollinators_paradise";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 	public static final Identifier C2S_WALLJUMP = new Identifier(ID, "walljump");
-	public static final ApiaristArmorMaterial APIARIST_ARMOR_MATERIAL = new ApiaristArmorMaterial();
-	public static final Item APIARIST_VEIL = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings(), 4, 16));
-	public static final Item APIARIST_WELLIES = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings(), 4, 512));
-	public static final Item APIARIST_SUIT = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings(), 4, 64));
-	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), new HoneyableArmorItem(APIARIST_ARMOR_MATERIAL, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings(), 4, 128));
+	public static final Item APIARIST_VEIL = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings(), 4, 16));
+	public static final Item APIARIST_WELLIES = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings(), 4, 512));
+	public static final Item APIARIST_SUIT = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings(), 4, 64));
+	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings(), 4, 128));
 	public static final Item APIARIST_SHEARS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_shears"), new HoneyableShearsItem(new QuiltItemSettings(), 4, 32));
 	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wand"), new HoneyWandItem(new QuiltItemSettings()));
 	public static final Block WAXED_WOOL_BLOCK = Registry.register(Registries.BLOCK, new Identifier(ID, "waxed_wool"), new Block(QuiltBlockSettings.copyOf(Blocks.WHITE_WOOL)));
