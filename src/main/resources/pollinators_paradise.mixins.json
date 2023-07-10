@@ -18,7 +18,9 @@
 		"PlayerEntityMixin",
 		"PotionSlotMixin"
 	],
-	"client": [],
+	"client": [
+		"client.ArmorFeatureRendererMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

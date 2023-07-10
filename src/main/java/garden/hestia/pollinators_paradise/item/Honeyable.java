@@ -1,6 +1,7 @@
 package garden.hestia.pollinators_paradise.item;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import net.minecraft.client.util.ColorUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -82,6 +83,15 @@ public interface Honeyable {
 
 	default int getItemBarStep(ItemStack stack) {
 		return Math.round(13.0F / (float) pointCapacity() * (float) getHoneyLevel(stack, getHoneyType(stack)));
+	}
+
+	default float[] getArmorColor(ItemStack stack)
+	{
+		return switch (getHoneyType(stack)) {
+			case HONEY -> new float[]{ColorUtil.ARGB32.getRed(Honeyable.HONEY_ITEM_BAR_COLOR), ColorUtil.ARGB32.getGreen(Honeyable.HONEY_ITEM_BAR_COLOR), ColorUtil.ARGB32.getBlue(Honeyable.HONEY_ITEM_BAR_COLOR)};
+			case CHORUS -> new float[]{ColorUtil.ARGB32.getRed(Honeyable.CHORUS_ITEM_BAR_COLOR), ColorUtil.ARGB32.getGreen(Honeyable.CHORUS_ITEM_BAR_COLOR), ColorUtil.ARGB32.getBlue(Honeyable.CHORUS_ITEM_BAR_COLOR)};
+			case NONE -> new float[]{};
+		};
 	}
 
 	default int getHoneyLevel(ItemStack stack, HoneyType type) {
