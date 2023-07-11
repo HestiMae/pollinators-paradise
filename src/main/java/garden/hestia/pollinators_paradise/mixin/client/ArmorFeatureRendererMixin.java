@@ -28,9 +28,10 @@ public abstract class ArmorFeatureRendererMixin {
 	@Inject(method = "renderArmor(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;ILnet/minecraft/client/render/entity/model/BipedEntityModel;)V", at = @At("TAIL"))
 	private void apiaristThingy$renderArmor(MatrixStack matrices, VertexConsumerProvider vcp, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
 		var is = entity.getEquippedStack(armorSlot);
-		if (is.getItem() instanceof HoneyableArmorItem aai && aai.getArmorSlot().getEquipmentSlot() == armorSlot && aai.getHoneyType(is) != Honeyable.HoneyType.NONE) {
-			float[] colorComponents = aai.getArmorColor(is);
-			renderArmorParts(matrices, vcp, light, aai, model, true, colorComponents[0], colorComponents[1], colorComponents[2], "overlay");
+		if (is.getItem() instanceof HoneyableArmorItem hai && hai.getArmorSlot().getEquipmentSlot() == armorSlot && hai.getHoneyType(is) != Honeyable.HoneyType.NONE) {
+			float[] colorComponents = hai.getArmorColor(is);
+			renderArmorParts(matrices, vcp, light, hai, model, false, colorComponents[0], colorComponents[1], colorComponents[2], "overlay");
+			renderArmorParts(matrices, vcp, light, hai, model, true, colorComponents[0], colorComponents[1], colorComponents[2], "overlay");
 		}
 	}
 }

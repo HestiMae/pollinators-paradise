@@ -20,7 +20,7 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 
 	@Override
 	public boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-		return onClicked(thisStack, otherStack, thisSlot, clickType, player);
+		return Honeyable.super.onClicked(thisStack, otherStack, thisSlot, clickType, player, cursorStackReference);
 	}
 	@Override
 	public int getItemBarColor(ItemStack stack) {

@@ -4,6 +4,7 @@ import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import net.minecraft.client.util.ColorUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
@@ -13,11 +14,16 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ClickType;
 
+import java.awt.*;
+
 import static org.joml.Math.clamp;
 
 public interface Honeyable {
-	int HONEY_ITEM_BAR_COLOR = 0xff9116;
-	int CHORUS_ITEM_BAR_COLOR = 0x9128a3;
+	int HONEY_ARGB = 0xffff9116;
+	int CHORUS_ARGB = 0xff8f31aa;
+	float[] HONEY_COMPONENTS = new float[]{247 / 255.0F, 178 / 255.0F, 74 / 255.0F};
+	float[] CHORUS_COMPONENTS = new float[]{0.66F, 0.41F, 0.73F};
+
 	String HONEY_NBT_KEY = "HoneyLevel";
 	String HONEY_TYPE_NBT_KEY = "HoneyType";
 
@@ -46,18 +52,18 @@ public interface Honeyable {
 		return bottleCapacity() * bottlePoints();
 	}
 
-	default boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player) {
+	default boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
 		if (clickType == ClickType.RIGHT && otherStack.isOf(Items.HONEY_BOTTLE) && addHoney(thisStack, bottlePoints(), HoneyType.HONEY)) {
 			playInsertSound(player);
-			ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1));
+			cursorStackReference.set(ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1)));
 			return true;
 		} else if (clickType == ClickType.RIGHT && otherStack.isOf(PollinatorsParadise.CHORUS_HONEY_BOTTLE) && addHoney(thisStack, bottlePoints(), HoneyType.CHORUS)) {
 			playInsertSound(player);
-			ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1));
+			cursorStackReference.set(ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1)));
 			return true;
 		} else if (clickType == ClickType.RIGHT && PotionUtil.getPotion(otherStack) == Potions.WATER && getHoneyType(thisStack) != HoneyType.NONE) {
 			playInsertSound(player);
-			ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1));
+			cursorStackReference.set(ItemUsage.exchangeStack(otherStack, player, new ItemStack(Items.GLASS_BOTTLE, 1)));
 			putHoneyLevel(thisStack, 0, HoneyType.NONE);
 			return true;
 		}
@@ -70,8 +76,8 @@ public interface Honeyable {
 
 	default int getItemBarColor(ItemStack stack) {
 		return switch (getHoneyType(stack)) {
-			case HONEY -> Honeyable.HONEY_ITEM_BAR_COLOR;
-			case CHORUS -> Honeyable.CHORUS_ITEM_BAR_COLOR;
+			case HONEY -> Honeyable.HONEY_ARGB;
+			case CHORUS -> Honeyable.CHORUS_ARGB;
 			case NONE -> 0x000000;
 		};
 	}
@@ -88,8 +94,8 @@ public interface Honeyable {
 	default int getItemTintColor(ItemStack stack)
 	{
 		return switch (getHoneyType(stack)) {
-			case HONEY -> Honeyable.HONEY_ITEM_BAR_COLOR;
-			case CHORUS -> Honeyable.CHORUS_ITEM_BAR_COLOR;
+			case HONEY -> Honeyable.HONEY_ARGB;
+			case CHORUS -> Honeyable.CHORUS_ARGB;
 			case NONE -> -1;
 		};
 	}
@@ -97,8 +103,8 @@ public interface Honeyable {
 	default float[] getArmorColor(ItemStack stack)
 	{
 		return switch (getHoneyType(stack)) {
-			case HONEY -> new float[]{ColorUtil.ARGB32.getRed(Honeyable.HONEY_ITEM_BAR_COLOR), ColorUtil.ARGB32.getGreen(Honeyable.HONEY_ITEM_BAR_COLOR), ColorUtil.ARGB32.getBlue(Honeyable.HONEY_ITEM_BAR_COLOR)};
-			case CHORUS -> new float[]{ColorUtil.ARGB32.getRed(Honeyable.CHORUS_ITEM_BAR_COLOR), ColorUtil.ARGB32.getGreen(Honeyable.CHORUS_ITEM_BAR_COLOR), ColorUtil.ARGB32.getBlue(Honeyable.CHORUS_ITEM_BAR_COLOR)};
+			case HONEY -> HONEY_COMPONENTS;
+			case CHORUS -> CHORUS_COMPONENTS;
 			case NONE -> new float[]{};
 		};
 	}

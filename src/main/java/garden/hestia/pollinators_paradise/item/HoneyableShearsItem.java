@@ -8,8 +8,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 
 public class HoneyableShearsItem extends ShearsItem implements Honeyable {
-	private int bottleCapacity;
-	private int bottlePoints;
+	private final int bottleCapacity;
+	private final int bottlePoints;
 
 	public HoneyableShearsItem(Settings settings, int bottleCapacity, int bottlePoints) {
 		super(settings);
@@ -19,7 +19,7 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 
 	@Override
 	public boolean onClicked(ItemStack thisStack, ItemStack otherStack, Slot thisSlot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-		return onClicked(thisStack, otherStack, thisSlot, clickType, player);
+		return Honeyable.super.onClicked(thisStack, otherStack, thisSlot, clickType, player, cursorStackReference);
 	}
 
 	@Override
