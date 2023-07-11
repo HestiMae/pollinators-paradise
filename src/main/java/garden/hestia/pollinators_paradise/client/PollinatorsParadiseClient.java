@@ -10,6 +10,8 @@ import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
+import org.quiltmc.qsl.networking.api.PacketByteBufs;
+import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
 public class PollinatorsParadiseClient implements ClientModInitializer {
 	@Override
@@ -35,5 +37,10 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			}
 			return 0;
 		}));
+	}
+
+	public static void walljump()
+	{
+		ClientPlayNetworking.send(PollinatorsParadise.C2S_WALLJUMP, PacketByteBufs.empty());
 	}
 }
