@@ -91,20 +91,22 @@ public class PollinatorsParadise implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINKS).register(entries -> {
 			entries.addAfter(Items.HONEY_BOTTLE, CHORUS_HONEY_BOTTLE);
 		});
+
 		BrewingRecipeRegistry.ITEM_RECIPES.add(new BrewingRecipeRegistry.Recipe<>(Items.HONEY_BOTTLE, Ingredient.ofItems(Items.CHORUS_FRUIT), CHORUS_HONEY_BOTTLE));
-		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(context -> {
-		});
+
 		ServerPlayNetworking.registerGlobalReceiver(C2S_WALLJUMP, ((server, player, handler, buf, responseSender) -> {
 			if (player.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof Honeyable honeyItem
 					&& honeyItem.decrementHoneyLevel(player.getEquippedStack(EquipmentSlot.LEGS), Honeyable.HoneyType.HONEY)) {
 				player.fallDistance = 0;
 			}
 		}));
+
 		if (QuiltLoader.isModLoaded("feed-the-bees")) {
 			FEED_THE_BEES_PRESENT = true;
 		}
 
 		StatusEffects.SPEED.addAttributeModifier(EntityAttributes.GENERIC_FLYING_SPEED, "847abf1d-d98e-4cc8-9a8e-3d097b6c8268", 0.2F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+
 		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
 	}
 }
