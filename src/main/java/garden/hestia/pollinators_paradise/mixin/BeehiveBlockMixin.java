@@ -28,19 +28,16 @@ public abstract class BeehiveBlockMixin {
 	}
 
 	@Inject(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BeehiveBlock;dropHoneycomb(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"))
-	void apiaristShearsDoubleDrops(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir)
-	{
+	void apiaristShearsDoubleDrops(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (state.getBlock() == Blocks.BEE_NEST && itemStack.getItem() instanceof HoneyableShearsItem honeyableShearsItem && honeyableShearsItem.getHoneyLevel(itemStack, Honeyable.HoneyType.HONEY) > 0)
-		{
+		if (state.getBlock() == Blocks.BEE_NEST && itemStack.getItem() instanceof HoneyableShearsItem honeyableShearsItem && honeyableShearsItem.getHoneyLevel(itemStack, Honeyable.HoneyType.HONEY) > 0) {
 			dropHoneycomb(world, pos);
 			honeyableShearsItem.decrementHoneyLevel(itemStack, Honeyable.HoneyType.HONEY);
 		}
 	}
 
 	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CampfireBlock;isLitCampfireInRange(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z"))
-	boolean apiaristShearsBypassCampfire(World world, BlockPos pos, BlockState state, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit)
-	{
+	boolean apiaristShearsBypassCampfire(World world, BlockPos pos, BlockState state, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		return (player.getStackInHand(hand).getItem() instanceof HoneyableShearsItem honeyableShearsItem
 				&& honeyableShearsItem.getHoneyType(player.getStackInHand(hand)) != Honeyable.HoneyType.NONE)
 				|| CampfireBlock.isLitCampfireInRange(world, pos);

@@ -32,18 +32,16 @@ public class ChorusHoneyBottleItem extends HoneyBottleItem {
 				user.stopRiding();
 			}
 			if (user instanceof PlayerEntity) {
-				((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+				((PlayerEntity) user).getItemCooldownManager().set(this, 20);
 			}
 			int ceilingY = 0;
-			for (int i = 1; i < 8; i++)
-			{
-				if (!world.getBlockState(user.getBlockPos().up(i)).getCollisionShape(world, user.getBlockPos().up(i)).isEmpty())
-				{
+			for (int i = 1; i < 8; i++) {
+				if (!world.getBlockState(user.getBlockPos().up(i)).getCollisionShape(world, user.getBlockPos().up(i)).isEmpty()) {
 					ceilingY = i + 1;
 					break;
 				}
 			}
-			for(int newY = Math.max(user.getBlockY() + ceilingY, world.getBottomY()); newY < world.getBottomY() + ((ServerWorld)world).getLogicalHeight() - 1; ++newY) {
+			for (int newY = Math.max(user.getBlockY() + ceilingY, world.getBottomY()); newY < world.getBottomY() + ((ServerWorld) world).getLogicalHeight() - 1; ++newY) {
 
 				if (user.teleport(oldX, newY, oldZ, true)) {
 					world.emitGameEvent(GameEvent.TELEPORT, pos, GameEvent.Context.create(user));

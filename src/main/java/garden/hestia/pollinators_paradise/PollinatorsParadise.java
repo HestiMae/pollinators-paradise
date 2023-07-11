@@ -7,8 +7,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -16,19 +14,16 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.*;
-import net.minecraft.network.listener.ServerPacketListener;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
-import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoaderEvents;
@@ -57,6 +52,26 @@ public class PollinatorsParadise implements ModInitializer {
 	public static final Item CHORUS_HONEY_BOTTLE = Registry.register(Registries.ITEM, new Identifier(ID, "chorus_honey_bottle"), new ChorusHoneyBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(CHORUS_HONEY_BOTTLE_FOOD).maxCount(16)));
 
 	public static boolean FEED_THE_BEES_PRESENT = false;
+
+	public static boolean safeBeeAnger(BeeEntity bee, LivingEntity target) {
+		if (FEED_THE_BEES_PRESENT) {
+			bee.setAttacker(target);
+			bee.setAngryAt(target.getUuid());
+			bee.chooseRandomAngerTime();
+			return true;
+		} else if (bee.hasStatusEffect(StatusEffects.REGENERATION)) {
+			bee.setAttacker(target);
+			bee.setAngryAt(target.getUuid());
+			bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.REGENERATION).getDuration(), 780));
+			return true;
+		} else if (bee.hasStatusEffect(StatusEffects.RESISTANCE)) {
+			bee.setAttacker(target);
+			bee.setAngryAt(target.getUuid());
+			bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.RESISTANCE).getDuration(), 780));
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -91,25 +106,5 @@ public class PollinatorsParadise implements ModInitializer {
 
 		StatusEffects.SPEED.addAttributeModifier(EntityAttributes.GENERIC_FLYING_SPEED, "847abf1d-d98e-4cc8-9a8e-3d097b6c8268", 0.2F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
-	}
-
-	public static boolean safeBeeAnger(BeeEntity bee, LivingEntity target) {
-		if (FEED_THE_BEES_PRESENT) {
-			bee.setAttacker(target);
-			bee.setAngryAt(target.getUuid());
-			bee.chooseRandomAngerTime();
-			return true;
-		} else if (bee.hasStatusEffect(StatusEffects.REGENERATION)) {
-			bee.setAttacker(target);
-			bee.setAngryAt(target.getUuid());
-			bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.REGENERATION).getDuration(), 780));
-			return true;
-		} else if (bee.hasStatusEffect(StatusEffects.RESISTANCE)) {
-			bee.setAttacker(target);
-			bee.setAngryAt(target.getUuid());
-			bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.RESISTANCE).getDuration(), 780));
-			return true;
-		}
-		return false;
 	}
 }

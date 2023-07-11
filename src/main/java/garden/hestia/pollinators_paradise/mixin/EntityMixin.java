@@ -23,26 +23,23 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin
-{
+public abstract class EntityMixin {
 	@Shadow
 	private World world;
+
 	@Shadow
 	protected abstract BlockPos getVelocityAffectingPos();
+
 	@ModifyVariable(method = "getJumpVelocityMultiplier", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/Block;getJumpVelocityMultiplier()F"), index = 1)
 	@SuppressWarnings("ConstantConditions")
-	protected float applyHoneyBounce(float original)
-	{
+	protected float applyHoneyBounce(float original) {
 		Block block = this.world.getBlockState(this.getVelocityAffectingPos()).getBlock();
-		if (block instanceof ChorusHoneyBlock)
-		{
-			if ((Object) this instanceof PlayerEntity player)
-			{
+		if (block instanceof ChorusHoneyBlock) {
+			if ((Object) this instanceof PlayerEntity player) {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
 						&& player.isSneaking()
-						&& honeyItem.decrementHoneyLevel(equippedFeetStack, Honeyable.HoneyType.HONEY))
-				{
+						&& honeyItem.decrementHoneyLevel(equippedFeetStack, Honeyable.HoneyType.HONEY)) {
 					return 5.0F;
 				}
 			}
@@ -50,19 +47,16 @@ public abstract class EntityMixin
 		}
 		return original;
 	}
+
 	@Inject(method = "applyDamageEffects", at = @At(value = "TAIL"))
-	public void applyDamageEffects(LivingEntity attacker, Entity target, CallbackInfo ci)
-	{
-		if (target instanceof LivingEntity livingTarget)
-		{
+	public void applyDamageEffects(LivingEntity attacker, Entity target, CallbackInfo ci) {
+		if (target instanceof LivingEntity livingTarget) {
 			ItemStack equippedChestStack = livingTarget.getEquippedStack(EquipmentSlot.CHEST);
 			if (equippedChestStack.isOf(PollinatorsParadise.APIARIST_SUIT)
 					&& equippedChestStack.getItem() instanceof Honeyable honeyItem
-					&& honeyItem.decrementHoneyLevel(equippedChestStack, Honeyable.HoneyType.HONEY))
-			{
+					&& honeyItem.decrementHoneyLevel(equippedChestStack, Honeyable.HoneyType.HONEY)) {
 				attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
-				if (target.getWorld() instanceof ServerWorld serverWorld)
-				{
+				if (target.getWorld() instanceof ServerWorld serverWorld) {
 					serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(attacker, EntityAnimationS2CPacket.CRIT));
 				}
 

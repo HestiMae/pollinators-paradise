@@ -16,22 +16,19 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), PollinatorsParadise.CHORUS_HONEY_BLOCK);
 		ColorProviderRegistry.ITEM.register(
-				(stack, tintIndex) -> tintIndex == 0 ? -1 : ((Honeyable)stack.getItem()).getItemTintColor(stack),
+				(stack, tintIndex) -> tintIndex == 0 ? -1 : ((Honeyable) stack.getItem()).getItemTintColor(stack),
 				PollinatorsParadise.APIARIST_VEIL, PollinatorsParadise.APIARIST_SUIT, PollinatorsParadise.APIARIST_LEGGINGS, PollinatorsParadise.APIARIST_WELLIES, PollinatorsParadise.APIARIST_SHEARS
 		);
 		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
-			if (itemStack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(itemStack) != Honeyable.HoneyType.NONE)
-			{
+			if (itemStack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(itemStack) != Honeyable.HoneyType.NONE) {
 				return 1;
 			}
 			return 0;
 		}));
 		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
-			if (livingEntity != null)
-			{
+			if (livingEntity != null) {
 				for (ItemStack stack : livingEntity.getItemsEquipped()) {
-					if (stack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(stack) != Honeyable.HoneyType.NONE)
-					{
+					if (stack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(stack) != Honeyable.HoneyType.NONE) {
 						return 1;
 					}
 				}

@@ -5,7 +5,9 @@
   },
   "overrides": [
     {
-      "predicate": {"pollinators_paradise:armor_honeyed" :  1},
+      "predicate": {
+        "pollinators_paradise:armor_honeyed": 1
+      },
       "model": "pollinators_paradise:item/apiarist_wand_honeyed"
     }
   ]

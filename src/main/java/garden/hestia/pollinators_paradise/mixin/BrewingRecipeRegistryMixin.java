@@ -22,8 +22,7 @@ public abstract class BrewingRecipeRegistryMixin {
 	private static Predicate<ItemStack> POTION_TYPE_PREDICATE;
 
 	@Inject(method = "<clinit>", at = @At(value = "TAIL"))
-	private static void potionPredicate(CallbackInfo ci)
-	{
+	private static void potionPredicate(CallbackInfo ci) {
 		POTION_TYPE_PREDICATE = POTION_TYPE_PREDICATE.or(itemStack -> itemStack.isOf(Items.HONEY_BOTTLE));
 	}
 }

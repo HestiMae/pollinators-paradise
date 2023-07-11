@@ -31,6 +31,7 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	public int getItemBarColor(ItemStack stack) {
 		return Honeyable.super.getItemBarColor(stack);
 	}
+
 	@Override
 	public boolean isItemBarVisible(ItemStack stack) {
 		return Honeyable.super.isItemBarVisible(stack);

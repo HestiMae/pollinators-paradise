@@ -27,11 +27,9 @@ public abstract class BlockMixin extends AbstractBlock {
 
 	@Inject(method = "onSteppedOn", at = @At(value = "TAIL"))
 	@SuppressWarnings("ConstantConditions")
-	public void honeyOnSteppedOn(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci)
-	{
+	public void honeyOnSteppedOn(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
 		if ((Object) this instanceof HoneyBlock) {
-			if (entity instanceof PlayerEntity player)
-			{
+			if (entity instanceof PlayerEntity player) {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
 						&& equippedFeetStack.getItem() instanceof Honeyable honeyItem

@@ -3,7 +3,6 @@ package garden.hestia.pollinators_paradise.mixin;
 import garden.hestia.pollinators_paradise.PollinatorLivingEntity;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements PollinatorLivingEntity{
+public abstract class LivingEntityMixin extends Entity implements PollinatorLivingEntity {
 	@Shadow
 	protected boolean jumping;
 	@Shadow
@@ -29,13 +28,7 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 	}
 
 	@Shadow
-	protected abstract void jump();
-
-	@Shadow
 	protected abstract float getJumpVelocity();
-
-	@Shadow
-	protected abstract void playBlockFallSound();
 
 	@Override
 	public boolean pollinators$jumping() {
@@ -54,16 +47,15 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 		this.velocityDirty = true;
 		this.jumpingCooldown = 10;
 	}
+
 	@SuppressWarnings("ConstantConditions")
 	@ModifyVariable(method = "travel", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
 	public float emptyWelliesSlippery(float original) {
-		if ((Object) this instanceof PlayerEntity player)
-		{
+		if ((Object) this instanceof PlayerEntity player) {
 			ItemStack feetStack = player.getEquippedStack(EquipmentSlot.FEET);
 			if (feetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
-				&& feetStack.getItem() instanceof Honeyable honeyItem
-					&& honeyItem.getHoneyType(feetStack) == Honeyable.HoneyType.NONE)
-			{
+					&& feetStack.getItem() instanceof Honeyable honeyItem
+					&& honeyItem.getHoneyType(feetStack) == Honeyable.HoneyType.NONE) {
 				return 0.95F;
 			}
 		}

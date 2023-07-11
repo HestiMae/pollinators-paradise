@@ -1,7 +1,6 @@
 package garden.hestia.pollinators_paradise.item;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import net.minecraft.client.util.ColorUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -14,8 +13,6 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ClickType;
 
-import java.awt.*;
-
 import static org.joml.Math.clamp;
 
 public interface Honeyable {
@@ -27,23 +24,14 @@ public interface Honeyable {
 	String HONEY_NBT_KEY = "HoneyLevel";
 	String HONEY_TYPE_NBT_KEY = "HoneyType";
 
-	enum HoneyType {
-		HONEY,
-		CHORUS,
-		NONE
-	}
-
 	int bottleCapacity();
 
 	int bottlePoints();
 
-	default HoneyType getHoneyType(ItemStack stack)
-	{
-		try
-		{
+	default HoneyType getHoneyType(ItemStack stack) {
+		try {
 			return HoneyType.valueOf(stack.getOrCreateNbt().getString(HONEY_TYPE_NBT_KEY));
-		} catch (IllegalArgumentException illegalArgumentException)
-		{
+		} catch (IllegalArgumentException illegalArgumentException) {
 			return HoneyType.NONE;
 		}
 	}
@@ -86,13 +74,11 @@ public interface Honeyable {
 		return true;
 	}
 
-
 	default int getItemBarStep(ItemStack stack) {
 		return Math.round(13.0F / (float) pointCapacity() * (float) getHoneyLevel(stack, getHoneyType(stack)));
 	}
 
-	default int getItemTintColor(ItemStack stack)
-	{
+	default int getItemTintColor(ItemStack stack) {
 		return switch (getHoneyType(stack)) {
 			case HONEY -> Honeyable.HONEY_ARGB;
 			case CHORUS -> Honeyable.CHORUS_ARGB;
@@ -100,8 +86,7 @@ public interface Honeyable {
 		};
 	}
 
-	default float[] getArmorColor(ItemStack stack)
-	{
+	default float[] getArmorColor(ItemStack stack) {
 		return switch (getHoneyType(stack)) {
 			case HONEY -> HONEY_COMPONENTS;
 			case CHORUS -> CHORUS_COMPONENTS;
@@ -110,7 +95,7 @@ public interface Honeyable {
 	}
 
 	default int getHoneyLevel(ItemStack stack, HoneyType type) {
-		return getHoneyType(stack) == type ?  clamp(0, stack.getOrCreateNbt().getInt(Honeyable.HONEY_NBT_KEY), pointCapacity()) : 0;
+		return getHoneyType(stack) == type ? clamp(0, stack.getOrCreateNbt().getInt(Honeyable.HONEY_NBT_KEY), pointCapacity()) : 0;
 	}
 
 	default int getHoneyQuartile(ItemStack stack, HoneyType type) {
@@ -123,13 +108,12 @@ public interface Honeyable {
 	}
 
 	default boolean decrementHoneyLevel(ItemStack stack, HoneyType type) {
-		return decrementHoneyLevel(stack,1, type);
+		return decrementHoneyLevel(stack, 1, type);
 	}
 
 	default boolean decrementHoneyLevel(ItemStack stack, int amount, HoneyType type) {
 		int honeyLevel = getHoneyLevel(stack, type);
-		if (honeyLevel > 0)
-		{
+		if (honeyLevel > 0) {
 			putHoneyLevel(stack, honeyLevel - amount, type);
 		}
 		return honeyLevel > 0;
@@ -141,5 +125,11 @@ public interface Honeyable {
 			return true;
 		}
 		return false;
+	}
+
+	enum HoneyType {
+		HONEY,
+		CHORUS,
+		NONE
 	}
 }

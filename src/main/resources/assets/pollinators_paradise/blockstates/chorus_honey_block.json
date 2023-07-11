@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "pollinators_paradise:block/chorus_honey_block" }
+    "": {
+      "model": "pollinators_paradise:block/chorus_honey_block"
+    }
   }
 }
