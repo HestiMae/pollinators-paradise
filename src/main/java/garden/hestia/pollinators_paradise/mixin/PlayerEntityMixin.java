@@ -5,6 +5,8 @@ import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +19,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -27,23 +31,39 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
-	private static final double BOX_SIZE = 5;
+	private static final double CALMING_BOX_SIZE = 10;
+	private static final double ALLY_BOX_SIZE = 30;
+	private static final double ATTACKER_BOX_SIZE = 16;
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void tick(CallbackInfo ci)
 	{
-		if (getEquippedStack(EquipmentSlot.HEAD).isOf(PollinatorsParadise.APIARIST_VEIL) &&
-		getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof Honeyable honeyItem)
+		ItemStack helmetStack = getEquippedStack(EquipmentSlot.HEAD);
+		if (helmetStack.isOf(PollinatorsParadise.APIARIST_VEIL) &&
+		helmetStack.getItem() instanceof Honeyable honeyItem && helmetStack.getCooldown() == 0)
 		{
 			Vec3d pos = this.getPos();
-			List<BeeEntity> localEntities = this.getWorld().getNonSpectatingEntities(BeeEntity.class, new Box(pos.x - BOX_SIZE, pos.y - BOX_SIZE, pos.z - BOX_SIZE, pos.x + BOX_SIZE, pos.y + BOX_SIZE, pos.z + BOX_SIZE));
-			localEntities.stream().filter(y -> y.getAngryAt() == this.uuid).forEach(y -> {
-				if (honeyItem.decrementHoneyLevel(getEquippedStack(EquipmentSlot.HEAD), Honeyable.HoneyType.HONEY))
-				{
-					y.stopAnger();
+			if (honeyItem.getHoneyType(helmetStack) == Honeyable.HoneyType.HONEY)
+			{
+				List<BeeEntity> calmableBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, CALMING_BOX_SIZE, CALMING_BOX_SIZE, CALMING_BOX_SIZE)).stream().filter(y -> y.getAngryAt() == this.uuid).toList();
+				if (!calmableBees.isEmpty() && honeyItem.decrementHoneyLevel(helmetStack, Honeyable.HoneyType.HONEY)) {
+					for (BeeEntity calmableBee : calmableBees) {
+						calmableBee.stopAnger();
+					}
+					helmetStack.setCooldown(20);
 				}
-			});
-
+			}
+			else if (honeyItem.getHoneyType(helmetStack) == Honeyable.HoneyType.CHORUS)
+			{
+				List<BeeEntity> allyBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, ALLY_BOX_SIZE, ALLY_BOX_SIZE, ALLY_BOX_SIZE)).stream().filter(b -> !b.hasAngerTime() && !b.hasStung()).toList();
+				List<HostileEntity> attackers = this.getWorld().getNonSpectatingEntities(HostileEntity.class, Box.of(pos, ATTACKER_BOX_SIZE, ATTACKER_BOX_SIZE, ATTACKER_BOX_SIZE)).stream().filter(h -> h.isAngryAt((PlayerEntity) (Object) this)).toList();
+				if (!allyBees.isEmpty() && !attackers.isEmpty()) {
+					if (allyBees.stream().anyMatch(allyBee -> PollinatorsParadise.safeBeeAnger(allyBee, attackers.get(allyBee.getRandom().nextInt(attackers.size()))))) {
+						honeyItem.decrementHoneyLevel(helmetStack, Honeyable.HoneyType.CHORUS);
+						helmetStack.setCooldown(100);
+					}
+				}
+			}
 		}
 
 	}

@@ -37,7 +37,8 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	}
 
 	@Override
-	public int getItemBarStep(ItemStack stack) {return Honeyable.super.getItemBarStep(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return Honeyable.super.getItemBarStep(stack);
 	}
 
 	@Override
