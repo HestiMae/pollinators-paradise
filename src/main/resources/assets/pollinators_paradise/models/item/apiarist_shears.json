@@ -2,5 +2,11 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "pollinators_paradise:item/apiarist_shears"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {"pollinators_paradise:honeyed" :  1},
+      "model": "pollinators_paradise:item/apiarist_shears_honeyed"
+    }
+  ]
 }

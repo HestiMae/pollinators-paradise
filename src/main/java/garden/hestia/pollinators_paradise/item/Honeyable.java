@@ -85,6 +85,15 @@ public interface Honeyable {
 		return Math.round(13.0F / (float) pointCapacity() * (float) getHoneyLevel(stack, getHoneyType(stack)));
 	}
 
+	default int getItemTintColor(ItemStack stack)
+	{
+		return switch (getHoneyType(stack)) {
+			case HONEY -> Honeyable.HONEY_ITEM_BAR_COLOR;
+			case CHORUS -> Honeyable.CHORUS_ITEM_BAR_COLOR;
+			case NONE -> -1;
+		};
+	}
+
 	default float[] getArmorColor(ItemStack stack)
 	{
 		return switch (getHoneyType(stack)) {

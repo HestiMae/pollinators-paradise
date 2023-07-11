@@ -30,7 +30,7 @@ public abstract class ArmorFeatureRendererMixin {
 		var is = entity.getEquippedStack(armorSlot);
 		if (is.getItem() instanceof HoneyableArmorItem aai && aai.getArmorSlot().getEquipmentSlot() == armorSlot && aai.getHoneyType(is) != Honeyable.HoneyType.NONE) {
 			float[] colorComponents = aai.getArmorColor(is);
-			renderArmorParts(matrices, vcp, light, aai, model, is.hasGlint(), colorComponents[0], colorComponents[1], colorComponents[2], "overlay");
+			renderArmorParts(matrices, vcp, light, aai, model, true, colorComponents[0], colorComponents[1], colorComponents[2], "overlay");
 		}
 	}
 }

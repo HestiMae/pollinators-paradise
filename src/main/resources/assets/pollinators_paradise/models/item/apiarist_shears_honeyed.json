@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pollinators_paradise:item/apiarist_shears",
+    "layer1": "pollinators_paradise:item/apiarist_shears_overlay"
+
+  }
+}
