@@ -37,6 +37,7 @@ public class PollinatorsParadise implements ModInitializer {
 	public static final String ID = "pollinators_paradise";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 	public static final Identifier C2S_WALLJUMP = new Identifier(ID, "walljump");
+	public static final float SAFE_BEE_HEALTH = 4.0F;
 
 	public static final Item APIARIST_VEIL = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 16));
 	public static final Item APIARIST_WELLIES = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 512));
@@ -54,21 +55,24 @@ public class PollinatorsParadise implements ModInitializer {
 	public static boolean FEED_THE_BEES_PRESENT = false;
 
 	public static boolean safeBeeAnger(BeeEntity bee, LivingEntity target) {
-		if (FEED_THE_BEES_PRESENT) {
-			bee.setAttacker(target);
-			bee.setAngryAt(target.getUuid());
-			bee.chooseRandomAngerTime();
-			return true;
-		} else if (bee.hasStatusEffect(StatusEffects.REGENERATION)) {
-			bee.setAttacker(target);
-			bee.setAngryAt(target.getUuid());
-			bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.REGENERATION).getDuration(), 780));
-			return true;
-		} else if (bee.hasStatusEffect(StatusEffects.RESISTANCE)) {
-			bee.setAttacker(target);
-			bee.setAngryAt(target.getUuid());
-			bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.RESISTANCE).getDuration(), 780));
-			return true;
+		if (bee.getHealth() > SAFE_BEE_HEALTH)
+		{
+			if (FEED_THE_BEES_PRESENT) {
+				bee.setAttacker(target);
+				bee.setAngryAt(target.getUuid());
+				bee.chooseRandomAngerTime();
+				return true;
+			} else if (bee.hasStatusEffect(StatusEffects.REGENERATION)) {
+				bee.setAttacker(target);
+				bee.setAngryAt(target.getUuid());
+				bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.REGENERATION).getDuration(), 780));
+				return true;
+			} else if (bee.hasStatusEffect(StatusEffects.RESISTANCE)) {
+				bee.setAttacker(target);
+				bee.setAngryAt(target.getUuid());
+				bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.RESISTANCE).getDuration(), 780));
+				return true;
+			}
 		}
 		return false;
 	}

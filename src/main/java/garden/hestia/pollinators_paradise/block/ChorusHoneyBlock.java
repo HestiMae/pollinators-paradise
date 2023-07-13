@@ -1,8 +1,16 @@
 package garden.hestia.pollinators_paradise.block;
 
+import garden.hestia.pollinators_paradise.PollinatorLivingEntity;
+import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.client.PollinatorsParadiseClient;
+import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HoneyBlock;
+import net.minecraft.block.TransparentBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -14,12 +22,38 @@ public class ChorusHoneyBlock extends HoneyBlock {
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		super.onEntityCollision(state, world, pos, entity);
+		if (this.isSliding(pos, entity)) {
+			this.triggerAdvancement(entity, pos);
+			if (!this.tryWallJump(entity, pos))
+			{
+				this.updateSlidingVelocity(entity);
+			}
+			this.addCollisionEffects(world, entity);
+		}
+	}
+
+	private boolean tryWallJump(Entity entity, BlockPos pos) {
+		if (entity instanceof PlayerEntity player) {
+			ItemStack equippedLegStack = player.getEquippedStack(EquipmentSlot.LEGS);
+			if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && equippedLegStack.getItem() instanceof Honeyable honeyItem) {
+				if (player instanceof PollinatorLivingEntity pollinatorPlayer && pollinatorPlayer.pollinators$jumping()) {
+					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0 && honeyItem.getHoneyLevel(equippedLegStack, Honeyable.HoneyType.HONEY) > 0) {
+						if (entity.getWorld().isClient()) {
+							PollinatorsParadiseClient.walljump();
+						}
+						pollinatorPlayer.pollinators$wallJump(pos);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
 	protected void updateSlidingVelocity(Entity entity) {
 		super.updateSlidingVelocity(entity);
+
 		Vec3d vec3d = entity.getVelocity();
 		if (vec3d.y < -0.13) {
 			double d = -0.05 / vec3d.y;

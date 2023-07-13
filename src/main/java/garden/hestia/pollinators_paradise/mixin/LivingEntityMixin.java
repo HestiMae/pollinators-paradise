@@ -9,6 +9,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,6 +45,31 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 	public void pollinators$wallJump() {
 		Vec3d vec3d = this.getVelocity();
 		this.setVelocity(vec3d.x, this.getJumpVelocity() * 2, vec3d.z);
+		this.velocityDirty = true;
+		this.jumpingCooldown = 10;
+	}
+	@Override
+	public void pollinators$wallJump(BlockPos pos) {
+		float x = 0;
+		float z = 0;
+		if (this.getX() - pos.getX() > 0.9)
+		{
+			x = this.getJumpVelocity() * 2;
+		}
+		else if (this.getX() - pos.getX() < 0.1)
+		{
+			x = this.getJumpVelocity() * -2;
+		}
+		if (this.getZ() - pos.getZ() > 0.9)
+		{
+			z = this.getJumpVelocity() * 2;
+		}
+		else if (this.getZ() - pos.getZ() < 0.1)
+		{
+			z = this.getJumpVelocity() * -2;
+		}
+		Vec3d vec3d = this.getVelocity();
+		this.setVelocity(x == 0 ? vec3d.x : x, this.getJumpVelocity() * 2, z == 0 ? vec3d.z : z);
 		this.velocityDirty = true;
 		this.jumpingCooldown = 10;
 	}
