@@ -13,6 +13,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,9 +34,15 @@ public abstract class BlockMixin extends AbstractBlock {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
 						&& equippedFeetStack.getItem() instanceof Honeyable honeyItem
-						&& player.isSneaking() && !player.hasStatusEffect(StatusEffects.RESISTANCE)
-						&& honeyItem.decrementHoneyLevel(equippedFeetStack, 2, Honeyable.HoneyType.HONEY)) {
-					player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
+						&& player.isSneaking()) {
+					if (honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.HONEY)
+					{
+						player.setVelocity(Vec3d.ZERO);
+					}
+					if (!player.hasStatusEffect(StatusEffects.RESISTANCE)
+							&& honeyItem.decrementHoneyLevel(equippedFeetStack, 2, Honeyable.HoneyType.HONEY)) {
+						player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, true), null);
+					}
 				}
 			}
 

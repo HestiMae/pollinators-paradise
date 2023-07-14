@@ -1,6 +1,8 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.WelliesJumpingMount;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -14,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,13 +24,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity {
+public abstract class PlayerEntityMixin extends LivingEntity implements PollinatorPlayerEntity {
 	private static final double CALMING_BOX_SIZE = 10;
 	private static final double ALLY_BOX_SIZE = 30;
 	private static final double ATTACKER_BOX_SIZE = 16;
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
+
+	@Unique
+	private final WelliesJumpingMount welliesMount = new WelliesJumpingMount((PlayerEntity) (Object) this);
 
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
@@ -59,4 +65,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 
 	}
+	@Override
+	public WelliesJumpingMount getWelliesMount()
+	{
+		return welliesMount;
+	}
+
 }

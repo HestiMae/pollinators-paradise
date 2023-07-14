@@ -17,10 +17,13 @@
 		"LivingEntityMixin",
 		"PlayerEntityMixin",
 		"PotionSlotMixin",
-		"ProjectileEntityMixin"
+		"ProjectileEntityMixin",
+		"ServerPlayNetworkHandlerMixin"
 	],
 	"client": [
-		"client.ArmorFeatureRendererMixin"
+		"client.ArmorFeatureRendererMixin",
+		"client.ClientPlayerEntityMixin",
+		"client.InGameHudMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
