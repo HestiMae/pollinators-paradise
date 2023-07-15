@@ -1,6 +1,15 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.item.Honeyable;
+import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -9,6 +18,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
+
+import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.CHORUS_KNOCKBACK_ID;
+import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.HONEY_PROTECTION_ID;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -23,4 +37,26 @@ public abstract class ItemStackMixin {
 			}
 		}
 	}
+	@Inject(method = "getAttributeModifiers", at = @At("TAIL"), cancellable = true)
+	private void getAttributeModifiers(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir)
+	{
+		ItemStack self = (ItemStack) (Object) this;
+		if (self.getItem() instanceof HoneyableArmorItem hai && hai.getArmorSlot().getEquipmentSlot() == slot)
+		{
+			ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+			if (hai.getHoneyType(self) == Honeyable.HoneyType.HONEY)
+			{
+				builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(HONEY_PROTECTION_ID, "honeyProtection", hai.getProtection() + 1, EntityAttributeModifier.Operation.ADDITION));
+			}
+			else {
+				builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(HONEY_PROTECTION_ID, "honeyProtection", hai.getProtection(), EntityAttributeModifier.Operation.ADDITION));
+			}
+			if (hai.getHoneyType(self) == Honeyable.HoneyType.CHORUS)
+			{
+				builder.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(CHORUS_KNOCKBACK_ID, "chorusKnockback", hai.getMaterial().getKnockbackResistance() + 0.1, EntityAttributeModifier.Operation.ADDITION));
+			}
+			cir.setReturnValue(builder.build());
+		}
+	}
+
 }
