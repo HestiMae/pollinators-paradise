@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorEntity;
 import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
+import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.JumpingMount;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
@@ -24,7 +25,7 @@ public abstract class ServerPlayNetworkHandlerMixin {
 	{
 		if (packet.getMode() == ClientCommandC2SPacket.Mode.START_RIDING_JUMP && player.getControlledVehicle() == null)
 		{
-			if (player instanceof PollinatorPlayerEntity pollinatorPlayer && player instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised())
+			if (player instanceof PollinatorPlayerEntity pollinatorPlayer && player instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised() instanceof ChorusHoneyBlock)
 			{
 				JumpingMount jumpingMount = pollinatorPlayer.getWelliesMount();
 				int i = packet.getMountJumpHeight();

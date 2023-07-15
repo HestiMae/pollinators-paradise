@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise.mixin.client;
 
 import garden.hestia.pollinators_paradise.PollinatorEntity;
 import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
+import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.JumpingMount;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +16,7 @@ public abstract class ClientPlayerEntityMixin {
 	JumpingMount useWelliesMount(JumpingMount original)
 	{
 		ClientPlayerEntity self = (ClientPlayerEntity) (Object) this;
-		if (self instanceof PollinatorPlayerEntity pollinatorSelf && self instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised())
+		if (self instanceof PollinatorPlayerEntity pollinatorSelf && self instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised() instanceof ChorusHoneyBlock)
 		{
 			return pollinatorSelf.getWelliesMount();
 		}

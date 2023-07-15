@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -31,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityMixin implements PollinatorEntity {
 
 	@Unique
-	private boolean crystallised = false;
+	private Block crystallised = null;
 
 	@Shadow
 	protected abstract BlockPos getVelocityAffectingPos();
@@ -42,21 +41,26 @@ public abstract class EntityMixin implements PollinatorEntity {
 	@Inject(at=@At("TAIL"), method="baseTick")
 	protected void baseTick(CallbackInfo ci) {
 		Entity self = (Entity) (Object) this;
-		this.crystallised = false;
+		this.crystallised = null;
 		if (self instanceof PlayerEntity player) {
-			if (affectedByHoneyBlock()) {
+			Block honeyBlock = getAffectingHoneyBlock();
+			if (honeyBlock != null) {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
 						&& player.isSneaking()
 						&& honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.HONEY) {
-					crystallised = true;
+					crystallised = honeyBlock;
 				}
 			}
 		}
-		if (crystallised)
+		if (crystallised != null)
 		{
 			self.fallDistance = 0;
 			self.setVelocity(self.getVelocity().x, 0, self.getVelocity().z);
+			if (self instanceof PlayerEntity playerEntity && !playerEntity.hasStatusEffect(StatusEffects.RESISTANCE) && !(crystallised instanceof ChorusHoneyBlock)
+					&& playerEntity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof Honeyable honeyItem && honeyItem.decrementHoneyLevel(playerEntity.getEquippedStack(EquipmentSlot.FEET), 2, Honeyable.HoneyType.HONEY)) {
+				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 0, true, true), playerEntity);
+			}
 		}
 		if (self instanceof PollinatorPlayerEntity pollinatorPlayerEntity && pollinatorPlayerEntity.getWelliesMount().jumpStrength > 0)
 		{
@@ -84,22 +88,22 @@ public abstract class EntityMixin implements PollinatorEntity {
 
 	@Inject(at=@At("RETURN"), method="getJumpVelocityMultiplier", cancellable=true)
 	protected void getJumpVelocityMultiplier(CallbackInfoReturnable<Float> ci) {
-		if (crystallised) ci.setReturnValue(0f);
+		if (crystallised != null) ci.setReturnValue(0f);
 	}
 
 	@Inject(at=@At("RETURN"), method="getVelocityMultiplier", cancellable=true)
 	protected void getVelocityMultiplier(CallbackInfoReturnable<Float> ci) {
-		if (crystallised) ci.setReturnValue(ci.getReturnValueF()*0.1f);
+		if (crystallised != null) ci.setReturnValue(ci.getReturnValueF()*0.1f);
 	}
 
 
-	private boolean affectedByHoneyBlock()
+	private Block getAffectingHoneyBlock()
 	{
 		Block block = this.getWorld().getBlockState(this.getVelocityAffectingPos()).getBlock();
-		return block instanceof HoneyBlock;
+		return block instanceof HoneyBlock ? block : null;
 	}
 	@Override
-	public boolean getCrystallised()
+	public Block getCrystallised()
 	{
 		return crystallised;
 	}

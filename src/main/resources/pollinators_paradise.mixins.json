@@ -8,7 +8,6 @@
 		"BeeEntityMixin",
 		"BeehiveBlockEntityMixin",
 		"BeehiveBlockMixin",
-		"BlockMixin",
 		"BrewingRecipeRegistryMixin",
 		"EntityMixin",
 		"HoneyBlockMixin",
