@@ -77,6 +77,8 @@ Beacons with a honey block staining their beam become *beecons*, which affect bo
 
 If you're extra worried about bee welfare, [feed the bees](https://modrinth.com/mod/feed-the-bees) prevents stinger death altogether and adds direct healing via sugar.
 
+Beacon bases can also be made from copper blocks and waxed copper blocks - so get pollinating!
+
 ---
 
 ### Afterword
