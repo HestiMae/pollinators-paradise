@@ -5,6 +5,10 @@ Adds equipment and mechanics that expand the progression and rewards of beekeepi
 
 ---
 
+This desscription describes in detail, what each item does - if you'd prefer to find out yourself using EMI and the hints provided in-game, feel free to skip or skim it! A pure-gameplay, 7-minute [video demo](https://www.youtube.com/watch?v=wZtLSltqMKg) is also available if preferred.
+
+---
+
 ![chorus_honey_bottle](https://github.com/HestiMae/pollinators-paradise/assets/62225435/cf64b02c-cc84-4bd0-9c92-eb3b0b794bc8)
 **Chorus Honey**<br/>
 _A strange nectar brewed from honey with the forbidden chorus fruit of The End_.
