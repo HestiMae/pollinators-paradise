@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityAnimationS2CPacket;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
 
 public class HoneyWandItem extends Item {
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
@@ -38,26 +39,39 @@ public class HoneyWandItem extends Item {
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		if (attacker instanceof PlayerEntity player) {
-			int amount = 0;
+			int honeyAmount = 0;
+			int chorusHoneyAmount = 0;
 			for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
 				if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {
-					amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
+					honeyAmount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
 					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
+					chorusHoneyAmount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.CHORUS);
+					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.CHORUS);
+
 				}
 			}
-			amount /= 2;
-			if (amount > 0) {
+			honeyAmount /= 2;
+			if (honeyAmount > 0) {
 				if (target instanceof BeeEntity) {
-					target.heal(amount);
+					target.heal(honeyAmount);
 					if (target.getWorld() instanceof ServerWorld serverWorld) {
 						serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(target, EntityAnimationS2CPacket.ENCHANTED_HIT));
 					}
 				} else {
-					target.damage(target.getWorld().getDamageSources().mobAttack(attacker), amount);
+					target.damage(target.getWorld().getDamageSources().mobAttack(attacker), honeyAmount);
 					if (target.getWorld() instanceof ServerWorld serverWorld) {
 						serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(target, EntityAnimationS2CPacket.CRIT));
 					}
 				}
+			}
+			else if (chorusHoneyAmount > 0 && !(target instanceof BeeEntity))
+			{
+				Vec3d targetPos = target.getPos();
+				target.refreshPositionAfterTeleport(targetPos.add(0, 2 + (double) chorusHoneyAmount / 4, 0));
+				target.fallDistance = chorusHoneyAmount;
+				double downVelocity = -3.0;
+				target.addVelocity(0, downVelocity, 0);
+
 			}
 
 		}

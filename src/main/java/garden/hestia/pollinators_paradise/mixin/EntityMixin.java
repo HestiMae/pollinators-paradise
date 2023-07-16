@@ -12,6 +12,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityAnimationS2CPacket;
@@ -38,7 +39,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 	@Shadow
 	public abstract World getWorld();
 
-	@Inject(at=@At("TAIL"), method="baseTick")
+	@Inject(at = @At("TAIL"), method = "baseTick")
 	protected void baseTick(CallbackInfo ci) {
 		Entity self = (Entity) (Object) this;
 		this.crystallised = null;
@@ -53,8 +54,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 				}
 			}
 		}
-		if (crystallised != null)
-		{
+		if (crystallised != null) {
 			self.fallDistance = 0;
 			self.setVelocity(self.getVelocity().x, 0, self.getVelocity().z);
 			if (self instanceof PlayerEntity playerEntity && !playerEntity.hasStatusEffect(StatusEffects.RESISTANCE) && !(crystallised instanceof ChorusHoneyBlock)
@@ -62,8 +62,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 0, true, true), playerEntity);
 			}
 		}
-		if (self instanceof PollinatorPlayerEntity pollinatorPlayerEntity && pollinatorPlayerEntity.getWelliesMount().jumpStrength > 0)
-		{
+		if (self instanceof PollinatorPlayerEntity pollinatorPlayerEntity && pollinatorPlayerEntity.getWelliesMount().jumpStrength > 0) {
 			self.setVelocity(self.getVelocity().x, pollinatorPlayerEntity.getWelliesMount().jumpStrength, self.getVelocity().z);
 			pollinatorPlayerEntity.getWelliesMount().jumpStrength = 0;
 		}
@@ -86,25 +85,46 @@ public abstract class EntityMixin implements PollinatorEntity {
 
 	}
 
-	@Inject(at=@At("RETURN"), method="getJumpVelocityMultiplier", cancellable=true)
+	@Inject(method = "getJumpVelocityMultiplier", at = @At("RETURN"), cancellable = true)
 	protected void getJumpVelocityMultiplier(CallbackInfoReturnable<Float> ci) {
 		if (crystallised != null) ci.setReturnValue(0f);
 	}
 
-	@Inject(at=@At("RETURN"), method="getVelocityMultiplier", cancellable=true)
+	@Inject(method = "getVelocityMultiplier", at = @At("RETURN"), cancellable = true)
 	protected void getVelocityMultiplier(CallbackInfoReturnable<Float> ci) {
-		if (crystallised != null) ci.setReturnValue(ci.getReturnValueF()*0.1f);
+		if (crystallised != null) ci.setReturnValue(ci.getReturnValueF() * 0.1f);
 	}
 
+	@Inject(method = "handleAttack", at = @At("RETURN"), cancellable = true)
+	public void handleAttack(Entity attacker, CallbackInfoReturnable<Boolean> cir) {
+		Entity self = (Entity) (Object) this;
+		if (self instanceof BeeEntity bee) {
+			if (attacker instanceof PlayerEntity player && player.getMainHandStack().isOf(PollinatorsParadise.APIARIST_WAND)) {
+				int amount = 0;
+				for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+					if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {
+						amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
+						honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
+					}
+				}
+				if (amount > 0) {
+					bee.heal(amount);
+					if (self.getWorld() instanceof ServerWorld serverWorld) {
+						serverWorld.getChunkManager().sendToNearbyPlayers(self, new EntityAnimationS2CPacket(self, EntityAnimationS2CPacket.ENCHANTED_HIT));
+					}
+				}
+				cir.setReturnValue(true);
+			}
+		}
+	}
 
-	private Block getAffectingHoneyBlock()
-	{
+	private Block getAffectingHoneyBlock() {
 		Block block = this.getWorld().getBlockState(this.getVelocityAffectingPos()).getBlock();
 		return block instanceof HoneyBlock ? block : null;
 	}
+
 	@Override
-	public Block getCrystallised()
-	{
+	public Block getCrystallised() {
 		return crystallised;
 	}
 }
