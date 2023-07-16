@@ -14,6 +14,10 @@ import org.quiltmc.qsl.networking.api.PacketByteBufs;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
 public class PollinatorsParadiseClient implements ClientModInitializer {
+	public static void walljump() {
+		ClientPlayNetworking.send(PollinatorsParadise.C2S_WALLJUMP, PacketByteBufs.empty());
+	}
+
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), PollinatorsParadise.CHORUS_HONEY_BLOCK);
@@ -78,10 +82,5 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			}
 			return honey == 0 && chorus > 0 ? 1 : 0;
 		}));
-	}
-
-	public static void walljump()
-	{
-		ClientPlayNetworking.send(PollinatorsParadise.C2S_WALLJUMP, PacketByteBufs.empty());
 	}
 }

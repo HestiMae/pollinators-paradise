@@ -21,11 +21,9 @@ public abstract class InGameHudMixin {
 	private MinecraftClient client;
 
 	@ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getJumpingMount()Lnet/minecraft/entity/JumpingMount;"))
-	JumpingMount useWelliesMount(JumpingMount original)
-	{
+	JumpingMount useWelliesMount(JumpingMount original) {
 		ClientPlayerEntity player = client.player;
-		if (player instanceof PollinatorPlayerEntity pollinatorSelf && player instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised() instanceof ChorusHoneyBlock)
-		{
+		if (player instanceof PollinatorPlayerEntity pollinatorSelf && player instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised() instanceof ChorusHoneyBlock) {
 			return pollinatorSelf.getWelliesMount();
 		}
 		return original;

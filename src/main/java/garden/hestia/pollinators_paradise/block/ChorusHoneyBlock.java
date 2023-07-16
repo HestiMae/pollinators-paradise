@@ -5,10 +5,11 @@ import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.client.PollinatorsParadiseClient;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.HoneyBlock;
-import net.minecraft.block.TransparentBlock;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
@@ -29,8 +30,7 @@ public class ChorusHoneyBlock extends HoneyBlock {
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (this.isSliding(pos, entity)) {
 			this.triggerAdvancement(entity, pos);
-			if (!this.tryWallJump(entity, pos))
-			{
+			if (!this.tryWallJump(entity, pos)) {
 				this.updateSlidingVelocity(entity);
 			}
 			this.addCollisionEffects(world, entity);
@@ -93,7 +93,7 @@ public class ChorusHoneyBlock extends HoneyBlock {
 
 			if (world.random.nextInt(5) == 0) {
 				BlockState blockState = PollinatorsParadise.CHORUS_HONEY_BLOCK.getDefaultState();
-				for(int i = 0; i < 10; ++i) {
+				for (int i = 0; i < 10; ++i) {
 					entity.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), entity.getX(), entity.getY(), entity.getZ(), 0.0, 0.0, 0.0);
 				}
 			}
@@ -105,7 +105,7 @@ public class ChorusHoneyBlock extends HoneyBlock {
 		entity.playSound(SoundEvents.BLOCK_HONEY_BLOCK_SLIDE, 1.0F, 1.0F);
 		BlockState blockState = PollinatorsParadise.CHORUS_HONEY_BLOCK.getDefaultState();
 
-		for(int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 10; ++i) {
 			entity.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), entity.getX(), entity.getY(), entity.getZ(), 0.0, 0.0, 0.0);
 		}
 

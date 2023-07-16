@@ -13,11 +13,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class ClientPlayerEntityMixin {
 
 	@ModifyVariable(method = "tickMovement", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getJumpingMount()Lnet/minecraft/entity/JumpingMount;"))
-	JumpingMount useWelliesMount(JumpingMount original)
-	{
+	JumpingMount useWelliesMount(JumpingMount original) {
 		ClientPlayerEntity self = (ClientPlayerEntity) (Object) this;
-		if (self instanceof PollinatorPlayerEntity pollinatorSelf && self instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised() instanceof ChorusHoneyBlock)
-		{
+		if (self instanceof PollinatorPlayerEntity pollinatorSelf && self instanceof PollinatorEntity pollinatorEntity && pollinatorEntity.getCrystallised() instanceof ChorusHoneyBlock) {
 			return pollinatorSelf.getWelliesMount();
 		}
 		return original;

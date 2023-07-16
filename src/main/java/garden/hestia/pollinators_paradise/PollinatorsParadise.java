@@ -56,8 +56,7 @@ public class PollinatorsParadise implements ModInitializer {
 	public static boolean FEED_THE_BEES_PRESENT = false;
 
 	public static boolean safeBeeAnger(BeeEntity bee, LivingEntity target) {
-		if (bee.getHealth() > SAFE_BEE_HEALTH)
-		{
+		if (bee.getHealth() > SAFE_BEE_HEALTH) {
 			if (FEED_THE_BEES_PRESENT) {
 				bee.setAttacker(target);
 				bee.setAngryAt(target.getUuid());
@@ -78,6 +77,7 @@ public class PollinatorsParadise implements ModInitializer {
 		return false;
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	@Override
 	public void onInitialize(ModContainer mod) {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
@@ -105,7 +105,6 @@ public class PollinatorsParadise implements ModInitializer {
 				player.fallDistance = 0;
 			}
 		}));
-
 
 
 		if (QuiltLoader.isModLoaded("feed-the-bees")) {

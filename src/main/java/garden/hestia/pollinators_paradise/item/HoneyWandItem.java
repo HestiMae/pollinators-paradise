@@ -2,20 +2,17 @@ package garden.hestia.pollinators_paradise.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityAnimationS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class HoneyWandItem extends Item {
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
@@ -59,8 +56,7 @@ public class HoneyWandItem extends Item {
 					serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(target, EntityAnimationS2CPacket.CRIT));
 				}
 			}
-			if (chorusHoneyAmount > 0)
-			{
+			if (chorusHoneyAmount > 0) {
 				Vec3d targetPos = target.getPos();
 				target.refreshPositionAfterTeleport(targetPos.add(0, 2 + (double) chorusHoneyAmount / 4, 0));
 				target.fallDistance = chorusHoneyAmount;

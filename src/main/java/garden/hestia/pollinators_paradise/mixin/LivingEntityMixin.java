@@ -54,24 +54,19 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 		this.velocityDirty = true;
 		this.jumpingCooldown = 10;
 	}
+
 	@Override
 	public void pollinators$wallJump(BlockPos pos) {
 		float x = 0;
 		float z = 0;
-		if (this.getX() - pos.getX() > 0.9)
-		{
+		if (this.getX() - pos.getX() > 0.9) {
 			x = this.getJumpVelocity() * 2;
-		}
-		else if (this.getX() - pos.getX() < 0.1)
-		{
+		} else if (this.getX() - pos.getX() < 0.1) {
 			x = this.getJumpVelocity() * -2;
 		}
-		if (this.getZ() - pos.getZ() > 0.9)
-		{
+		if (this.getZ() - pos.getZ() > 0.9) {
 			z = this.getJumpVelocity() * 2;
-		}
-		else if (this.getZ() - pos.getZ() < 0.1)
-		{
+		} else if (this.getZ() - pos.getZ() < 0.1) {
 			z = this.getJumpVelocity() * -2;
 		}
 		Vec3d vec3d = this.getVelocity();
@@ -97,9 +92,9 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
-	private void welliesTick(CallbackInfo ci)
-	{
-		if ((Object) this instanceof PollinatorPlayerEntity player &&  player.getFaithWalkingTicks() > 0 && this.jumpingCooldown == 0 && this.jumping) this.jump();
+	private void welliesTick(CallbackInfo ci) {
+		if ((Object) this instanceof PollinatorPlayerEntity player && player.getFaithWalkingTicks() > 0 && this.jumpingCooldown == 0 && this.jumping)
+			this.jump();
 	}
 
 

@@ -18,8 +18,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class HoneyableArmorItem extends ArmorItem implements Honeyable {
-	private final int bottleCapacity;
-	private final int bottlePoints;
 	public static final UUID[] PROTECTION_MODIFIERS = new UUID[]{
 			UUID.fromString("eae799c7-c5a3-4a31-bf39-246d78986490"),
 			UUID.fromString("08cd2b92-1b07-48f0-8502-d60a0a08d189"),
@@ -32,6 +30,8 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 			UUID.fromString("4f021b00-c863-4af0-b6bb-dd26bbb650f7"),
 			UUID.fromString("0f87128d-6d61-4ebc-aeff-b2df8c39e134"),
 	};
+	private final int bottleCapacity;
+	private final int bottlePoints;
 	private final Map<HoneyType, String> tooltips;
 
 
@@ -65,8 +65,7 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		String honeyTooltip = tooltips.get(getHoneyType(stack));
-		if (honeyTooltip != null)
-		{
+		if (honeyTooltip != null) {
 			tooltip.add(Text.literal(honeyTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
 		}
 	}

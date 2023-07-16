@@ -24,9 +24,9 @@ import java.util.List;
 @Mixin(ProjectileEntity.class)
 public abstract class ProjectileEntityMixin extends Entity {
 	@Unique
-	List<Entity> dodgeSuccesses = new ArrayList<>();
+	private final List<Entity> dodgeSuccesses = new ArrayList<>();
 	@Unique
-	List<Entity> dodgeFails = new ArrayList<>();
+	private final List<Entity> dodgeFails = new ArrayList<>();
 
 	public ProjectileEntityMixin(EntityType<?> variant, World world) {
 		super(variant, world);

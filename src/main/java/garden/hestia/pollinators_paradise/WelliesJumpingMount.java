@@ -8,16 +8,16 @@ public class WelliesJumpingMount implements JumpingMount {
 	private final PlayerEntity player;
 	public float jumpStrength = 0.0F;
 
-	public WelliesJumpingMount(PlayerEntity player)
-	{
+	public WelliesJumpingMount(PlayerEntity player) {
 		this.player = player;
 	}
+
 	@Override
 	public void setJumpStrength(int strength) {
 		if (strength >= 90) {
 			this.jumpStrength = 2.4F;
 		} else {
-			this.jumpStrength = 0.4F + 2.0F * (float)strength / 90.0F;
+			this.jumpStrength = 0.4F + 2.0F * (float) strength / 90.0F;
 		}
 
 	}

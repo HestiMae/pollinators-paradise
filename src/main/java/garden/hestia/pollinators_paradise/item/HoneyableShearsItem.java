@@ -65,8 +65,7 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		String honeyTooltip = tooltips.get(getHoneyType(stack));
-		if (honeyTooltip != null)
-		{
+		if (honeyTooltip != null) {
 			tooltip.add(Text.literal(honeyTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
 		}
 		tooltip.add(Text.literal("Gentle").setStyle(Style.EMPTY.withColor(0xdd7e68)));

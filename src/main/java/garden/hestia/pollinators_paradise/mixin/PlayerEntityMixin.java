@@ -37,6 +37,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	private static final double ALLY_BOX_SIZE = 30;
 	private static final double ATTACKER_BOX_SIZE = 16;
 	@Unique
+	private final WelliesJumpingMount welliesMount = new WelliesJumpingMount((PlayerEntity) (Object) this);
+	@Unique
 	private int pollenCharges;
 	@Unique
 	private int pollenCooldown;
@@ -46,9 +48,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
-
-	@Unique
-	private final WelliesJumpingMount welliesMount = new WelliesJumpingMount((PlayerEntity) (Object) this);
 
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
@@ -103,42 +102,48 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 			}
 		}
 
-		if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && this.pollenCharges > 0 &&
-				pollenCooldown == 0) {
-			for(int i = 0; i < this.random.nextInt(2) + 1; ++i) {
+		if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && this.pollenCharges > 0) {
+			if (this.random.nextInt(30) == 0) {
 				this.addParticle(
 						this.getWorld(), this.getX() - 0.3F, this.getX() + 0.3F, this.getZ() - 0.3F, this.getZ() + 0.3F, this.getBodyY(0.5), ParticleTypes.FALLING_NECTAR
 				);
 			}
-			for (int i = 0; i <= 1; ++i) {
-				BlockPos blockPos = this.getBlockPos().down(i);
-				BlockState blockState = this.getWorld().getBlockState(blockPos);
-				Block block = blockState.getBlock();
-				BlockState blockState2 = null;
-				if (blockState.isIn(BlockTags.BEE_GROWABLES)) {
-					if (block instanceof CropBlock cropBlock) {
-						if (!cropBlock.isMature(blockState)) {
-							blockState2 = cropBlock.withAge(cropBlock.getAge(blockState) + 1);
+			if (pollenCooldown == 0) {
+				if (this.random.nextInt(3) == 0) {
+					this.addParticle(
+							this.getWorld(), this.getX() - 0.3F, this.getX() + 0.3F, this.getZ() - 0.3F, this.getZ() + 0.3F, this.getBodyY(0.5), ParticleTypes.FALLING_NECTAR
+					);
+				}
+				for (int i = 0; i <= 1; ++i) {
+					BlockPos blockPos = this.getBlockPos().down(i);
+					BlockState blockState = this.getWorld().getBlockState(blockPos);
+					Block block = blockState.getBlock();
+					BlockState blockState2 = null;
+					if (blockState.isIn(BlockTags.BEE_GROWABLES)) {
+						if (block instanceof CropBlock cropBlock) {
+							if (!cropBlock.isMature(blockState)) {
+								blockState2 = cropBlock.withAge(cropBlock.getAge(blockState) + 1);
+							}
+						} else if (block instanceof StemBlock) {
+							int j = blockState.get(StemBlock.AGE);
+							if (j < 7) {
+								blockState2 = blockState.with(StemBlock.AGE, j + 1);
+							}
+						} else if (blockState.isOf(Blocks.SWEET_BERRY_BUSH)) {
+							int j = blockState.get(SweetBerryBushBlock.AGE);
+							if (j < 3) {
+								blockState2 = blockState.with(SweetBerryBushBlock.AGE, j + 1);
+							}
+						} else if (blockState.isOf(Blocks.CAVE_VINES) || blockState.isOf(Blocks.CAVE_VINES_PLANT)) {
+							((Fertilizable) blockState.getBlock()).fertilize((ServerWorld) this.getWorld(), this.random, blockPos, blockState);
 						}
-					} else if (block instanceof StemBlock) {
-						int j = blockState.get(StemBlock.AGE);
-						if (j < 7) {
-							blockState2 = blockState.with(StemBlock.AGE, j + 1);
-						}
-					} else if (blockState.isOf(Blocks.SWEET_BERRY_BUSH)) {
-						int j = blockState.get(SweetBerryBushBlock.AGE);
-						if (j < 3) {
-							blockState2 = blockState.with(SweetBerryBushBlock.AGE, j + 1);
-						}
-					} else if (blockState.isOf(Blocks.CAVE_VINES) || blockState.isOf(Blocks.CAVE_VINES_PLANT)) {
-						((Fertilizable) blockState.getBlock()).fertilize((ServerWorld) this.getWorld(), this.random, blockPos, blockState);
-					}
 
-					if (blockState2 != null) {
-						this.getWorld().syncWorldEvent(WorldEvents.PLANT_FERTILIZED, blockPos, 0);
-						this.getWorld().setBlockState(blockPos, blockState2);
-						this.pollenCharges--;
-						this.pollenCooldown = this.random.nextInt(220) + 40;
+						if (blockState2 != null) {
+							this.getWorld().syncWorldEvent(WorldEvents.PLANT_FERTILIZED, blockPos, 0);
+							this.getWorld().setBlockState(blockPos, blockState2);
+							this.pollenCharges--;
+							this.pollenCooldown = this.random.nextInt(220) + 40;
+						}
 					}
 				}
 			}
@@ -151,37 +156,30 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	}
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
-	private void welliesTick(CallbackInfo ci)
-	{
+	private void welliesTick(CallbackInfo ci) {
 		PlayerEntity self = (PlayerEntity) (Object) this;
 		ItemStack equippedFeetStack = self.getEquippedStack(EquipmentSlot.FEET);
 		if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
-		&& honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.CHORUS)
-		{
-			if (self.getPitch() > 60.0F || self.isOnGround() || faithWalkingTicks < 30)
-			{
+				&& honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.CHORUS) {
+			if (self.getPitch() > 60.0F || self.isOnGround() || faithWalkingTicks < 30) {
 				faithWalkingTicks--;
 			}
-			if (self.isSprinting() && self.isOnGround() && faithWalkingTicks < 40)
-			{
+			if (self.isSprinting() && self.isOnGround() && faithWalkingTicks < 40) {
 				faithWalkingTicks = 40;
 			}
 
-			if (self.isSprinting() && !self.isOnGround() && faithWalkingTicks > 0)
-			{
+			if (self.isSprinting() && !self.isOnGround() && faithWalkingTicks > 0) {
 				self.setVelocity(self.getVelocity().x, 0, self.getVelocity().z);
 			}
 			if (faithWalkingTicks == 0) honeyItem.decrementHoneyLevel(equippedFeetStack, Honeyable.HoneyType.CHORUS);
-		}
-		else {
+		} else {
 			faithWalkingTicks = 0;
 		}
 
 	}
 
 	@Inject(method = "jump", at = @At(value = "TAIL"))
-	private void jumpDecrementFaithWalkingTicks(CallbackInfo ci)
-	{
+	private void jumpDecrementFaithWalkingTicks(CallbackInfo ci) {
 		faithWalkingTicks = 0;
 	}
 
