@@ -20,6 +20,6 @@ public abstract class BeehiveBlockEntityMixin {
 				}
 			}
 		}
-		return minOccupationTime/(1 + hasteLevels);
+		return minOccupationTime / (1 + hasteLevels);
 	}
 }

@@ -5,3 +5,5 @@ accessible field net/minecraft/recipe/BrewingRecipeRegistry ITEM_RECIPES Ljava/u
 accessible class net/minecraft/recipe/BrewingRecipeRegistry$Recipe
 extendable method net/minecraft/block/HoneyBlock updateSlidingVelocity (Lnet/minecraft/entity/Entity;)V
 extendable method net/minecraft/block/HoneyBlock isSliding (Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Z
+extendable method net/minecraft/block/HoneyBlock triggerAdvancement (Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;)V
+extendable method net/minecraft/block/HoneyBlock addCollisionEffects (Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;)V

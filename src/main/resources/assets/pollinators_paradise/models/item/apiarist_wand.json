@@ -1,6 +1,26 @@
 {
-  "parent": "item/generated",
+  "parent": "item/handheld_rod",
   "textures": {
     "layer0": "pollinators_paradise:item/apiarist_wand"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "pollinators_paradise:armor_honeyed_mixed": 1
+      },
+      "model": "pollinators_paradise:item/apiarist_wand_honeyed_mixed"
+    },
+    {
+      "predicate": {
+        "pollinators_paradise:armor_honeyed_honey": 1
+      },
+      "model": "pollinators_paradise:item/apiarist_wand_honeyed_honey"
+    },
+    {
+      "predicate": {
+        "pollinators_paradise:armor_honeyed_chorus": 1
+      },
+      "model": "pollinators_paradise:item/apiarist_wand_honeyed_chorus"
+    }
+  ]
 }

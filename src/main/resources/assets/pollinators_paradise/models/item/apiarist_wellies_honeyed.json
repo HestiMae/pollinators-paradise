@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pollinators_paradise:item/apiarist_wellies",
+    "layer1": "pollinators_paradise:item/apiarist_wellies_overlay"
+  }
+}
