@@ -27,41 +27,41 @@ A water bottle can wash out the honey for reuse.
 
 ![apiarist_veil](https://github.com/HestiMae/pollinators-paradise/assets/62225435/797fbfc8-ea98-4037-b433-9a38adafd7aa)
 **Apiarist's Veil**<br/>
-*Honey | Bee Calm*: Calms bees targeting the wearer.<br/>
-*Chorus | Bee Allies*: Angers bees towards hostiles targeting you.<br/>
+*Honey | **Bee Calm***: Calms bees targeting the wearer.<br/>
+*Chorus | **Bee Allies***: Angers bees towards hostiles targeting you.<br/>
 *Bees will only be angered if it's safe for them to attack - see below!*
 
 ![apiarist_suit](https://github.com/HestiMae/pollinators-paradise/assets/62225435/ca34907f-7066-4f87-bfa4-f0ed96442da3)
 **Apiarist's Suit**<br/>
-*Honey | Sticky Thorns*: Immobilizes attackers in honey.<br/>
-*Chorus | Chorus Dodge*: Half of all projectiles simply miss.<br/>
+*Honey | **Sticky Thorns***: Immobilizes attackers in honey.<br/>
+*Chorus | **Chorus Dodge***: Half of all projectiles simply miss.<br/>
 
 ![apiarist_leggings](https://github.com/HestiMae/pollinators-paradise/assets/62225435/562c95b7-ad6b-44d2-a662-90e60f649539)
 **Apiarist's Leggings**<br/>
-*Honey | Honey Climber*: Allows bounding up honey blocks, and tossed away from chorus honey blocks.<br/>
-*Chorus | Pollen Pants*: Allows pollinating crops - just like bees do!<br/>
+*Honey | **Honey Climber***: Allows bounding up honey blocks, and being tossed away from chorus honey blocks.<br/>
+*Chorus | **Pollen Pants***: Allows pollinating crops - just like bees do!<br/>
 
 ![apiarist_wellies](https://github.com/HestiMae/pollinators-paradise/assets/62225435/9bfd4619-c4b2-4de0-a58c-dc270a512517)
 **Apiarist's Wellies**<br/>
 *Milled from waxed copper, with honeycomb block soles.*<br/>
-*Empty | Slippery When Dry*: The waxed soles cause slipping and sliding on all surfaces.<br/>
-*Honey | Honey Block Crystallise*: Resist knocks and attacks by sneaking to crystallise against below honey blocks. Or build elastic energy from chorus honey blocks!<br/>
-*Chorus | Faithwalking*: Slide far past the edge of cliffs, but don't look down!
+*Empty | **Slippery When Dry***: The waxed soles cause slipping and sliding on all surfaces.<br/>
+*Honey | **Honey Block Crystallise***: Resist knocks and attacks by sneaking to crystallise against below honey blocks. Or build elastic energy from chorus honey blocks!<br/>
+*Chorus | **Faithwalking***: Slide far past the edge of cliffs, but don't look down!
 
 ![apiarist_shears](https://github.com/HestiMae/pollinators-paradise/assets/62225435/f24a9d1c-ab14-458b-9afd-033e39c2e906)
 **Apiarist's Shears**<br/>
 *Psst, are you with the bee union?*
 
 This hardy set of shears made from waxed copper blocks is familiar to bees, and **won't anger them.**<br/>
-*Honey | Nest Harvesters*: Wild pollinators dwelling in nests provide you extra each harvest.<br/>
-*Chorus | Nest Scavengers*: Scavenger drones operating from nests share local resources each harvest.
+*Honey | **Nest Harvesters***: Wild pollinators dwelling in nests provide you extra each harvest.<br/>
+*Chorus | **Nest Scavengers***: Scavenger drones operating from nests share local resources each harvest.
 
 ![apiarist_wand-1](https://github.com/HestiMae/pollinators-paradise/assets/62225435/94884a94-26b0-4ace-8c15-f5d5c28feb53)
 **Honeyed Wand**<br/>
 Instilled with pollen magic, this tool can't be honeyed itself, but drains honey drizzled on clothes and the off-hand.
 
-*Draining Honey*: Inflicts magical honey damage to hurt mobs and heal bees!<br/>
-*Draining Chorus*: Harnesses the strange power of chorus honey to fling enemies to the ground, dealing fall damage!
+*Draining Honey*: Inflicts **magical honey damage** to hurt mobs and heal bees!<br/>
+*Draining Chorus*: Harnesses the strange power of chorus honey to **fling enemies** to the ground, dealing fall damage!
 
 ## Mechanics
 
