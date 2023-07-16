@@ -40,6 +40,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	private int pollenCharges;
 	@Unique
 	private int pollenCooldown;
+	@Unique
+	private int faithWalkingTicks;
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
@@ -143,8 +145,49 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 		}
 		if (pollenCooldown > 0) pollenCooldown--;
 	}
+
 	private void addParticle(World world, double lastX, double x, double lastZ, double z, double y, ParticleEffect effect) {
 		world.addParticle(effect, MathHelper.lerp(world.random.nextDouble(), lastX, x), y, MathHelper.lerp(world.random.nextDouble(), lastZ, z), 0.0, 0.0, 0.0);
+	}
+
+	@Inject(method = "tick", at = @At(value = "TAIL"))
+	private void welliesTick(CallbackInfo ci)
+	{
+		PlayerEntity self = (PlayerEntity) (Object) this;
+		ItemStack equippedFeetStack = self.getEquippedStack(EquipmentSlot.FEET);
+		if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
+		&& honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.CHORUS)
+		{
+			if (self.getPitch() > 60.0F || self.isOnGround() || faithWalkingTicks < 30)
+			{
+				faithWalkingTicks--;
+			}
+			if (self.isSprinting() && self.isOnGround() && faithWalkingTicks < 40)
+			{
+				faithWalkingTicks = 40;
+			}
+
+			if (self.isSprinting() && !self.isOnGround() && faithWalkingTicks > 0)
+			{
+				self.setVelocity(self.getVelocity().x, 0, self.getVelocity().z);
+			}
+			if (faithWalkingTicks == 0) honeyItem.decrementHoneyLevel(equippedFeetStack, Honeyable.HoneyType.CHORUS);
+		}
+		else {
+			faithWalkingTicks = 0;
+		}
+
+	}
+
+	@Inject(method = "jump", at = @At(value = "TAIL"))
+	private void jumpDecrementFaithWalkingTicks(CallbackInfo ci)
+	{
+		faithWalkingTicks = 0;
+	}
+
+	@Override
+	public int getFaithWalkingTicks() {
+		return faithWalkingTicks;
 	}
 }
 

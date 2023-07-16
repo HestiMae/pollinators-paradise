@@ -1,6 +1,7 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorLivingEntity;
+import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.Entity;
@@ -15,7 +16,9 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements PollinatorLivingEntity {
@@ -30,6 +33,9 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 
 	@Shadow
 	protected abstract float getJumpVelocity();
+
+	@Shadow
+	protected abstract void jump();
 
 	@Override
 	public boolean pollinators$jumping() {
@@ -89,5 +95,12 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 
 		return original;
 	}
+
+	@Inject(method = "tick", at = @At("TAIL"))
+	private void welliesTick(CallbackInfo ci)
+	{
+		if ((Object) this instanceof PollinatorPlayerEntity player &&  player.getFaithWalkingTicks() > 0 && this.jumpingCooldown == 0 && this.jumping) this.jump();
+	}
+
 
 }
