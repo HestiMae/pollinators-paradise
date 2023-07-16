@@ -10,7 +10,7 @@ Adds equipment and mechanics that expand the progression and rewards of beekeepi
 ![chorus_honey_bottle](https://github.com/HestiMae/pollinators-paradise/assets/62225435/cf64b02c-cc84-4bd0-9c92-eb3b0b794bc8)
 A strange nectar brewed from honey with the forbidden chorus fruit of _The End_.
 
-*When Consumed*: Teleports the player upwards through nearby ceilings. Great for caving!
+Teleports the player upwards through nearby ceilings. Great for caving!
 
 #### Chorus Honey Blocks
 
