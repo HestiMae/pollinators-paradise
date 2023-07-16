@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -14,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityAnimationS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class HoneyWandItem extends Item {
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
@@ -52,19 +54,12 @@ public class HoneyWandItem extends Item {
 			}
 			honeyAmount /= 2;
 			if (honeyAmount > 0) {
-				if (target instanceof BeeEntity) {
-					target.heal(honeyAmount);
-					if (target.getWorld() instanceof ServerWorld serverWorld) {
-						serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(target, EntityAnimationS2CPacket.ENCHANTED_HIT));
-					}
-				} else {
-					target.damage(target.getWorld().getDamageSources().mobAttack(attacker), honeyAmount);
-					if (target.getWorld() instanceof ServerWorld serverWorld) {
-						serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(target, EntityAnimationS2CPacket.CRIT));
-					}
+				target.damage(target.getWorld().getDamageSources().mobAttack(attacker), honeyAmount);
+				if (target.getWorld() instanceof ServerWorld serverWorld) {
+					serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(target, EntityAnimationS2CPacket.CRIT));
 				}
 			}
-			else if (chorusHoneyAmount > 0 && !(target instanceof BeeEntity))
+			if (chorusHoneyAmount > 0)
 			{
 				Vec3d targetPos = target.getPos();
 				target.refreshPositionAfterTeleport(targetPos.add(0, 2 + (double) chorusHoneyAmount / 4, 0));

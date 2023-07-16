@@ -1,7 +1,6 @@
 package garden.hestia.pollinators_paradise.item;
 
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -12,11 +11,7 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
-import net.minecraft.world.World;
-
-import java.util.List;
 
 import static org.joml.Math.clamp;
 
@@ -71,7 +66,7 @@ public interface Honeyable {
 		return switch (getHoneyType(stack)) {
 			case HONEY -> Honeyable.HONEY_ARGB;
 			case CHORUS -> Honeyable.CHORUS_ARGB;
-			case NONE -> 0x000000;
+			case NONE -> 0xcec7b9;
 		};
 	}
 

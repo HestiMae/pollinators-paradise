@@ -76,8 +76,6 @@ public abstract class BeehiveBlockMixin extends BlockWithEntity {
 
 	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CampfireBlock;isLitCampfireInRange(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z"))
 	boolean apiaristShearsBypassCampfire(World world, BlockPos pos, BlockState state, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		return (player.getStackInHand(hand).getItem() instanceof HoneyableShearsItem honeyableShearsItem
-				&& honeyableShearsItem.getHoneyType(player.getStackInHand(hand)) != Honeyable.HoneyType.NONE)
-				|| CampfireBlock.isLitCampfireInRange(world, pos);
+		return (player.getStackInHand(hand).getItem() instanceof HoneyableShearsItem) || CampfireBlock.isLitCampfireInRange(world, pos);
 	}
 }

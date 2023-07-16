@@ -20,8 +20,18 @@ import java.util.UUID;
 public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 	private final int bottleCapacity;
 	private final int bottlePoints;
-	public static final UUID HONEY_PROTECTION_ID = UUID.fromString("eae799c7-c5a3-4a31-bf39-246d78986490");
-	public static final UUID CHORUS_KNOCKBACK_ID = UUID.fromString("3754da21-304e-4a7a-a1cf-d054ede06d42");
+	public static final UUID[] PROTECTION_MODIFIERS = new UUID[]{
+			UUID.fromString("eae799c7-c5a3-4a31-bf39-246d78986490"),
+			UUID.fromString("08cd2b92-1b07-48f0-8502-d60a0a08d189"),
+			UUID.fromString("91d92410-9dc1-4cd1-b30c-8c04936fa931"),
+			UUID.fromString("18d48019-acba-41bc-a8c6-5d1a48345e74"),
+	};
+	public static final UUID[] KNOCKBACK_MODIFIERS = new UUID[]{
+			UUID.fromString("eae799c7-c5a3-4a31-bf39-246d78986490"),
+			UUID.fromString("32df7056-4c58-418a-a7a2-59e9caf0fa33"),
+			UUID.fromString("4f021b00-c863-4af0-b6bb-dd26bbb650f7"),
+			UUID.fromString("0f87128d-6d61-4ebc-aeff-b2df8c39e134"),
+	};
 	private final Map<HoneyType, String> tooltips;
 
 

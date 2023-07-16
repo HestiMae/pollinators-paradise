@@ -27,15 +27,56 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			}
 			return 0;
 		}));
-		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
+		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed_honey"), ((itemStack, clientWorld, livingEntity, i) -> {
+			int honey = 0;
+			int chorus = 0;
 			if (livingEntity != null) {
 				for (ItemStack stack : livingEntity.getItemsEquipped()) {
-					if (stack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(stack) != Honeyable.HoneyType.NONE) {
-						return 1;
+					if (stack.getItem() instanceof Honeyable honeyItem) {
+						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.HONEY) {
+							honey++;
+						}
+						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.CHORUS) {
+							chorus++;
+						}
 					}
 				}
 			}
-			return 0;
+			return honey > 0 && chorus == 0 ? 1 : 0;
+		}));
+		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed_mixed"), ((itemStack, clientWorld, livingEntity, i) -> {
+			int honey = 0;
+			int chorus = 0;
+			if (livingEntity != null) {
+				for (ItemStack stack : livingEntity.getItemsEquipped()) {
+					if (stack.getItem() instanceof Honeyable honeyItem) {
+						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.HONEY) {
+							honey++;
+						}
+						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.CHORUS) {
+							chorus++;
+						}
+					}
+				}
+			}
+			return honey > 0 && chorus > 0 ? 1 : 0;
+		}));
+		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed_chorus"), ((itemStack, clientWorld, livingEntity, i) -> {
+			int honey = 0;
+			int chorus = 0;
+			if (livingEntity != null) {
+				for (ItemStack stack : livingEntity.getItemsEquipped()) {
+					if (stack.getItem() instanceof Honeyable honeyItem) {
+						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.HONEY) {
+							honey++;
+						}
+						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.CHORUS) {
+							chorus++;
+						}
+					}
+				}
+			}
+			return honey == 0 && chorus > 0 ? 1 : 0;
 		}));
 	}
 

@@ -21,8 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.UUID;
 
-import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.CHORUS_KNOCKBACK_ID;
-import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.HONEY_PROTECTION_ID;
+import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.*;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -44,16 +43,10 @@ public abstract class ItemStackMixin {
 		if (self.getItem() instanceof HoneyableArmorItem hai && hai.getArmorSlot().getEquipmentSlot() == slot)
 		{
 			ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-			if (hai.getHoneyType(self) == Honeyable.HoneyType.HONEY)
-			{
-				builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(HONEY_PROTECTION_ID, "honeyProtection", hai.getProtection() + 1, EntityAttributeModifier.Operation.ADDITION));
-			}
-			else {
-				builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(HONEY_PROTECTION_ID, "honeyProtection", hai.getProtection(), EntityAttributeModifier.Operation.ADDITION));
-			}
+			builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(PROTECTION_MODIFIERS[slot.getEntitySlotId()], "honeyProtection", hai.getProtection() + (hai.getHoneyType(self) == Honeyable.HoneyType.HONEY ? 1 : 0), EntityAttributeModifier.Operation.ADDITION));
 			if (hai.getHoneyType(self) == Honeyable.HoneyType.CHORUS)
 			{
-				builder.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(CHORUS_KNOCKBACK_ID, "chorusKnockback", hai.getMaterial().getKnockbackResistance() + 0.1, EntityAttributeModifier.Operation.ADDITION));
+				builder.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(KNOCKBACK_MODIFIERS[slot.getEntitySlotId()], "chorusKnockback", hai.getMaterial().getKnockbackResistance() + 0.1, EntityAttributeModifier.Operation.ADDITION));
 			}
 			cir.setReturnValue(builder.build());
 		}
