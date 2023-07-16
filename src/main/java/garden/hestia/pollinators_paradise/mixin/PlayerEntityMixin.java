@@ -36,7 +36,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	private static final double CALMING_BOX_SIZE = 10;
 	private static final double ALLY_BOX_SIZE = 30;
 	private static final double ATTACKER_BOX_SIZE = 16;
+	@Unique
 	private int pollenCharges;
+	@Unique
 	private int pollenCooldown;
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
