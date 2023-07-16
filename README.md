@@ -63,11 +63,13 @@ Instilled with pollen magic, this tool can't be honeyed itself, but drains honey
 
 ## Mechanics
 
-### Beecons
+![honey_block_bottom](https://github.com/HestiMae/pollinators-paradise/assets/62225435/0577e49c-045e-4a87-aaca-ba4d3fa651d0)
+![beacon](https://github.com/HestiMae/pollinators-paradise/assets/62225435/4558b370-c3b0-4d07-8981-fe5ec66e2741)
+**Beecons**<br/>
 
 Beacons with a honey block staining their beam become *beecons*, which affect both players and bees.
 
-As an upshot - bees are also affected by more status effects!<br>
+**Bees are also now affected by more status effects!**<br>
 *Haste*: Bees process honey in hives faster.<br/>
 *Strength*: Bees inflict Poison II, or Wither II at level II.<br/>
 *Resistance/Regeneration*: As well as their base effect, bees will survive regrowing their stingers.<br/>
