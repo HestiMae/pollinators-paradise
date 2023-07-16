@@ -18,16 +18,17 @@ A strange nectar brewed from honey with the forbidden chorus fruit of _The End_.
 Retains the strange properties of chorus honey in a crystallised form, causing entities to slide upward into the air.
 
 ### Apiarist's Set
-*Beekeeping attire for the aspiring adventure-apiarist. - These articles sport little in the way of protection, but are unbreakable.*
-
+*Beekeeping attire for the aspiring adventure-apiarist.*<br/>
+*These articles sport little in the way of protection, but are unbreakable.*<br/>
 Mostly made from _waxed wool_, a composite wool loosened with honey.
 
-When drizzled with a bit of honey from a bottle, each article grains improved stats has special uses that drain honey. They similarly be washed with water to apply a different honey.
+When drizzled with a bit of honey from a bottle, it can be drained to perform **special abilities**.<br/>
+A water bottle can wash out the honey for reuse.
 
 ![apiarist_veil](https://github.com/HestiMae/pollinators-paradise/assets/62225435/797fbfc8-ea98-4037-b433-9a38adafd7aa)
 **Apiarist's Veil**<br/>
 *Honey | Bee Calm*: Calms bees targeting the wearer.<br/>
-*Chorus | Bee Allies*: Angers bees towards those targeting the wearer<br/>
+*Chorus | Bee Allies*: Angers bees towards hostiles targeting you.<br/>
 *Bees will only be angered if it's safe for them to attack - see below!*
 
 ![apiarist_suit](https://github.com/HestiMae/pollinators-paradise/assets/62225435/ca34907f-7066-4f87-bfa4-f0ed96442da3)
@@ -43,7 +44,7 @@ When drizzled with a bit of honey from a bottle, each article grains improved st
 ![apiarist_wellies](https://github.com/HestiMae/pollinators-paradise/assets/62225435/9bfd4619-c4b2-4de0-a58c-dc270a512517)
 **Apiarist's Wellies**<br/>
 *Milled from waxed copper, with honeycomb block soles.*<br/>
-*Empty | Slippery When Dry*: These waxed soles cause slipping and sliding on all surfaces.<br/>
+*Empty | Slippery When Dry*: The waxed soles cause slipping and sliding on all surfaces.<br/>
 *Honey | Honey Block Crystallise*: Resist knocks and attacks by sneaking to crystallise against below honey blocks. Or build up the elastic energy of chorus honey blocks!<br/>
 *Chorus | Faithwalking*: Slide far past the edge of cliffs, but don't look down!
 
@@ -51,16 +52,16 @@ When drizzled with a bit of honey from a bottle, each article grains improved st
 **Apiarist's Shears**<br/>
 *Psst, are you with the bee union?*
 
-This hardy set of shears made from waxed copper blocks is familiar to bees, and won't anger them.<br/>
-*Honey | Nest Harvesters*: Wild pollinators dwelling in nests provide you more honeycomb each harvest<br/>
+This hardy set of shears made from waxed copper blocks is familiar to bees, and **won't anger them.**<br/>
+*Honey | Nest Harvesters*: Wild pollinators dwelling in nests provide you extra each harvest.<br/>
 *Chorus | Nest Scavengers*: Scavenger drones operating from nests share local resources each harvest.
 
 ![apiarist_wand-1](https://github.com/HestiMae/pollinators-paradise/assets/62225435/94884a94-26b0-4ace-8c15-f5d5c28feb53)
 **Honeyed Wand**<br/>
-Instilled with pollen magic, this tool can't be honeyed itself, but draws from all honey on your hands and clothes.
+Instilled with pollen magic, this tool can't be honeyed itself, but drains honey drizzled on clothes and the off-hand.
 
-*When Draining Honey*: Inflicts magical honey damage to hurt mobs and heal bees!<br/>
-*When Draining Chorus Honey*: Harnesses the strange power of chorus honey to fling enemies to the ground, dealing fall damage!
+*Draining Honey*: Inflicts magical honey damage to hurt mobs and heal bees!<br/>
+*Draining Chorus*: Harnesses the strange power of chorus honey to fling enemies to the ground, dealing fall damage!
 
 ## Mechanics
 
