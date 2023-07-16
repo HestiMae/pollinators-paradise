@@ -5,7 +5,7 @@ Adds equipment and mechanics that expand the progression and rewards of beekeepi
 
 ---
 
-This desscription describes in detail, what each item does - if you'd prefer to find out yourself using EMI and the hints provided in-game, feel free to skip or skim it! A pure-gameplay, 7-minute [video demo](https://www.youtube.com/watch?v=wZtLSltqMKg) is also available if preferred.
+This description describes, in detail, what each item does - if you'd prefer to find out yourself using EMI and the hints provided in-game, feel free to skip or skim it! A pure-gameplay, 7-minute [video demo](https://www.youtube.com/watch?v=wZtLSltqMKg) is also available if preferred.
 
 ---
 
@@ -55,7 +55,7 @@ A water bottle can wash out the honey for reuse.
 *Psst, are you with the bee union?*
 
 This hardy set of shears made from waxed copper blocks is familiar to bees, and **won't anger them.**<br/>
-*Honey | **Nest Harvesters***: Wild pollinators dwelling in nests provide you extra each harvest.<br/>
+*Honey | **Nest Harvesters***: Wild pollinators dwelling in nests provide you extra combs each harvest.<br/>
 *Chorus | **Nest Scavengers***: Scavenger drones operating from nests share local resources each harvest.
 
 ![apiarist_wand-1](https://github.com/HestiMae/pollinators-paradise/assets/62225435/94884a94-26b0-4ace-8c15-f5d5c28feb53)
@@ -76,10 +76,10 @@ Beacons with a honey block staining their beam become *beecons*, which affect bo
 **Bees are also now affected by more status effects!**<br>
 *Haste*: Bees process honey in hives faster.<br/>
 *Strength*: Bees inflict Poison II, or Wither II at level II.<br/>
-*Resistance/Regeneration*: As well as their base effect, bees will survive regrowing their stingers.<br/>
+*Resistance/Regeneration*: In addition to the base effects, bees will only take minor damage regrowing their stingers.<br/>
 *Speed*: Bees fly more erratically, and debatably faster.<br/>
 
-If you're extra worried about bee welfare, [feed the bees](https://modrinth.com/mod/feed-the-bees) prevents stinger death altogether and adds direct healing via sugar.
+If you're extra worried about bee welfare, [feed the bees](https://modrinth.com/mod/feed-the-bees) allows bees to always regrow their stingers for minor damage, and adds direct healing via sugar.
 
 Beacon bases can also be made from copper blocks and waxed copper blocks - so get pollinating!
 
