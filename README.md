@@ -45,7 +45,7 @@ A water bottle can wash out the honey for reuse.
 **Apiarist's Wellies**<br/>
 *Milled from waxed copper, with honeycomb block soles.*<br/>
 *Empty | Slippery When Dry*: The waxed soles cause slipping and sliding on all surfaces.<br/>
-*Honey | Honey Block Crystallise*: Resist knocks and attacks by sneaking to crystallise against below honey blocks. Or build up the elastic energy of chorus honey blocks!<br/>
+*Honey | Honey Block Crystallise*: Resist knocks and attacks by sneaking to crystallise against below honey blocks. Or build elastic energy from chorus honey blocks!<br/>
 *Chorus | Faithwalking*: Slide far past the edge of cliffs, but don't look down!
 
 ![apiarist_shears](https://github.com/HestiMae/pollinators-paradise/assets/62225435/f24a9d1c-ab14-458b-9afd-033e39c2e906)
