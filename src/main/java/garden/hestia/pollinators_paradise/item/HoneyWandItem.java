@@ -71,7 +71,6 @@ public class HoneyWandItem extends Item {
 				target.fallDistance = chorusHoneyAmount;
 				double downVelocity = -3.0;
 				target.addVelocity(0, downVelocity, 0);
-
 			}
 
 		}
