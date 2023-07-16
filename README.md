@@ -5,66 +5,58 @@ Adds equipment and mechanics that expand the progression and rewards of beekeepi
 
 ---
 
-## New Stuff
-
-#### Apiarist's Set
-*Beekeeping attire for the aspiring adventure-apiarist.*
-
-These articles sport little in the way of protection, but provide costly utility.
-
-Most pieces are made from a composite wax-honey-wool material, *waxed wool*.
-
-**Apiarist's Veil**<br/>
-*When Honeyed*: Calms bees targeting the wearer.<br/>
-*When Chorus Honeyed*: NYI.
-
-**Apiarist's Suit**<br/>
-*When Honeyed*: Immobilizes attackers in honey.<br/>
-*When Chorus Honeyed*: NYI.
-
-**Apiarist's Leggings**<br/>
-*When Honeyed*: Allows wall-jumping up honey blocks.<br/>
-*When Chorus Honeyed*: NYI.
-
-**Apiarist's Wellies**<br/>
-*Milled from full waxed copper blocks, and full honeycomb blocks for the soles.*<br/>
-*When Honeyed*: Crystallises against honey blocks while sneaking, improving defense. Allows jumping easily on honey.<br/>
-*When Chorus Honeyed*: NYI.
-
-#### Apiarist's Shears
-
-This hardy set of shears made from waxed copper blocks is familiar to bees.<br/>
-*When Honeyed*: Won't anger wild or hived bees on collection. Can collect more honeycombs from nests.<br/>
-*When Chorus Honeyed*: NYI.
-
-#### Honeyed Wand
-
-Instilled with the magic of pollen, this tool can't be honeyed itself, but draws from the honey on your hands and clothes.
-
-*When Draining Honey*: Deals magical honey damage based on the amount of honey in all equipment.<br/>
-*When Draining Chorus Honey*: NYI.
-
-When accidentally hitting bees, they'll be healed instead.
-
 #### Chorus Honey
 
-This purple nectar is invigorated from honey by the pollens of the End's own forbidden fruit in a brewing stand.
+A strange nectar brewed from honey with the forbidden chorus fruit of _The End_.
 
-*When Consumed*: Teleports the player upwards, safely through any ceiling starting up to 8 blocks above. Great for caving!
+*When Consumed*: Teleports the player upwards through nearby ceilings. Great for caving!
 
 #### Chorus Honey Blocks
 
 Retains the strange properties of chorus honey in a crystallised form, causing entities to slide upward into the air.
 
+### Apiarist's Set
+*Beekeeping attire for the aspiring adventure-apiarist. - These articles sport little in the way of protection, but are unbreakable.*
+
+Mostly made from _waxed wool_, a composite wool loosened with honey.
+
+When drizzled with a bit of honey from a bottle, each article grains improved stats has special uses that drain honey. They similarly be washed with water to apply a different honey.
+
+**Apiarist's Veil**<br/>
+*Honey | Bee Calm*: Calms bees targeting the wearer.<br/>
+*Chorus | Bee Allies*: Angers bees towards those targeting the wearer<br/>
+*Bees will only be angered if it's safe for them to attack - see below!*
+
+**Apiarist's Suit**<br/>
+*Honey | Sticky Thorns*: Immobilizes attackers in honey.<br/>
+*Chorus | Chorus Dodge*: Half of all projectiles simply miss.<br/>
+
+**Apiarist's Leggings**<br/>
+*Honey | Honey Climber*: Allows bounding up honey blocks, and tossed away from chorus honey blocks.<br/>
+*Chorus | Pollen Pants*: Allows pollinating crops - just like bees do!<br/>
+
+**Apiarist's Wellies**<br/>
+*Milled from waxed copper, with honeycomb block soles.*<br/>
+*Empty | Slippery When Dry*: These waxed soles cause slipping and sliding on all surfaces.<br/>
+*Honey | Honey Block Crystallise*: Resist knocks and attacks by sneaking to crystallise against below honey blocks. Or build up the elastic energy of chorus honey blocks!<br/>
+*Chorus | Faithwalking*: Slide far past the edge of cliffs, but don't look down!
+
+#### Apiarist's Shears
+
+*Psst, are you with the bee union?*
+
+This hardy set of shears made from waxed copper blocks is familiar to bees, and won't anger them.<br/>
+*Honey | Nest Harvesters*: Wild pollinators dwelling in nests provide you more honeycomb each harvest<br/>
+*Chorus | Nest Scavengers*: Scavenger drones operating from nests share local resources each harvest.
+
+#### Honeyed Wand
+
+Instilled with pollen magic, this tool can't be honeyed itself, but draws from all honey on your hands and clothes.
+
+*When Draining Honey*: Inflicts magical honey damage to hurt mobs and heal bees!<br/>
+*When Draining Chorus Honey*: Harnesses the strange power of chorus honey to fling enemies to the ground, dealing fall damage!
+
 ## Mechanics
-
-### Honeying
-
-Honeyable equipment is unbreakable, but is more functional when drizzled and soaked in *honey*, right from honey bottles in the inventory.
-
-Most equipment can soak up to four bottles of honey, but some might drain faster than others with use.
-
-A bottle of water can be used to remove all honey from a piece of equipment - but why would you want that?
 
 ### Beecons
 
