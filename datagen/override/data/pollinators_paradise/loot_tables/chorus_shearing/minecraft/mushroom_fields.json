@@ -1,0 +1,90 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "functions": [
+            {
+              "count": 3,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "brown_mushroom",
+          "quality": 0,
+          "type": "minecraft:item",
+          "weight": 120
+        },
+        {
+          "functions": [
+            {
+              "count": 3,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "red_mushroom",
+          "quality": 0,
+          "type": "minecraft:item",
+          "weight": 60
+        },
+        {
+          "functions": [
+            {
+              "count": 3,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "mycelium",
+          "quality": 1,
+          "type": "minecraft:item",
+          "weight": 10
+        },
+        {
+          "functions": [
+            {
+              "count": 3,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "mycelium",
+          "quality": 1,
+          "type": "minecraft:item",
+          "weight": 60
+        },
+        {
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{EntityTag:{Type:brown}}"
+            }
+          ],
+          "name": "mooshroom_spawn_egg",
+          "quality": 1,
+          "type": "minecraft:item",
+          "weight": 2
+        },
+        {
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{EntityTag:{Type:brown}}"
+            }
+          ],
+          "name": "mooshroom_spawn_egg",
+          "quality": 1,
+          "type": "minecraft:item",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "type": "minecraft:block"
+}

@@ -16,8 +16,10 @@ def assert_not_dir(path):
 
 
 def write_loot_tables(loot_dir, data, biome):
-    with open(loot_dir + 'minecraft/' + biome + '.json', 'w') as out_file:
-        json.dump(data, out_file, indent=4, sort_keys=True)
+    path = loot_dir + 'chorus_shearing/minecraft/' + biome + '.json'
+    if not os.path.exists(path):
+        with open(path, 'w') as out_file:
+            json.dump(data, out_file, indent=4, sort_keys=True)
 
 
 def main():
@@ -26,7 +28,7 @@ def main():
     assert_not_dir(dir_pack)
     shutil.copytree('override', dir_pack)
     assert_dir(dir_loot)
-    assert_dir(dir_loot + 'minecraft/')
+    assert_dir(dir_loot + 'chorus_shearing/minecraft/')
 
     with open('./template/loot.json', 'r') as template_file:
         template = json.load(template_file)
