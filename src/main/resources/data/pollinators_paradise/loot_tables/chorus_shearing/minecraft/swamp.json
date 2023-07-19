@@ -5,11 +5,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "lily_pad",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
@@ -17,11 +17,11 @@
                 {
                     "functions": [
                         {
-                            "count": 1,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
+                    "name": "clay_ball",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 60
@@ -33,7 +33,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "feather",
+                    "name": "slime_ball",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
@@ -41,11 +41,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "ochre_froglight",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 60
@@ -57,7 +57,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "verdant_froglight",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 2
@@ -65,11 +65,11 @@
                 {
                     "functions": [
                         {
-                            "count": 1,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "verdant_froglight",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1

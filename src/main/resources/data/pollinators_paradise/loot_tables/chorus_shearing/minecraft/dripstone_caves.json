@@ -9,7 +9,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "redstone",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
@@ -17,11 +17,11 @@
                 {
                     "functions": [
                         {
-                            "count": 1,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
+                    "name": "redstone",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 60
@@ -33,7 +33,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "feather",
+                    "name": "raw_iron",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
@@ -45,7 +45,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "lapis_lazuli",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 60
@@ -53,11 +53,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "diamond",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 2
@@ -69,7 +69,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "diamond_ore",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1

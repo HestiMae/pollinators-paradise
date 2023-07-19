@@ -5,11 +5,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "quartz",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
@@ -21,7 +21,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
+                    "name": "brown_mushroom",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 60
@@ -29,11 +29,11 @@
                 {
                     "functions": [
                         {
-                            "count": 2,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "feather",
+                    "name": "magma_cream",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
@@ -41,11 +41,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "ghast_tear",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 60
@@ -53,11 +53,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "rib_armor_trim_smithing_template",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 2
@@ -69,7 +69,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "ancient_debris",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1

@@ -5,11 +5,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "raw_copper",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
@@ -21,7 +21,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
+                    "name": "raw_copper",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 60
@@ -29,38 +29,14 @@
                 {
                     "functions": [
                         {
-                            "count": 2,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "feather",
+                    "name": "coal",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
-                },
-                {
-                    "functions": [
-                        {
-                            "count": 3,
-                            "function": "minecraft:set_count"
-                        }
-                    ],
-                    "name": "pumpkin_seeds",
-                    "quality": 1,
-                    "type": "minecraft:item",
-                    "weight": 60
-                },
-                {
-                    "functions": [
-                        {
-                            "count": 3,
-                            "function": "minecraft:set_count"
-                        }
-                    ],
-                    "name": "pumpkin_seeds",
-                    "quality": 1,
-                    "type": "minecraft:item",
-                    "weight": 2
                 },
                 {
                     "functions": [
@@ -69,7 +45,31 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "emerald",
+                    "quality": 1,
+                    "type": "minecraft:item",
+                    "weight": 60
+                },
+                {
+                    "functions": [
+                        {
+                            "count": 3,
+                            "function": "minecraft:set_count"
+                        }
+                    ],
+                    "name": "emerald",
+                    "quality": 1,
+                    "type": "minecraft:item",
+                    "weight": 2
+                },
+                {
+                    "functions": [
+                        {
+                            "count": 3,
+                            "function": "minecraft:set_count"
+                        }
+                    ],
+                    "name": "emerald",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1

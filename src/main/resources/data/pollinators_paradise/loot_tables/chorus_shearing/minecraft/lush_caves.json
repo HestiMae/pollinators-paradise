@@ -9,7 +9,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "glow_berries",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
@@ -17,11 +17,11 @@
                 {
                     "functions": [
                         {
-                            "count": 1,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
+                    "name": "clay_ball",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 60
@@ -33,7 +33,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "feather",
+                    "name": "coal",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
@@ -41,11 +41,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 2,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "raw_iron",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 60
@@ -53,11 +53,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "raw_iron_block",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 2
@@ -69,7 +69,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "diamond",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1

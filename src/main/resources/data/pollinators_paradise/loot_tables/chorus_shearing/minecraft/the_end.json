@@ -9,10 +9,22 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "ender_pearl",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
+                },
+                {
+                    "functions": [
+                        {
+                            "count": 3,
+                            "function": "minecraft:set_count"
+                        }
+                    ],
+                    "name": "ender_pearl",
+                    "quality": 0,
+                    "type": "minecraft:item",
+                    "weight": 60
                 },
                 {
                     "functions": [
@@ -21,19 +33,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
-                    "quality": 0,
-                    "type": "minecraft:item",
-                    "weight": 60
-                },
-                {
-                    "functions": [
-                        {
-                            "count": 2,
-                            "function": "minecraft:set_count"
-                        }
-                    ],
-                    "name": "feather",
+                    "name": "obsidian",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
@@ -41,11 +41,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "obsidian",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 60
@@ -53,11 +53,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 1,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "end_crystal",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 2
@@ -69,7 +69,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "end_crystal",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1

@@ -9,7 +9,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "wheat",
+                    "name": "packed_ice",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 120
@@ -17,11 +17,11 @@
                 {
                     "functions": [
                         {
-                            "count": 1,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "apple",
+                    "name": "packed_ice",
                     "quality": 0,
                     "type": "minecraft:item",
                     "weight": 60
@@ -29,11 +29,11 @@
                 {
                     "functions": [
                         {
-                            "count": 2,
+                            "count": 3,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "feather",
+                    "name": "blue_ice",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 10
@@ -45,7 +45,7 @@
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "blue_ice",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 60
@@ -53,11 +53,11 @@
                 {
                     "functions": [
                         {
-                            "count": 3,
+                            "count": 21,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "pumpkin_seeds",
+                    "name": "blue_ice",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 2
@@ -65,11 +65,11 @@
                 {
                     "functions": [
                         {
-                            "count": 1,
+                            "count": 21,
                             "function": "minecraft:set_count"
                         }
                     ],
-                    "name": "sentry_armor_trim_smithing_template",
+                    "name": "blue_ice",
                     "quality": 1,
                     "type": "minecraft:item",
                     "weight": 1
