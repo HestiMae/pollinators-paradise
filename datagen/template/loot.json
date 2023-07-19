@@ -43,7 +43,7 @@
         {
           "type": "minecraft:item",
           "name": "gold_ore",
-          "weight": 60,
+          "weight": 6,
           "quality": 1,
           "functions": [
             {

@@ -48,7 +48,7 @@
                     "name": "mossy_cobblestone",
                     "quality": 1,
                     "type": "minecraft:item",
-                    "weight": 60
+                    "weight": 6
                 },
                 {
                     "functions": [

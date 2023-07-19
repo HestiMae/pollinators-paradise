@@ -48,7 +48,7 @@
                     "name": "rotten_flesh",
                     "quality": 1,
                     "type": "minecraft:item",
-                    "weight": 60
+                    "weight": 6
                 },
                 {
                     "functions": [
