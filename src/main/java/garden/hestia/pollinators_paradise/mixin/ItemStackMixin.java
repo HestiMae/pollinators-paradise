@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
@@ -40,8 +41,8 @@ public abstract class ItemStackMixin {
 		ItemStack self = (ItemStack) (Object) this;
 		if (self.getItem() instanceof HoneyableArmorItem hai && hai.getArmorSlot().getEquipmentSlot() == slot) {
 			ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-			builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(PROTECTION_MODIFIERS[slot.getEntitySlotId()], "honeyProtection", hai.getProtection() + (hai.getHoneyType(self) == Honeyable.HoneyType.HONEY ? 1 : 0), EntityAttributeModifier.Operation.ADDITION));
-			if (hai.getHoneyType(self) == Honeyable.HoneyType.CHORUS) {
+			builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(PROTECTION_MODIFIERS[slot.getEntitySlotId()], "honeyProtection", hai.getProtection() + (hai.getHoneyType(self) == HoneyTypes.HONEY ? 1 : 0), EntityAttributeModifier.Operation.ADDITION));
+			if (hai.getHoneyType(self) == HoneyTypes.CHORUS) {
 				builder.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(KNOCKBACK_MODIFIERS[slot.getEntitySlotId()], "chorusKnockback", hai.getMaterial().getKnockbackResistance() + 0.1, EntityAttributeModifier.Operation.ADDITION));
 			}
 			cir.setReturnValue(builder.build());

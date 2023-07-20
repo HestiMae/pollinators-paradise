@@ -28,7 +28,7 @@ public abstract class ArmorFeatureRendererMixin {
 	@Inject(method = "renderArmor(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;ILnet/minecraft/client/render/entity/model/BipedEntityModel;)V", at = @At("TAIL"))
 	private void apiaristThingy$renderArmor(MatrixStack matrices, VertexConsumerProvider vcp, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
 		var is = entity.getEquippedStack(armorSlot);
-		if (is.getItem() instanceof HoneyableArmorItem hai && hai.getArmorSlot().getEquipmentSlot() == armorSlot && hai.getHoneyType(is) != Honeyable.HoneyType.NONE) {
+		if (is.getItem() instanceof HoneyableArmorItem hai && hai.getArmorSlot().getEquipmentSlot() == armorSlot && hai.getHoneyType(is) != null) {
 			float[] colorComponents = hai.getArmorColor(is);
 			renderArmorParts(matrices, vcp, light, hai, model, armorSlot == EquipmentSlot.LEGS, colorComponents[0], colorComponents[1], colorComponents[2], "overlay");
 		}

@@ -40,18 +40,21 @@ public class PollinatorsParadise implements ModInitializer {
 	public static final Identifier C2S_WALLJUMP = new Identifier(ID, "walljump");
 	public static final float SAFE_BEE_HEALTH = 4.0F;
 
-	public static final Item APIARIST_VEIL = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 16, Map.of(Honeyable.HoneyType.HONEY, "Bee Calm", Honeyable.HoneyType.CHORUS, "Bee Allies")));
-	public static final Item APIARIST_WELLIES = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 512, Map.of(Honeyable.HoneyType.HONEY, "Honey Block Crystallise", Honeyable.HoneyType.CHORUS, "Faithwalking", Honeyable.HoneyType.NONE, "Slippery When Dry")));
-	public static final Item APIARIST_SUIT = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 64, Map.of(Honeyable.HoneyType.HONEY, "Sticky Thorns", Honeyable.HoneyType.CHORUS, "Chorus Dodge")));
-	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 128, Map.of(Honeyable.HoneyType.HONEY, "Honey Climber", Honeyable.HoneyType.CHORUS, "Pollen Pants")));
-	public static final Item APIARIST_SHEARS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_shears"), new HoneyableShearsItem(new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 32, Map.of(Honeyable.HoneyType.HONEY, "Nest Harvesters", Honeyable.HoneyType.CHORUS, "Nest Scavengers")));
-	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wand"), new HoneyWandItem(new QuiltItemSettings().maxCount(1).maxDamage(0)));
+	public static final FoodComponent CHORUS_HONEY_BOTTLE_FOOD = new FoodComponent.Builder().hunger(6).saturationModifier(0.1F).alwaysEdible().build();
+	public static final Item CHORUS_HONEY_BOTTLE = Registry.register(Registries.ITEM, new Identifier(ID, "chorus_honey_bottle"), new ChorusHoneyBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(CHORUS_HONEY_BOTTLE_FOOD).maxCount(16)));
 	public static final Block WAXED_WOOL_BLOCK = Registry.register(Registries.BLOCK, new Identifier(ID, "waxed_wool"), new Block(QuiltBlockSettings.copyOf(Blocks.WHITE_WOOL)));
 	public static final BlockItem WAXED_WOOL_ITEM = Registry.register(Registries.ITEM, new Identifier(ID, "waxed_wool"), new BlockItem(WAXED_WOOL_BLOCK, new QuiltItemSettings()));
 	public static final Block CHORUS_HONEY_BLOCK = Registry.register(Registries.BLOCK, new Identifier(ID, "chorus_honey_block"), new ChorusHoneyBlock(AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).velocityMultiplier(0.4F).jumpVelocityMultiplier(0.5F).nonOpaque().sounds(BlockSoundGroup.HONEY)));
 	public static final BlockItem CHORUS_HONEY_BLOCK_ITEM = Registry.register(Registries.ITEM, new Identifier(ID, "chorus_honey_block"), new BlockItem(CHORUS_HONEY_BLOCK, new QuiltItemSettings()));
-	public static final FoodComponent CHORUS_HONEY_BOTTLE_FOOD = new FoodComponent.Builder().hunger(6).saturationModifier(0.1F).alwaysEdible().build();
-	public static final Item CHORUS_HONEY_BOTTLE = Registry.register(Registries.ITEM, new Identifier(ID, "chorus_honey_bottle"), new ChorusHoneyBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(CHORUS_HONEY_BOTTLE_FOOD).maxCount(16)));
+
+	public static final Item APIARIST_VEIL = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_veil"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 16, Map.of(HoneyTypes.HONEY, "Bee Calm", HoneyTypes.CHORUS, "Bee Allies")));
+	public static final Item APIARIST_WELLIES = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wellies"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 512, Map.of(HoneyTypes.HONEY, "Honey Block Crystallise", HoneyTypes.CHORUS, "Faithwalking"), "Slippery When Dry"));
+	public static final Item APIARIST_SUIT = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_suit"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 64, Map.of(HoneyTypes.HONEY, "Sticky Thorns", HoneyTypes.CHORUS, "Chorus Dodge")));
+	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_leggings"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 128, Map.of(HoneyTypes.HONEY, "Honey Climber", HoneyTypes.CHORUS, "Pollen Pants")));
+	public static final Item APIARIST_SHEARS = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_shears"), new HoneyableShearsItem(new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 32, Map.of(HoneyTypes.HONEY, "Nest Harvesters", HoneyTypes.CHORUS, "Nest Scavengers")));
+	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, new Identifier(ID, "apiarist_wand"), new HoneyWandItem(new QuiltItemSettings().maxCount(1).maxDamage(0)));
+
+
 
 	public static boolean FEED_THE_BEES_PRESENT = false;
 
@@ -101,7 +104,7 @@ public class PollinatorsParadise implements ModInitializer {
 
 		ServerPlayNetworking.registerGlobalReceiver(C2S_WALLJUMP, ((server, player, handler, buf, responseSender) -> {
 			if (player.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof Honeyable honeyItem
-					&& honeyItem.decrementHoneyLevel(player.getEquippedStack(EquipmentSlot.LEGS), Honeyable.HoneyType.HONEY)) {
+					&& honeyItem.decrementHoneyLevel(player.getEquippedStack(EquipmentSlot.LEGS), HoneyTypes.HONEY)) {
 				player.fallDistance = 0;
 			}
 		}));
@@ -112,6 +115,8 @@ public class PollinatorsParadise implements ModInitializer {
 		}
 
 		StatusEffects.SPEED.addAttributeModifier(EntityAttributes.GENERIC_FLYING_SPEED, "847abf1d-d98e-4cc8-9a8e-3d097b6c8268", 0.2F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+
+		HoneyTypes.initialize();
 
 		LOGGER.info("[Pollinators' Paradise] Buzzing... Buzzed. Minecraft pollination successful");
 	}

@@ -82,7 +82,7 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 			ItemStack feetStack = player.getEquippedStack(EquipmentSlot.FEET);
 			if (feetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
 					&& feetStack.getItem() instanceof Honeyable honeyItem
-					&& honeyItem.getHoneyType(feetStack) == Honeyable.HoneyType.NONE) {
+					&& honeyItem.getHoneyType(feetStack) == null) {
 				return 0.95F;
 			}
 		}

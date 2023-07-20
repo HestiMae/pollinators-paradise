@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.item;
 
+import garden.hestia.pollinators_paradise.HoneyType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -33,13 +34,23 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 	private final int bottleCapacity;
 	private final int bottlePoints;
 	private final Map<HoneyType, String> tooltips;
+	private final String noneTooltip;
 
+
+	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, String> tooltips, @Nullable String noneTooltip) {
+		super(material, slot, settings);
+		this.bottleCapacity = bottleCapacity;
+		this.bottlePoints = bottlePoints;
+		this.tooltips = tooltips;
+		this.noneTooltip = noneTooltip;
+	}
 
 	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, String> tooltips) {
 		super(material, slot, settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
 		this.tooltips = tooltips;
+		this.noneTooltip = null;
 	}
 
 	@Override
@@ -64,6 +75,10 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		if (getHoneyType(stack) == null) {
+			if (noneTooltip != null) tooltip.add(Text.literal(noneTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
+			return;
+		}
 		String honeyTooltip = tooltips.get(getHoneyType(stack));
 		if (honeyTooltip != null) {
 			tooltip.add(Text.literal(honeyTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));

@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.WelliesJumpingMount;
@@ -58,20 +59,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 		if (helmetStack.isOf(PollinatorsParadise.APIARIST_VEIL) &&
 				helmetStack.getItem() instanceof Honeyable honeyItem && helmetStack.getCooldown() == 0) {
 			Vec3d pos = this.getPos();
-			if (honeyItem.getHoneyType(helmetStack) == Honeyable.HoneyType.HONEY) {
+			if (honeyItem.getHoneyType(helmetStack) == HoneyTypes.HONEY) {
 				List<BeeEntity> calmableBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, CALMING_BOX_SIZE, CALMING_BOX_SIZE, CALMING_BOX_SIZE)).stream().filter(y -> y.getAngryAt() == this.uuid).toList();
-				if (!calmableBees.isEmpty() && honeyItem.decrementHoneyLevel(helmetStack, Honeyable.HoneyType.HONEY)) {
+				if (!calmableBees.isEmpty() && honeyItem.decrementHoneyLevel(helmetStack, HoneyTypes.HONEY)) {
 					for (BeeEntity calmableBee : calmableBees) {
 						calmableBee.stopAnger();
 					}
 					helmetStack.setCooldown(20);
 				}
-			} else if (honeyItem.getHoneyType(helmetStack) == Honeyable.HoneyType.CHORUS) {
+			} else if (honeyItem.getHoneyType(helmetStack) == HoneyTypes.CHORUS) {
 				List<BeeEntity> allyBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, ALLY_BOX_SIZE, ALLY_BOX_SIZE, ALLY_BOX_SIZE)).stream().filter(b -> !b.hasAngerTime() && !b.hasStung()).toList();
 				List<HostileEntity> attackers = this.getWorld().getNonSpectatingEntities(HostileEntity.class, Box.of(pos, ATTACKER_BOX_SIZE, ATTACKER_BOX_SIZE, ATTACKER_BOX_SIZE)).stream().filter(h -> h.isAngryAt((PlayerEntity) (Object) this)).toList();
 				if (!allyBees.isEmpty() && !attackers.isEmpty()) {
 					if (allyBees.stream().anyMatch(allyBee -> PollinatorsParadise.safeBeeAnger(allyBee, attackers.get(allyBee.getRandom().nextInt(attackers.size()))))) {
-						honeyItem.decrementHoneyLevel(helmetStack, Honeyable.HoneyType.CHORUS);
+						honeyItem.decrementHoneyLevel(helmetStack, HoneyTypes.CHORUS);
 						helmetStack.setCooldown(100);
 					}
 				}
@@ -90,14 +91,14 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 		ItemStack equippedLegStack = this.getEquippedStack(EquipmentSlot.LEGS);
 		if (this.pollenCharges < 10 && equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS)
 				&& equippedLegStack.getItem() instanceof Honeyable honeyItem
-				&& honeyItem.getHoneyType(equippedLegStack) == Honeyable.HoneyType.CHORUS) {
+				&& honeyItem.getHoneyType(equippedLegStack) == HoneyTypes.CHORUS) {
 			for (int i = 0; i <= 1; ++i) {
 				BlockPos blockPos = this.getBlockPos().down(i);
 				BlockState blockState = this.getWorld().getBlockState(blockPos);
 				if (blockState.isIn(BlockTags.FLOWERS)) {
 					pollenCharges = 10;
 					this.getWorld().syncWorldEvent(WorldEvents.PLANT_FERTILIZED, blockPos, 0);
-					honeyItem.decrementHoneyLevel(equippedLegStack, Honeyable.HoneyType.CHORUS);
+					honeyItem.decrementHoneyLevel(equippedLegStack, HoneyTypes.CHORUS);
 				}
 			}
 		}
@@ -160,7 +161,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 		PlayerEntity self = (PlayerEntity) (Object) this;
 		ItemStack equippedFeetStack = self.getEquippedStack(EquipmentSlot.FEET);
 		if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
-				&& honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.CHORUS) {
+				&& honeyItem.getHoneyType(equippedFeetStack) == HoneyTypes.CHORUS) {
 			if (self.getPitch() > 60.0F || self.isOnGround() || faithWalkingTicks < 30) {
 				faithWalkingTicks--;
 			}
@@ -171,7 +172,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 			if (self.isSprinting() && !self.isOnGround() && faithWalkingTicks > 0) {
 				self.setVelocity(self.getVelocity().x, 0, self.getVelocity().z);
 			}
-			if (faithWalkingTicks == 0) honeyItem.decrementHoneyLevel(equippedFeetStack, Honeyable.HoneyType.CHORUS);
+			if (faithWalkingTicks == 0) honeyItem.decrementHoneyLevel(equippedFeetStack, HoneyTypes.CHORUS);
 		} else {
 			faithWalkingTicks = 0;
 		}

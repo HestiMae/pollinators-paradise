@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.Entity;
@@ -48,9 +49,9 @@ public abstract class ProjectileEntityMixin extends Entity {
 			if (entity instanceof PlayerEntity player && entity.getWorld() instanceof ServerWorld sw && player instanceof ServerPlayerEntity spe &&
 					player.getEquippedStack(EquipmentSlot.CHEST).isOf(PollinatorsParadise.APIARIST_SUIT)
 					&& player.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof Honeyable honeyableItem
-					&& honeyableItem.getHoneyType(player.getEquippedStack(EquipmentSlot.CHEST)) == Honeyable.HoneyType.CHORUS) {
+					&& honeyableItem.getHoneyType(player.getEquippedStack(EquipmentSlot.CHEST)) == HoneyTypes.CHORUS) {
 				if (this.random.nextBoolean()) {
-					honeyableItem.decrementHoneyLevel(player.getEquippedStack(EquipmentSlot.CHEST), Honeyable.HoneyType.CHORUS);
+					honeyableItem.decrementHoneyLevel(player.getEquippedStack(EquipmentSlot.CHEST), HoneyTypes.CHORUS);
 					sw.playSound(null, spe.getX(), spe.getY(), spe.getZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, spe.getSoundCategory(), 1.0f, 1.0f);
 					sw.emitGameEvent(GameEvent.TELEPORT, spe.getPos(), GameEvent.Context.create(spe));
 					dodgeSuccesses.add(entity);

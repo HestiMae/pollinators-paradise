@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -42,10 +43,10 @@ public class HoneyWandItem extends Item {
 			int chorusHoneyAmount = 0;
 			for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
 				if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {
-					honeyAmount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
-					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
-					chorusHoneyAmount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.CHORUS);
-					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.CHORUS);
+					honeyAmount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), HoneyTypes.HONEY);
+					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), HoneyTypes.HONEY);
+					chorusHoneyAmount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), HoneyTypes.CHORUS);
+					honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), HoneyTypes.CHORUS);
 
 				}
 			}

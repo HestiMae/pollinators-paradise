@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.block;
 
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorLivingEntity;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.client.PollinatorsParadiseClient;
@@ -42,7 +43,7 @@ public class ChorusHoneyBlock extends HoneyBlock {
 			ItemStack equippedLegStack = player.getEquippedStack(EquipmentSlot.LEGS);
 			if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && equippedLegStack.getItem() instanceof Honeyable honeyItem) {
 				if (player instanceof PollinatorLivingEntity pollinatorPlayer && pollinatorPlayer.pollinators$jumping()) {
-					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0 && honeyItem.getHoneyLevel(equippedLegStack, Honeyable.HoneyType.HONEY) > 0) {
+					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0 && honeyItem.getHoneyLevel(equippedLegStack, HoneyTypes.HONEY) > 0) {
 						if (entity.getWorld().isClient()) {
 							PollinatorsParadiseClient.walljump();
 						}

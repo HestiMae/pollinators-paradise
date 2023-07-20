@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
@@ -37,10 +38,10 @@ public abstract class BeehiveBlockMixin extends BlockWithEntity {
 	void apiaristShearsDoubleDrops(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (state.getBlock() == Blocks.BEE_NEST && itemStack.getItem() instanceof HoneyableShearsItem honeyableShearsItem) {
-			if (honeyableShearsItem.decrementHoneyLevel(itemStack, Honeyable.HoneyType.HONEY)) {
+			if (honeyableShearsItem.decrementHoneyLevel(itemStack, HoneyTypes.HONEY)) {
 				BeehiveBlock.dropHoneycomb(world, pos);
 			}
-			if (honeyableShearsItem.decrementHoneyLevel(itemStack, Honeyable.HoneyType.CHORUS) && !world.isClient()) {
+			if (honeyableShearsItem.decrementHoneyLevel(itemStack, HoneyTypes.CHORUS) && !world.isClient()) {
 				LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder((ServerWorld) world)
 						.add(LootContextParameters.BLOCK_STATE, state)
 						.add(LootContextParameters.ORIGIN, pos.ofCenter())

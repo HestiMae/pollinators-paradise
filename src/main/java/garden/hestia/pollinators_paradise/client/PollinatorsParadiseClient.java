@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.client;
 
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -26,7 +27,7 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 				PollinatorsParadise.APIARIST_VEIL, PollinatorsParadise.APIARIST_SUIT, PollinatorsParadise.APIARIST_LEGGINGS, PollinatorsParadise.APIARIST_WELLIES, PollinatorsParadise.APIARIST_SHEARS
 		);
 		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
-			if (itemStack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(itemStack) != Honeyable.HoneyType.NONE) {
+			if (itemStack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(itemStack) != null) {
 				return 1;
 			}
 			return 0;
@@ -37,10 +38,10 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			if (livingEntity != null) {
 				for (ItemStack stack : livingEntity.getItemsEquipped()) {
 					if (stack.getItem() instanceof Honeyable honeyItem) {
-						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.HONEY) {
+						if (honeyItem.getHoneyType(stack) == HoneyTypes.HONEY) {
 							honey++;
 						}
-						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.CHORUS) {
+						if (honeyItem.getHoneyType(stack) == HoneyTypes.CHORUS) {
 							chorus++;
 						}
 					}
@@ -54,10 +55,10 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			if (livingEntity != null) {
 				for (ItemStack stack : livingEntity.getItemsEquipped()) {
 					if (stack.getItem() instanceof Honeyable honeyItem) {
-						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.HONEY) {
+						if (honeyItem.getHoneyType(stack) == HoneyTypes.HONEY) {
 							honey++;
 						}
-						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.CHORUS) {
+						if (honeyItem.getHoneyType(stack) == HoneyTypes.CHORUS) {
 							chorus++;
 						}
 					}
@@ -71,10 +72,10 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			if (livingEntity != null) {
 				for (ItemStack stack : livingEntity.getItemsEquipped()) {
 					if (stack.getItem() instanceof Honeyable honeyItem) {
-						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.HONEY) {
+						if (honeyItem.getHoneyType(stack) == HoneyTypes.HONEY) {
 							honey++;
 						}
-						if (honeyItem.getHoneyType(stack) == Honeyable.HoneyType.CHORUS) {
+						if (honeyItem.getHoneyType(stack) == HoneyTypes.CHORUS) {
 							chorus++;
 						}
 					}

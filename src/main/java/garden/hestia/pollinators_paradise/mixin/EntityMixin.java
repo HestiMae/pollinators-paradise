@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorEntity;
 import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
@@ -49,7 +50,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
 				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
 						&& player.isSneaking()
-						&& honeyItem.getHoneyType(equippedFeetStack) == Honeyable.HoneyType.HONEY) {
+						&& honeyItem.getHoneyType(equippedFeetStack) == HoneyTypes.HONEY) {
 					crystallised = honeyBlock;
 				}
 			}
@@ -58,7 +59,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 			self.fallDistance = 0;
 			self.setVelocity(self.getVelocity().x, 0, self.getVelocity().z);
 			if (self instanceof PlayerEntity playerEntity && !playerEntity.hasStatusEffect(StatusEffects.RESISTANCE) && !(crystallised instanceof ChorusHoneyBlock)
-					&& playerEntity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof Honeyable honeyItem && honeyItem.decrementHoneyLevel(playerEntity.getEquippedStack(EquipmentSlot.FEET), 2, Honeyable.HoneyType.HONEY)) {
+					&& playerEntity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof Honeyable honeyItem && honeyItem.decrementHoneyLevel(playerEntity.getEquippedStack(EquipmentSlot.FEET), 2, HoneyTypes.HONEY)) {
 				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 0, true, true), playerEntity);
 			}
 		}
@@ -74,7 +75,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 			ItemStack equippedChestStack = livingTarget.getEquippedStack(EquipmentSlot.CHEST);
 			if (equippedChestStack.isOf(PollinatorsParadise.APIARIST_SUIT)
 					&& equippedChestStack.getItem() instanceof Honeyable honeyItem
-					&& honeyItem.decrementHoneyLevel(equippedChestStack, Honeyable.HoneyType.HONEY)) {
+					&& honeyItem.decrementHoneyLevel(equippedChestStack, HoneyTypes.HONEY)) {
 				attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
 				if (target.getWorld() instanceof ServerWorld serverWorld) {
 					serverWorld.getChunkManager().sendToNearbyPlayers(target, new EntityAnimationS2CPacket(attacker, EntityAnimationS2CPacket.CRIT));
@@ -103,8 +104,8 @@ public abstract class EntityMixin implements PollinatorEntity {
 				int amount = 0;
 				for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
 					if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {
-						amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
-						honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), Honeyable.HoneyType.HONEY);
+						amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), HoneyTypes.HONEY);
+						honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), HoneyTypes.HONEY);
 					}
 				}
 				if (amount > 0) {
