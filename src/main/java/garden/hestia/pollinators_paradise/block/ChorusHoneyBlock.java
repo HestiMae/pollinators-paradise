@@ -3,7 +3,7 @@ package garden.hestia.pollinators_paradise.block;
 import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorLivingEntity;
 import garden.hestia.pollinators_paradise.PollinatorsItems;
-import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.client.PollinatorsClientNetworking;
 import garden.hestia.pollinators_paradise.client.PollinatorsParadiseClient;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.BlockState;
@@ -46,7 +46,7 @@ public class ChorusHoneyBlock extends HoneyBlock {
 				if (player instanceof PollinatorLivingEntity pollinatorPlayer && pollinatorPlayer.pollinators$jumping()) {
 					if (pollinatorPlayer.pollinators$jumpCooldown() <= 0 && honeyItem.getHoneyLevel(equippedLegStack, HoneyTypes.HONEY) > 0) {
 						if (entity.getWorld().isClient()) {
-							PollinatorsParadiseClient.walljump();
+							PollinatorsClientNetworking.wallJump();
 						}
 						pollinatorPlayer.pollinators$wallJump(pos);
 					}
