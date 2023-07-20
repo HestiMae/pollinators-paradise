@@ -68,7 +68,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 				List<BeeEntity> allyBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, ALLY_BOX_SIZE, ALLY_BOX_SIZE, ALLY_BOX_SIZE)).stream().filter(b -> !b.hasAngerTime() && !b.hasStung()).toList();
 				List<HostileEntity> attackers = this.getWorld().getNonSpectatingEntities(HostileEntity.class, Box.of(pos, ATTACKER_BOX_SIZE, ATTACKER_BOX_SIZE, ATTACKER_BOX_SIZE)).stream().filter(h -> h.isAngryAt((PlayerEntity) (Object) this)).toList();
 				if (!allyBees.isEmpty() && !attackers.isEmpty()) {
-					if (allyBees.stream().anyMatch(allyBee -> PollinatorsParadise.safeBeeAnger(allyBee, attackers.get(allyBee.getRandom().nextInt(attackers.size()))))) {
+					if (allyBees.stream().anyMatch(allyBee -> PollinatorsUtil.safeBeeAnger(allyBee, attackers.get(allyBee.getRandom().nextInt(attackers.size()))))) {
 						honeyItem.decrementHoneyLevel(helmetStack, HoneyTypes.CHORUS);
 						helmetStack.setCooldown(100);
 					}
