@@ -2,6 +2,7 @@ package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.PollinatorLivingEntity;
 import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
+import garden.hestia.pollinators_paradise.PollinatorsItems;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.Entity;
@@ -80,7 +81,7 @@ public abstract class LivingEntityMixin extends Entity implements PollinatorLivi
 	public float emptyWelliesSlippery(float original) {
 		if ((Object) this instanceof PlayerEntity player) {
 			ItemStack feetStack = player.getEquippedStack(EquipmentSlot.FEET);
-			if (feetStack.isOf(PollinatorsParadise.APIARIST_WELLIES)
+			if (feetStack.isOf(PollinatorsItems.APIARIST_WELLIES)
 					&& feetStack.getItem() instanceof Honeyable honeyItem
 					&& honeyItem.getHoneyType(feetStack) == null) {
 				return 0.95F;

@@ -1,9 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
-import garden.hestia.pollinators_paradise.HoneyTypes;
-import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
-import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import garden.hestia.pollinators_paradise.WelliesJumpingMount;
+import garden.hestia.pollinators_paradise.*;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
@@ -56,7 +53,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void veilTick(CallbackInfo ci) {
 		ItemStack helmetStack = getEquippedStack(EquipmentSlot.HEAD);
-		if (helmetStack.isOf(PollinatorsParadise.APIARIST_VEIL) &&
+		if (helmetStack.isOf(PollinatorsItems.APIARIST_VEIL) &&
 				helmetStack.getItem() instanceof Honeyable honeyItem && helmetStack.getCooldown() == 0) {
 			Vec3d pos = this.getPos();
 			if (honeyItem.getHoneyType(helmetStack) == HoneyTypes.HONEY) {
@@ -89,7 +86,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void pantsTick(CallbackInfo ci) {
 		ItemStack equippedLegStack = this.getEquippedStack(EquipmentSlot.LEGS);
-		if (this.pollenCharges < 10 && equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS)
+		if (this.pollenCharges < 10 && equippedLegStack.isOf(PollinatorsItems.APIARIST_LEGGINGS)
 				&& equippedLegStack.getItem() instanceof Honeyable honeyItem
 				&& honeyItem.getHoneyType(equippedLegStack) == HoneyTypes.CHORUS) {
 			for (int i = 0; i <= 1; ++i) {
@@ -103,7 +100,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 			}
 		}
 
-		if (equippedLegStack.isOf(PollinatorsParadise.APIARIST_LEGGINGS) && this.pollenCharges > 0) {
+		if (equippedLegStack.isOf(PollinatorsItems.APIARIST_LEGGINGS) && this.pollenCharges > 0) {
 			if (this.random.nextInt(30) == 0) {
 				this.addParticle(
 						this.getWorld(), this.getX() - 0.3F, this.getX() + 0.3F, this.getZ() - 0.3F, this.getZ() + 0.3F, this.getBodyY(0.5), ParticleTypes.FALLING_NECTAR
@@ -160,7 +157,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 	private void welliesTick(CallbackInfo ci) {
 		PlayerEntity self = (PlayerEntity) (Object) this;
 		ItemStack equippedFeetStack = self.getEquippedStack(EquipmentSlot.FEET);
-		if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
+		if (equippedFeetStack.isOf(PollinatorsItems.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
 				&& honeyItem.getHoneyType(equippedFeetStack) == HoneyTypes.CHORUS) {
 			if (self.getPitch() > 60.0F || self.isOnGround() || faithWalkingTicks < 30) {
 				faithWalkingTicks--;

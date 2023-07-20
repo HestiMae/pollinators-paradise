@@ -3,6 +3,7 @@ package garden.hestia.pollinators_paradise.mixin;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import garden.hestia.pollinators_paradise.HoneyTypes;
+import garden.hestia.pollinators_paradise.PollinatorsItems;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
@@ -30,7 +31,7 @@ public abstract class ItemStackMixin {
 	@Inject(at = @At("HEAD"), method = "isOf", cancellable = true)
 	private void isApiaristShears(Item item, CallbackInfoReturnable<Boolean> cir) {
 		if (item == Items.SHEARS) {
-			if (isOf(PollinatorsParadise.APIARIST_SHEARS)) {
+			if (isOf(PollinatorsItems.APIARIST_SHEARS)) {
 				cir.setReturnValue(true);
 			}
 		}

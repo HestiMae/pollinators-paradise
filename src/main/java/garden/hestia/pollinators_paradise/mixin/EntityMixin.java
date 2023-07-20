@@ -1,9 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
-import garden.hestia.pollinators_paradise.HoneyTypes;
-import garden.hestia.pollinators_paradise.PollinatorEntity;
-import garden.hestia.pollinators_paradise.PollinatorPlayerEntity;
-import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.*;
 import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.block.Block;
@@ -48,7 +45,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 			Block honeyBlock = getAffectingHoneyBlock();
 			if (honeyBlock != null) {
 				ItemStack equippedFeetStack = player.getEquippedStack(EquipmentSlot.FEET);
-				if (equippedFeetStack.isOf(PollinatorsParadise.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
+				if (equippedFeetStack.isOf(PollinatorsItems.APIARIST_WELLIES) && equippedFeetStack.getItem() instanceof Honeyable honeyItem
 						&& player.isSneaking()
 						&& honeyItem.getHoneyType(equippedFeetStack) == HoneyTypes.HONEY) {
 					crystallised = honeyBlock;
@@ -73,7 +70,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 	public void applyDamageEffects(LivingEntity attacker, Entity target, CallbackInfo ci) {
 		if (target instanceof LivingEntity livingTarget) {
 			ItemStack equippedChestStack = livingTarget.getEquippedStack(EquipmentSlot.CHEST);
-			if (equippedChestStack.isOf(PollinatorsParadise.APIARIST_SUIT)
+			if (equippedChestStack.isOf(PollinatorsItems.APIARIST_SUIT)
 					&& equippedChestStack.getItem() instanceof Honeyable honeyItem
 					&& honeyItem.decrementHoneyLevel(equippedChestStack, HoneyTypes.HONEY)) {
 				attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 1), livingTarget);
@@ -100,7 +97,7 @@ public abstract class EntityMixin implements PollinatorEntity {
 	public void handleAttack(Entity attacker, CallbackInfoReturnable<Boolean> cir) {
 		Entity self = (Entity) (Object) this;
 		if (self instanceof BeeEntity bee) {
-			if (attacker instanceof PlayerEntity player && player.getMainHandStack().isOf(PollinatorsParadise.APIARIST_WAND)) {
+			if (attacker instanceof PlayerEntity player && player.getMainHandStack().isOf(PollinatorsItems.APIARIST_WAND)) {
 				int amount = 0;
 				for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
 					if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {

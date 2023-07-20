@@ -52,9 +52,9 @@ public abstract class BeehiveBlockMixin extends BlockWithEntity {
 						.build(LootContextTypes.BLOCK);
 
 				Identifier biomeID = world.getRegistryManager().get(RegistryKeys.BIOME).getId(world.getBiome(pos).value());
-				LootTable lootTable = world.getServer().getLootManager().getLootTable(new Identifier(PollinatorsParadise.ID, "chorus_shearing/%s/%s".formatted(biomeID.getNamespace(), biomeID.getPath())));
+				LootTable lootTable = world.getServer().getLootManager().getLootTable(PollinatorsParadise.id("chorus_shearing/%s/%s".formatted(biomeID.getNamespace(), biomeID.getPath())));
 				if (lootTable == LootTable.EMPTY)
-					lootTable = world.getServer().getLootManager().getLootTable(new Identifier(PollinatorsParadise.ID, "chorus_shearing"));
+					lootTable = world.getServer().getLootManager().getLootTable(PollinatorsParadise.id("chorus_shearing"));
 				List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
 				for (ItemStack stack : list) {
 					dropStack(world, pos, stack);

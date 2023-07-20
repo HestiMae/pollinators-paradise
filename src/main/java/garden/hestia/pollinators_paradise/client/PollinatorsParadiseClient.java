@@ -1,6 +1,7 @@
 package garden.hestia.pollinators_paradise.client;
 
 import garden.hestia.pollinators_paradise.HoneyTypes;
+import garden.hestia.pollinators_paradise.PollinatorsItems;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -21,18 +22,18 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), PollinatorsParadise.CHORUS_HONEY_BLOCK);
+		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), PollinatorsItems.CHORUS_HONEY_BLOCK);
 		ColorProviderRegistry.ITEM.register(
 				(stack, tintIndex) -> tintIndex == 0 ? -1 : ((Honeyable) stack.getItem()).getItemTintColor(stack),
-				PollinatorsParadise.APIARIST_VEIL, PollinatorsParadise.APIARIST_SUIT, PollinatorsParadise.APIARIST_LEGGINGS, PollinatorsParadise.APIARIST_WELLIES, PollinatorsParadise.APIARIST_SHEARS
+				PollinatorsItems.APIARIST_VEIL, PollinatorsItems.APIARIST_SUIT, PollinatorsItems.APIARIST_LEGGINGS, PollinatorsItems.APIARIST_WELLIES, PollinatorsItems.APIARIST_SHEARS
 		);
-		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
 			if (itemStack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(itemStack) != null) {
 				return 1;
 			}
 			return 0;
 		}));
-		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed_honey"), ((itemStack, clientWorld, livingEntity, i) -> {
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("armor_honeyed_honey"), ((itemStack, clientWorld, livingEntity, i) -> {
 			int honey = 0;
 			int chorus = 0;
 			if (livingEntity != null) {
@@ -49,7 +50,7 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			}
 			return honey > 0 && chorus == 0 ? 1 : 0;
 		}));
-		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed_mixed"), ((itemStack, clientWorld, livingEntity, i) -> {
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("armor_honeyed_mixed"), ((itemStack, clientWorld, livingEntity, i) -> {
 			int honey = 0;
 			int chorus = 0;
 			if (livingEntity != null) {
@@ -66,7 +67,7 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 			}
 			return honey > 0 && chorus > 0 ? 1 : 0;
 		}));
-		ModelPredicateProviderRegistry.register(new Identifier(PollinatorsParadise.ID, "armor_honeyed_chorus"), ((itemStack, clientWorld, livingEntity, i) -> {
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("armor_honeyed_chorus"), ((itemStack, clientWorld, livingEntity, i) -> {
 			int honey = 0;
 			int chorus = 0;
 			if (livingEntity != null) {

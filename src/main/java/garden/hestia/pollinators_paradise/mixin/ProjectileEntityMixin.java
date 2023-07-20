@@ -1,6 +1,7 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.HoneyTypes;
+import garden.hestia.pollinators_paradise.PollinatorsItems;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.minecraft.entity.Entity;
@@ -47,7 +48,7 @@ public abstract class ProjectileEntityMixin extends Entity {
 
 			// Chance Dodge
 			if (entity instanceof PlayerEntity player && entity.getWorld() instanceof ServerWorld sw && player instanceof ServerPlayerEntity spe &&
-					player.getEquippedStack(EquipmentSlot.CHEST).isOf(PollinatorsParadise.APIARIST_SUIT)
+					player.getEquippedStack(EquipmentSlot.CHEST).isOf(PollinatorsItems.APIARIST_SUIT)
 					&& player.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof Honeyable honeyableItem
 					&& honeyableItem.getHoneyType(player.getEquippedStack(EquipmentSlot.CHEST)) == HoneyTypes.CHORUS) {
 				if (this.random.nextBoolean()) {

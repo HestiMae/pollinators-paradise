@@ -1,6 +1,7 @@
 package garden.hestia.pollinators_paradise.mixin;
 
 import com.google.common.collect.ImmutableSet;
+import garden.hestia.pollinators_paradise.PollinatorsItems;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -18,7 +19,7 @@ public abstract class ItemPredicateMixin {
 	private static Set<Item> addApiaristShears(Set<Item> set) {
 		if (set != null && set.contains(Items.SHEARS)) {
 			set = new HashSet<>(set);
-			set.add(PollinatorsParadise.APIARIST_SHEARS);
+			set.add(PollinatorsItems.APIARIST_SHEARS);
 			set = ImmutableSet.copyOf(set);
 		}
 		return set;
