@@ -21,8 +21,7 @@ public class ChorusHoneyBottleItem extends HoneyBottleItem {
 
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-		ItemStack returnStack = super.finishUsing(stack, world, user);
-		if (!world.isClient) {
+		if (user instanceof PlayerEntity player) {
 			Vec3d pos = user.getPos();
 			double oldX = pos.getX();
 			double oldY = pos.getY();
@@ -31,30 +30,27 @@ public class ChorusHoneyBottleItem extends HoneyBottleItem {
 			if (user.hasVehicle()) {
 				user.stopRiding();
 			}
-			if (user instanceof PlayerEntity) {
-				((PlayerEntity) user).getItemCooldownManager().set(this, 20);
-			}
-			int ceilingY = 0;
+			Integer ceilingY = null;
 			for (int i = 1; i < 8; i++) {
 				if (!world.getBlockState(user.getBlockPos().up(i)).getCollisionShape(world, user.getBlockPos().up(i)).isEmpty()) {
-					ceilingY = i + 1;
+					ceilingY = user.getBlockY() + i + 1;
 					break;
 				}
 			}
-			for (int newY = Math.max(user.getBlockY() + ceilingY, world.getBottomY()); newY < world.getBottomY() + ((ServerWorld) world).getLogicalHeight() - 1; ++newY) {
-
-				if (user.teleport(oldX, newY, oldZ, true)) {
-					world.emitGameEvent(GameEvent.TELEPORT, pos, GameEvent.Context.create(user));
-					SoundEvent soundEvent = user instanceof FoxEntity ? SoundEvents.ENTITY_FOX_TELEPORT : SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT;
-					world.playSound(null, oldX, oldY, oldZ, soundEvent, SoundCategory.PLAYERS, 1.0F, 0.8F);
-					user.playSound(soundEvent, 1.0F, 0.8F);
-					break;
+			if (ceilingY != null) {
+				for (int newY = Math.max(ceilingY, world.getBottomY()); newY < world.getTopY() - 1; ++newY) {
+					if (user.teleport(oldX, newY, oldZ, true)) {
+						world.emitGameEvent(GameEvent.TELEPORT, pos, GameEvent.Context.create(user));
+						world.playSound(player, oldX, oldY, oldZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 0.8F);
+						stack.setCooldown(60);
+						return super.finishUsing(stack, world, user);
+					}
 				}
+			} else {
+				world.playSound(player, oldX, oldY, oldZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, 0.8F);
+				stack.setCooldown(100);
 			}
-
-
 		}
-
-		return returnStack;
+		return stack;
 	}
 }
