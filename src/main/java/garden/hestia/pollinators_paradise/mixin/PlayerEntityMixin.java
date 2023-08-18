@@ -52,9 +52,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void veilTick(CallbackInfo ci) {
+		PlayerEntity self = (PlayerEntity) (Object) this;
 		ItemStack helmetStack = getEquippedStack(EquipmentSlot.HEAD);
 		if (helmetStack.isOf(PollinatorsItems.APIARIST_VEIL) &&
-				helmetStack.getItem() instanceof Honeyable honeyItem && helmetStack.getCooldown() == 0) {
+				helmetStack.getItem() instanceof Honeyable honeyItem && !self.getItemCooldownManager().isCoolingDown(helmetStack.getItem())) {
 			Vec3d pos = this.getPos();
 			if (honeyItem.getHoneyType(helmetStack) == HoneyTypes.HONEY) {
 				List<BeeEntity> calmableBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, CALMING_BOX_SIZE, CALMING_BOX_SIZE, CALMING_BOX_SIZE)).stream().filter(y -> y.getAngryAt() == this.uuid).toList();
@@ -62,7 +63,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 					for (BeeEntity calmableBee : calmableBees) {
 						calmableBee.stopAnger();
 					}
-					helmetStack.setCooldown(20);
+					self.getItemCooldownManager().set(helmetStack.getItem(), 20);
 				}
 			} else if (honeyItem.getHoneyType(helmetStack) == HoneyTypes.CHORUS) {
 				List<BeeEntity> allyBees = this.getWorld().getNonSpectatingEntities(BeeEntity.class, Box.of(pos, ALLY_BOX_SIZE, ALLY_BOX_SIZE, ALLY_BOX_SIZE)).stream().filter(b -> !b.hasAngerTime() && !b.hasStung()).toList();
@@ -70,7 +71,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 				if (!allyBees.isEmpty() && !attackers.isEmpty()) {
 					if (allyBees.stream().anyMatch(allyBee -> PollinatorsUtil.safeBeeAnger(allyBee, attackers.get(allyBee.getRandom().nextInt(attackers.size()))))) {
 						honeyItem.decrementHoneyLevel(helmetStack, HoneyTypes.CHORUS);
-						helmetStack.setCooldown(100);
+						self.getItemCooldownManager().set(helmetStack.getItem(), 100);
 					}
 				}
 			}

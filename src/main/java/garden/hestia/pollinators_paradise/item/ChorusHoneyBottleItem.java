@@ -42,13 +42,13 @@ public class ChorusHoneyBottleItem extends HoneyBottleItem {
 					if (user.teleport(oldX, newY, oldZ, true)) {
 						world.emitGameEvent(GameEvent.TELEPORT, pos, GameEvent.Context.create(user));
 						world.playSound(player, oldX, oldY, oldZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 0.8F);
-						stack.setCooldown(60);
+						player.getItemCooldownManager().set(this, 60);
 						return super.finishUsing(stack, world, user);
 					}
 				}
 			} else {
 				world.playSound(player, oldX, oldY, oldZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, 0.8F);
-				stack.setCooldown(100);
+				player.getItemCooldownManager().set(this, 100);
 			}
 		}
 		return stack;
