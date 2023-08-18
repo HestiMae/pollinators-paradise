@@ -2,11 +2,13 @@ package garden.hestia.pollinators_paradise.mixin;
 
 import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import garden.hestia.pollinators_paradise.item.Honeyable;
 import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
 import net.minecraft.block.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
@@ -18,8 +20,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -57,7 +61,7 @@ public abstract class BeehiveBlockMixin extends BlockWithEntity {
 					lootTable = world.getServer().getLootManager().getLootTable(PollinatorsParadise.id("chorus_shearing"));
 				List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
 				for (ItemStack stack : list) {
-					dropStack(world, pos, stack);
+					dropStackIgnoreGamerule(world, pos, stack);
 				}
 			}
 		}
@@ -66,5 +70,26 @@ public abstract class BeehiveBlockMixin extends BlockWithEntity {
 	@Redirect(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CampfireBlock;isLitCampfireInRange(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z"))
 	boolean apiaristShearsBypassCampfire(World world, BlockPos pos, BlockState state, World world2, BlockPos pos2, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		return (player.getStackInHand(hand).getItem() instanceof HoneyableShearsItem) || CampfireBlock.isLitCampfireInRange(world, pos);
+	}
+
+	/**
+	 * @author Garden System
+	 * @reason BlanketCon specific version to ignore DO_TILE_DROPS for shearing hives
+	 */
+	@Overwrite
+	public static void dropHoneycomb(World world, BlockPos pos) {
+		dropStackIgnoreGamerule(world, pos, new ItemStack(Items.HONEYCOMB, 3));
+	}
+
+	private static void dropStackIgnoreGamerule(World world, BlockPos pos, ItemStack stack) {
+		double d = (double) EntityType.ITEM.getHeight() / 2.0;
+		double e = (double)pos.getX() + 0.5 + MathHelper.nextDouble(world.random, -0.25, 0.25);
+		double f = (double)pos.getY() + 0.5 + MathHelper.nextDouble(world.random, -0.25, 0.25) - d;
+		double g = (double)pos.getZ() + 0.5 + MathHelper.nextDouble(world.random, -0.25, 0.25);
+		if (!world.isClient && !stack.isEmpty() /* && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS) */) {
+			ItemEntity itemEntity = new ItemEntity(world, e, f, g, stack);
+			itemEntity.setToDefaultPickupDelay();
+			world.spawnEntity(itemEntity);
+		}
 	}
 }
