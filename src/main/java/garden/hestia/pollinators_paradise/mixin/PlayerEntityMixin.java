@@ -133,8 +133,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 							if (j < 3) {
 								blockState2 = blockState.with(SweetBerryBushBlock.AGE, j + 1);
 							}
-						} else if (blockState.isOf(Blocks.CAVE_VINES) || blockState.isOf(Blocks.CAVE_VINES_PLANT)) {
-							((Fertilizable) blockState.getBlock()).fertilize((ServerWorld) this.getWorld(), this.random, blockPos, blockState);
+						} else if (blockState.getBlock() instanceof Fertilizable fertilizable && this.getWorld() instanceof ServerWorld sw && (blockState.isOf(Blocks.CAVE_VINES) || blockState.isOf(Blocks.CAVE_VINES_PLANT))) {
+							fertilizable.fertilize(sw, this.random, blockPos, blockState);
 						}
 
 						if (blockState2 != null) {
