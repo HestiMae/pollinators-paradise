@@ -20,6 +20,12 @@ public abstract class BeehiveBlockEntityMixin {
 				}
 			}
 		}
-		return minOccupationTime / (1 + hasteLevels);
+		return minOccupationTime / ((1 + hasteLevels) * 12);
+	}
+
+	@ModifyArg(method = "releaseBee", at = @At(value = "INVOKE", target = "Ljava/lang/Integer;valueOf(I)Ljava/lang/Integer;"), index = 0)
+	private static int releaseBee(int i)
+	{
+		return 5;
 	}
 }
