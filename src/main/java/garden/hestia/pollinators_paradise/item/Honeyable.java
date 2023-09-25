@@ -1,7 +1,7 @@
 package garden.hestia.pollinators_paradise.item;
 
-import com.google.common.collect.LinkedHashMultiset;
 import com.google.common.collect.Multiset;
+import com.google.common.collect.TreeMultiset;
 import garden.hestia.pollinators_paradise.HoneyType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,6 +17,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ClickType;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
 import java.util.Set;
 
 import static org.joml.Math.clamp;
@@ -124,7 +125,7 @@ public interface Honeyable {
 	}
 
 	static Multiset<HoneyType> getEquippedHoneyQuarters(@Nullable LivingEntity entity, Set<HoneyType> decrement) {
-		Multiset<HoneyType> outSet = LinkedHashMultiset.create();
+		Multiset<HoneyType> outSet = TreeMultiset.create(Comparator.comparingInt(HoneyType.values().stream().toList()::indexOf));
 		if (entity != null) {
 			for (ItemStack stack : entity.getItemsEquipped()) {
 				if (stack.getItem() instanceof Honeyable honeyItem) {

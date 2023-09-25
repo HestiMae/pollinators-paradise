@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsItems;
+import garden.hestia.pollinators_paradise.PollinatorsUtil;
 import garden.hestia.pollinators_paradise.item.HoneyWandItem;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
 import net.minecraft.client.item.TooltipContext;
@@ -59,7 +60,7 @@ public abstract class ItemStackMixin {
 	@ModifyVariable(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;hasNbt()Z", ordinal = 0), ordinal = 0)
 	public List<Text> applyHoneyWandTooltip(List<Text> tooltip, @Nullable PlayerEntity player, TooltipContext context) {
 		ItemStack self = (ItemStack) (Object) this;
-		if (self.getItem() instanceof HoneyWandItem hwi && player != null) {
+		if (self.getItem() instanceof HoneyWandItem hwi && PollinatorsUtil.isStackInInventory(self, player)) {
 			hwi.appendTooltip(self, player, tooltip, context);
 		}
 		return tooltip;

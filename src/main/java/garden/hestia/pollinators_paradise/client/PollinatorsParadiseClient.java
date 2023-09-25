@@ -1,10 +1,6 @@
 package garden.hestia.pollinators_paradise.client;
 
-import com.google.common.collect.Multiset;
-import garden.hestia.pollinators_paradise.HoneyType;
-import garden.hestia.pollinators_paradise.HoneyTypes;
-import garden.hestia.pollinators_paradise.PollinatorsItems;
-import garden.hestia.pollinators_paradise.PollinatorsParadise;
+import garden.hestia.pollinators_paradise.*;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -21,23 +17,8 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 				(stack, tintIndex) -> tintIndex == 0 ? -1 : ((Honeyable) stack.getItem()).getItemTintColor(stack),
 				PollinatorsItems.APIARIST_VEIL, PollinatorsItems.APIARIST_SUIT, PollinatorsItems.APIARIST_LEGGINGS, PollinatorsItems.APIARIST_WELLIES, PollinatorsItems.APIARIST_SHEARS
 		);
-		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("honeyed"), ((itemStack, clientWorld, livingEntity, i) -> {
-			if (itemStack.getItem() instanceof Honeyable honeyItem && honeyItem.getHoneyType(itemStack) != null) {
-				return 1;
-			}
-			return 0;
-		}));
-		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("armor_honeyed_honey"), ((itemStack, clientWorld, livingEntity, i) -> {
-			Multiset<HoneyType> honeyQuarters = Honeyable.getEquippedHoneyQuarters(livingEntity);
-			return honeyQuarters.count(HoneyTypes.HONEY) > 0 && honeyQuarters.count(HoneyTypes.CHORUS) == 0 ? 1 : 0;
-		}));
-		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("armor_honeyed_mixed"), ((itemStack, clientWorld, livingEntity, i) -> {
-			Multiset<HoneyType> honeyQuarters = Honeyable.getEquippedHoneyQuarters(livingEntity);
-			return honeyQuarters.count(HoneyTypes.HONEY) > 0 && honeyQuarters.count(HoneyTypes.CHORUS) > 0 ? 1 : 0;
-		}));
-		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("armor_honeyed_chorus"), ((itemStack, clientWorld, livingEntity, i) -> {
-			Multiset<HoneyType> honeyQuarters = Honeyable.getEquippedHoneyQuarters(livingEntity);
-			return honeyQuarters.count(HoneyTypes.HONEY) == 0 && honeyQuarters.count(HoneyTypes.CHORUS) > 0 ? 1 : 0;
-		}));
+		ColorProviderRegistry.ITEM.register(new HoneyColorProvider(), PollinatorsItems.APIARIST_WAND);
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("honeyed"), ((stack, clientWorld, livingEntity, i) -> ((Honeyable) stack.getItem()).getHoneyType(stack) != null ? 1 : 0));
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("equipment_honeyed"), ((stack, clientWorld, livingEntity, i) -> PollinatorsUtil.isStackInInventory(stack, livingEntity) && !Honeyable.getEquippedHoneyQuarters(livingEntity).isEmpty() ? 1 : 0));
 	}
 }

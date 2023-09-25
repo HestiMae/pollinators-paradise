@@ -3,6 +3,9 @@ package garden.hestia.pollinators_paradise;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class PollinatorsUtil {
 	public static final float SAFE_BEE_HEALTH = 4.0F;
@@ -24,6 +27,17 @@ public abstract class PollinatorsUtil {
 				bee.setAngerTime(Math.min(bee.getStatusEffect(StatusEffects.RESISTANCE).getDuration(), 780));
 				return true;
 			}
+		}
+		return false;
+	}
+
+	public static boolean isStackInInventory(ItemStack stack, @Nullable LivingEntity entity) {
+		if (entity == null) return false;
+		for (ItemStack itemStack : entity.getItemsEquipped()) {
+			if (itemStack == stack) return true;
+		}
+		if (entity instanceof PlayerEntity player) {
+            return player.getInventory().main.contains(stack);
 		}
 		return false;
 	}
