@@ -7,6 +7,7 @@ import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
@@ -19,9 +20,9 @@ import java.util.Map;
 public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	private final int bottleCapacity;
 	private final int bottlePoints;
-	private final Map<HoneyType, String> tooltips;
+	private final Map<HoneyType, MutableText> tooltips;
 
-	public HoneyableShearsItem(Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, String> tooltips) {
+	public HoneyableShearsItem(Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, MutableText> tooltips) {
 		super(settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
@@ -67,11 +68,11 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		if (getHoneyType(stack) != null)
 		{
-			String honeyTooltip = tooltips.get(getHoneyType(stack));
+			MutableText honeyTooltip = tooltips.get(getHoneyType(stack));
 			if (honeyTooltip != null) {
-				tooltip.add(Text.literal(honeyTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
+				tooltip.add(honeyTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
 			}
 		}
-		tooltip.add(Text.literal("Gentle").setStyle(Style.EMPTY.withColor(0xdd7e68)));
+		tooltip.add(Text.translatable("tooltip.pollinators_paradise.apiarist_shears.gentle").setStyle(Style.EMPTY.withColor(0xdd7e68)));
 	}
 }
