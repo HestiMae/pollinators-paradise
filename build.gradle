@@ -1,10 +1,9 @@
+//file:noinspection GroovyAssignabilityCheck
+//file:noinspection GroovyAccessibility
 buildscript {
-	repositories {
-		gradlePluginPortal()
-	}
 	dependencies {
-		classpath 'com.modrinth.minotaur:Minotaur:2.4.3'
-		classpath "com.github.breadmoirai:github-release:2.4.1"
+		classpath "com.modrinth.minotaur:Minotaur:${libs.versions.minotaur.get()}"
+		classpath "com.github.breadmoirai:github-release:${libs.versions.githubRelease.get()}"
 	}
 }
 
@@ -13,38 +12,17 @@ plugins {
 	alias libs.plugins.loom
 }
 
-if (System.getenv("MODRINTH_TOKEN")) {
-	apply plugin: "com.modrinth.minotaur"
-}
-if (System.getenv("GITHUB_TOKEN")) {
-	apply plugin: "com.github.breadmoirai.github-release"
-}
-
-archivesBaseName = project.archives_base_name
-
-def mc_major = '1.20'
-def mc = "${mc_major}.1"
-
-def origVersion = project.version
-project.version = project.version + "+" + mc_major
-group = project.maven_group
+version = "$project.baseVersion+$project.branch"
+archivesBaseName = project.name
+group = 'garden.hestia'
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
 }
 
-// All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
-// See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
 dependencies {
 	minecraft libs.mc
-	mappings variantOf(libs.quilt.mappings) { classifier 'intermediary-v2' }
-
-	modImplementation libs.quilt.loader
-	modImplementation libs.qsl
+	mappings variantOf(libs.qm) { classifier 'intermediary-v2' }
+	modImplementation libs.ql
 	modImplementation libs.qfapi
 }
 
@@ -56,85 +34,69 @@ processResources {
 	final Map<String, String> map = [
 			"version": version.toString(),
 			"mc"  : libs.versions.mc.get(),
-			"quilt_loader"  : libs.versions.quilt.loader.get(),
-			"qsl"  : libs.versions.qsl.get(),
+			"ql"  : libs.versions.ql.get(),
 			"qfapi"  : libs.versions.qfapi.get(),
 
 	]
 	inputs.properties(map)
 
-	filesMatching('quilt.mod.json') { expand(map) }
+	filesMatching('*.mod.json') { expand(map) }
 }
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = 'UTF-8'
-	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
 }
 
 java {
-	// Still required by IDEs such as Eclipse and Visual Studio Code
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
-
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task if it is present.
-	// If you remove this line, sources will not be generated.
+	sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 	withSourcesJar()
-
-	// If this mod is going to be a library, then it should also generate Javadocs in order to aid with development.
-	// Uncomment this line to generate them.
-	// withJavadocJar()
 }
 
 jar {
 	filesMatching('LICENSE') {
-		rename '^(LICENSE.*?)(\\..*)?$', "\$1_${archivesBaseName}\$2"
+		rename { "${it}_${archivesBaseName}" }
 	}
 }
 
-// Configure the maven publication
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
 		}
 	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
 	}
 }
 
 if (System.getenv("MODRINTH_TOKEN")) {
+	apply plugin: "com.modrinth.minotaur"
 	modrinth {
 		token = System.getenv("MODRINTH_TOKEN")
 		projectId = 'pollinators-paradise'
 		versionNumber = project.version
-		versionName = origVersion
+		versionName = baseVersion
 		versionType = 'release'
 		uploadFile = remapJar
-		gameVersions = [mc]
+		gameVersions = ['1.20', libs.versions.mc.get()]
 		loaders = ['quilt']
 		detectLoaders = false
 		dependencies {
 		}
-		changelog = "Changelog: https://github.com/HestiMae/pollinators-paradise/releases/tag/v" + origVersion
+		changelog = "Changelog: https://github.com/HestiMae/pollinators-paradise/releases/tag/v" + baseVersion
 		syncBodyFrom = rootProject.file("README.md").text
 	}
 }
 
 if (System.getenv("GITHUB_TOKEN")) {
+	apply plugin: "com.github.breadmoirai.github-release"
 	githubRelease {
 		token System.getenv("GITHUB_TOKEN")
 		owner "HestiMae"
 		repo "pollinators-paradise"
-		tagName 'v' + origVersion
-		releaseName origVersion
-		targetCommitish mc_major
+		tagName 'v' + baseVersion
+		releaseName baseVersion
+		targetCommitish defaultBranch
 		draft false
 		prerelease false
 		releaseAssets remapJar.archiveFile
