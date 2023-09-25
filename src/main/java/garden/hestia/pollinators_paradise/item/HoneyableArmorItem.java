@@ -8,6 +8,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
@@ -33,11 +34,11 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 	};
 	private final int bottleCapacity;
 	private final int bottlePoints;
-	private final Map<HoneyType, String> tooltips;
-	private final String noneTooltip;
+	private final Map<HoneyType, MutableText> tooltips;
+	private final MutableText noneTooltip;
 
 
-	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, String> tooltips, @Nullable String noneTooltip) {
+	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, MutableText> tooltips, @Nullable MutableText noneTooltip) {
 		super(material, slot, settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
@@ -45,7 +46,7 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 		this.noneTooltip = noneTooltip;
 	}
 
-	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, String> tooltips) {
+	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, MutableText> tooltips) {
 		super(material, slot, settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
@@ -76,12 +77,12 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		if (getHoneyType(stack) == null) {
-			if (noneTooltip != null) tooltip.add(Text.literal(noneTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
+			if (noneTooltip != null) tooltip.add(noneTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
 			return;
 		}
-		String honeyTooltip = tooltips.get(getHoneyType(stack));
+		MutableText honeyTooltip = tooltips.get(getHoneyType(stack));
 		if (honeyTooltip != null) {
-			tooltip.add(Text.literal(honeyTooltip).setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
+			tooltip.add(honeyTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
 		}
 	}
 
