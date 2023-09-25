@@ -4,7 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.minecraft.item.Item;
 
-import java.util.Collection;
+import java.util.Set;
 
 public record HoneyType(int itemBarColor, int itemTintColor, float[] armorColor, Item bottleItem) {
 	private static final BiMap<String, HoneyType> registry = HashBiMap.create();
@@ -34,7 +34,7 @@ public record HoneyType(int itemBarColor, int itemTintColor, float[] armorColor,
 		return registry.inverse().get(honeyType);
 	}
 
-	public static Collection<HoneyType> values()
+	public static Set<HoneyType> values()
 	{
 		return registry.values();
 	}

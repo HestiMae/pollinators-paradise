@@ -1,5 +1,6 @@
 package garden.hestia.pollinators_paradise.mixin;
 
+import com.google.common.collect.Multiset;
 import garden.hestia.pollinators_paradise.*;
 import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
 import garden.hestia.pollinators_paradise.item.Honeyable;
@@ -24,6 +25,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Set;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements PollinatorEntity {
@@ -98,15 +101,10 @@ public abstract class EntityMixin implements PollinatorEntity {
 		Entity self = (Entity) (Object) this;
 		if (self instanceof BeeEntity bee) {
 			if (attacker instanceof PlayerEntity player && player.getMainHandStack().isOf(PollinatorsItems.APIARIST_WAND)) {
-				int amount = 0;
-				for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
-					if (player.getEquippedStack(equipmentSlot).getItem() instanceof Honeyable honeyEquipment) {
-						amount += honeyEquipment.getHoneyQuartile(player.getEquippedStack(equipmentSlot), HoneyTypes.HONEY);
-						honeyEquipment.decrementHoneyLevel(player.getEquippedStack(equipmentSlot), HoneyTypes.HONEY);
-					}
-				}
-				if (amount > 0) {
-					bee.heal(amount);
+				Multiset<HoneyType> honeyQuarters = Honeyable.getEquippedHoneyQuarters(player, Set.of(HoneyTypes.HONEY));
+				int healAmount = honeyQuarters.count(HoneyTypes.HONEY);
+				if (healAmount > 0) {
+					bee.heal(healAmount);
 					if (self.getWorld() instanceof ServerWorld serverWorld) {
 						serverWorld.getChunkManager().sendToNearbyPlayers(self, new EntityAnimationS2CPacket(self, EntityAnimationS2CPacket.ENCHANTED_HIT));
 					}
