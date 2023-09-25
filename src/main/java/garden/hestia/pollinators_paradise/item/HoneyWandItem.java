@@ -5,24 +5,33 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Multiset;
 import garden.hestia.pollinators_paradise.HoneyType;
 import garden.hestia.pollinators_paradise.HoneyTypes;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityAnimationS2CPacket;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class HoneyWandItem extends Item {
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+	private final Map<HoneyType, MutableText> tooltips;
 
-	public HoneyWandItem(Settings settings) {
+	public HoneyWandItem(Settings settings, Map<HoneyType, MutableText> tooltips) {
 		super(settings);
+		this.tooltips = tooltips;
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(
 				EntityAttributes.GENERIC_ATTACK_DAMAGE,
@@ -63,5 +72,15 @@ public class HoneyWandItem extends Item {
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
 		return slot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(slot);
+	}
+
+	public void appendTooltip(ItemStack stack, PlayerEntity player, List<Text> tooltip, TooltipContext context) {
+		Multiset<HoneyType> honeyQuarters = Honeyable.getEquippedHoneyQuarters(player);
+		for (HoneyType honeyType : honeyQuarters.elementSet()) {
+			MutableText honeyTooltip = tooltips.get(honeyType);
+			if (honeyTooltip != null) {
+				tooltip.add(honeyTooltip.setStyle(Style.EMPTY.withColor(honeyType.itemBarColor())));
+			}
+		}
 	}
 }

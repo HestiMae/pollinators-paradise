@@ -16,6 +16,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.text.Text;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
@@ -39,7 +40,7 @@ public class PollinatorsItems {
 	public static final Item APIARIST_SUIT = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_suit"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 64, Map.of(HoneyTypes.HONEY, "Sticky Thorns", HoneyTypes.CHORUS, "Chorus Dodge")));
 	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_leggings"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 128, Map.of(HoneyTypes.HONEY, "Honey Climber", HoneyTypes.CHORUS, "Pollen Pants")));
 	public static final Item APIARIST_SHEARS = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_shears"), new HoneyableShearsItem(new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 32, Map.of(HoneyTypes.HONEY, "Nest Harvesters", HoneyTypes.CHORUS, "Nest Scavengers")));
-	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_wand"), new HoneyWandItem(new QuiltItemSettings().maxCount(1).maxDamage(0)));
+	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_wand"), new HoneyWandItem(new QuiltItemSettings().maxCount(1).maxDamage(0), Map.of(HoneyTypes.HONEY, Text.translatable("tooltip.pollinators_paradise.apiarist_wand.honey"), HoneyTypes.CHORUS, Text.translatable("tooltip.pollinators_paradise.apiarist_wand.chorus"))));
 
 	@SuppressWarnings("UnstableApiUsage")
 	public static void initialize()
