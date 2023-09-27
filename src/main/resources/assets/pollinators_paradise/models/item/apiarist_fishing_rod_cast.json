@@ -1,0 +1,6 @@
+{
+  "parent": "pollinators_paradise:item/apiarist_fishing_rod",
+  "textures": {
+    "layer0": "pollinators_paradise:item/apiarist_fishing_rod_cast"
+  }
+}

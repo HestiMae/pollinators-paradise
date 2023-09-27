@@ -11,6 +11,8 @@
     "BrewingRecipeRegistryMixin",
     "BrewingStandScreenHandlerMixin",
     "EntityMixin",
+    "FishingBobberEntityMixin",
+    "FishingRodItemMixin",
     "HoneyBlockMixin",
     "ItemPredicateMixin",
     "ItemStackMixin",
@@ -29,5 +31,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

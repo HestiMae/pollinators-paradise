@@ -4,13 +4,19 @@ import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
 import garden.hestia.pollinators_paradise.item.ChorusHoneyBottleItem;
 import garden.hestia.pollinators_paradise.item.HoneyWandItem;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
+import garden.hestia.pollinators_paradise.item.HoneyableFishingRodItem;
 import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
-import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
@@ -41,6 +47,7 @@ public class PollinatorsItems {
 	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_leggings"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 128, Map.of(HoneyTypes.HONEY, Text.translatable("tooltip.pollinators_paradise.apiarist_leggings.honey"), HoneyTypes.CHORUS, Text.translatable("tooltip.pollinators_paradise.apiarist_leggings.chorus"))));
 	public static final Item APIARIST_SHEARS = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_shears"), new HoneyableShearsItem(new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 32, Map.of(HoneyTypes.HONEY, Text.translatable("tooltip.pollinators_paradise.apiarist_shears.honey"), HoneyTypes.CHORUS, Text.translatable("tooltip.pollinators_paradise.apiarist_shears.chorus"))));
 	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_wand"), new HoneyWandItem(new QuiltItemSettings().maxCount(1).maxDamage(0), Map.of(HoneyTypes.HONEY, Text.translatable("tooltip.pollinators_paradise.apiarist_wand.honey"), HoneyTypes.CHORUS, Text.translatable("tooltip.pollinators_paradise.apiarist_wand.chorus"))));
+	public static final Item APIARIST_FISHING_ROD = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_fishing_rod"), new HoneyableFishingRodItem(new QuiltItemSettings().maxDamage(64)));
 
 	@SuppressWarnings("UnstableApiUsage")
 	public static void initialize()
