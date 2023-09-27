@@ -4,21 +4,28 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import garden.hestia.pollinators_paradise.HoneyTypes;
 import garden.hestia.pollinators_paradise.PollinatorsItems;
-import garden.hestia.pollinators_paradise.PollinatorsParadise;
-import garden.hestia.pollinators_paradise.item.Honeyable;
+import garden.hestia.pollinators_paradise.PollinatorsUtil;
+import garden.hestia.pollinators_paradise.item.HoneyWandItem;
 import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.KNOCKBACK_MODIFIERS;
 import static garden.hestia.pollinators_paradise.item.HoneyableArmorItem.PROTECTION_MODIFIERS;
@@ -50,4 +57,12 @@ public abstract class ItemStackMixin {
 		}
 	}
 
+	@ModifyVariable(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;hasNbt()Z", ordinal = 0), ordinal = 0)
+	public List<Text> applyHoneyWandTooltip(List<Text> tooltip, @Nullable PlayerEntity player, TooltipContext context) {
+		ItemStack self = (ItemStack) (Object) this;
+		if (self.getItem() instanceof HoneyWandItem hwi && PollinatorsUtil.isStackInInventory(self, player)) {
+			hwi.appendTooltip(self, player, tooltip, context);
+		}
+		return tooltip;
+	}
 }

@@ -10,10 +10,6 @@
   "block.pollinators_paradise.chorus_honey_block": "Chorus Honey Block",
   "item.pollinators_paradise.chorus_honey_bottle": "Chorus Honey Bottle",
 
-  "tooltip.pollinators_paradise.apiarist_shears.gentle": "Gentle",
-  "tooltip.pollinators_paradise.apiarist_shears.honey": "Nest Harvesters",
-  "tooltip.pollinators_paradise.apiarist_shears.chorus": "Nest Scavengers",
-
   "tooltip.pollinators_paradise.apiarist_veil.honey": "Bee Calm",
   "tooltip.pollinators_paradise.apiarist_veil.chorus": "Bee Allies",
 
@@ -25,5 +21,12 @@
   "tooltip.pollinators_paradise.apiarist_suit.chorus": "Chorus Dodge",
 
   "tooltip.pollinators_paradise.apiarist_leggings.honey": "Honey Climber",
-  "tooltip.pollinators_paradise.apiarist_leggings.chorus": "Pollen Pants"
+  "tooltip.pollinators_paradise.apiarist_leggings.chorus": "Pollen Pants",
+
+  "tooltip.pollinators_paradise.apiarist_shears.gentle": "Gentle",
+  "tooltip.pollinators_paradise.apiarist_shears.honey": "Nest Harvesters",
+  "tooltip.pollinators_paradise.apiarist_shears.chorus": "Nest Scavengers",
+
+  "tooltip.pollinators_paradise.apiarist_wand.honey": "Hexcomb Sharpness",
+  "tooltip.pollinators_paradise.apiarist_wand.chorus": "Portable Hole"
 }

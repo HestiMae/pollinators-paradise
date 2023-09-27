@@ -1,0 +1,11 @@
+{
+  "parent": "item/handheld_rod",
+  "textures": {
+    "layer0": "pollinators_paradise:item/apiarist_wand",
+    "layer1": "pollinators_paradise:item/apiarist_wand_overlay_1",
+    "layer2": "pollinators_paradise:item/apiarist_wand_overlay_2",
+    "layer3": "pollinators_paradise:item/apiarist_wand_overlay_3",
+    "layer4": "pollinators_paradise:item/apiarist_wand_overlay_4",
+    "layer5": "pollinators_paradise:item/apiarist_wand_overlay_5"
+  }
+}

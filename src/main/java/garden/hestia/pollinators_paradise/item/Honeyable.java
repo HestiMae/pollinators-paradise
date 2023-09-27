@@ -1,9 +1,10 @@
 package garden.hestia.pollinators_paradise.item;
 
+import com.google.common.collect.Multiset;
+import com.google.common.collect.TreeMultiset;
 import garden.hestia.pollinators_paradise.HoneyType;
-import garden.hestia.pollinators_paradise.HoneyTypes;
-import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,10 @@ import net.minecraft.potion.Potions;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ClickType;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Comparator;
+import java.util.Set;
 
 import static org.joml.Math.clamp;
 
@@ -117,5 +122,25 @@ public interface Honeyable {
 			return true;
 		}
 		return false;
+	}
+
+	static Multiset<HoneyType> getEquippedHoneyQuarters(@Nullable LivingEntity entity, Set<HoneyType> decrement) {
+		Multiset<HoneyType> outSet = TreeMultiset.create(Comparator.comparingInt(HoneyType.values().stream().toList()::indexOf));
+		if (entity != null) {
+			for (ItemStack stack : entity.getItemsEquipped()) {
+				if (stack.getItem() instanceof Honeyable honeyItem) {
+					HoneyType type = honeyItem.getHoneyType(stack);
+					if (type != null) {
+						outSet.add(type, honeyItem.getHoneyQuartile(stack, type));
+						if (decrement.contains(type)) honeyItem.decrementHoneyLevel(stack, type);
+					}
+				}
+			}
+		}
+		return outSet;
+	}
+
+	static Multiset<HoneyType> getEquippedHoneyQuarters(@Nullable LivingEntity entity) {
+		return getEquippedHoneyQuarters(entity, Set.of());
 	}
 }

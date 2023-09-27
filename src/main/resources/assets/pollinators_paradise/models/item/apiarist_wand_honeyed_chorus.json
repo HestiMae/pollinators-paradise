@@ -1,7 +1,0 @@
-{
-  "parent": "item/handheld_rod",
-  "textures": {
-    "layer0": "pollinators_paradise:item/apiarist_wand",
-    "layer1": "pollinators_paradise:item/apiarist_wand_overlay_chorus"
-  }
-}
