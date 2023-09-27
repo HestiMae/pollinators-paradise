@@ -1,19 +1,19 @@
 package garden.hestia.pollinators_paradise.client;
 
 import garden.hestia.pollinators_paradise.HoneyTypes;
+import garden.hestia.pollinators_paradise.PollinatorsEntities;
 import garden.hestia.pollinators_paradise.PollinatorsItems;
-import garden.hestia.pollinators_paradise.PollinatorsNetworking;
 import garden.hestia.pollinators_paradise.PollinatorsParadise;
 import garden.hestia.pollinators_paradise.item.Honeyable;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
-import org.quiltmc.qsl.networking.api.PacketByteBufs;
-import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
 public class PollinatorsParadiseClient implements ClientModInitializer {
 	@Override
@@ -79,6 +79,11 @@ public class PollinatorsParadiseClient implements ClientModInitializer {
 				}
 			}
 			return honey == 0 && chorus > 0 ? 1 : 0;
+		}));
+		EntityRendererRegistry.register(PollinatorsEntities.FISHING_BOBBER, ApiaristFishingBobberEntityRenderer::new);
+		ModelPredicateProviderRegistry.register(PollinatorsParadise.id("cast"), ((stack, world, entity, i) -> {
+			if (entity == null) return 0;
+			return (entity.getMainHandStack() == stack || entity.getOffHandStack() == stack) && entity instanceof PlayerEntity player && player.fishHook != null ? 1 : 0;
 		}));
 	}
 }

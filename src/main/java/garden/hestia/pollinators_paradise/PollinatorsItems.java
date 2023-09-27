@@ -1,10 +1,7 @@
 package garden.hestia.pollinators_paradise;
 
 import garden.hestia.pollinators_paradise.block.ChorusHoneyBlock;
-import garden.hestia.pollinators_paradise.item.ChorusHoneyBottleItem;
-import garden.hestia.pollinators_paradise.item.HoneyWandItem;
-import garden.hestia.pollinators_paradise.item.HoneyableArmorItem;
-import garden.hestia.pollinators_paradise.item.HoneyableShearsItem;
+import garden.hestia.pollinators_paradise.item.*;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -41,6 +38,7 @@ public class PollinatorsItems {
 	public static final Item APIARIST_LEGGINGS = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_leggings"), new HoneyableArmorItem(APIARIST, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 128, Map.of(HoneyTypes.HONEY, Text.translatable("tooltip.pollinators_paradise.apiarist_leggings.honey"), HoneyTypes.CHORUS, Text.translatable("tooltip.pollinators_paradise.apiarist_leggings.chorus"))));
 	public static final Item APIARIST_SHEARS = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_shears"), new HoneyableShearsItem(new QuiltItemSettings().maxCount(1).maxDamage(0), 4, 32, Map.of(HoneyTypes.HONEY, Text.translatable("tooltip.pollinators_paradise.apiarist_shears.honey"), HoneyTypes.CHORUS, Text.translatable("tooltip.pollinators_paradise.apiarist_shears.chorus"))));
 	public static final Item APIARIST_WAND = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_wand"), new HoneyWandItem(new QuiltItemSettings().maxCount(1).maxDamage(0)));
+	public static final Item APIARIST_FISHING_ROD = Registry.register(Registries.ITEM, PollinatorsParadise.id("apiarist_fishing_rod"), new HoneyableFishingRodItem(new QuiltItemSettings().maxDamage(64)));
 
 	@SuppressWarnings("UnstableApiUsage")
 	public static void initialize()

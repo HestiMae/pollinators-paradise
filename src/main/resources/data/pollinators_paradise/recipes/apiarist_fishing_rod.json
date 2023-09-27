@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  c",
+    " cs",
+    "c s"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "s": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "pollinators_paradise:apiarist_shears"
+  }
+}
