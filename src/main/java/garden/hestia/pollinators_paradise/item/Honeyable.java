@@ -12,12 +12,17 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import static org.joml.Math.clamp;
@@ -122,6 +127,11 @@ public interface Honeyable {
 			return true;
 		}
 		return false;
+	}
+
+	default void appendTooltip(ItemStack stack, List<Text> tooltip, boolean noneTooltip) {
+		MutableText honeyTooltip = Text.translatable("tooltip.%s.%s.%s".formatted(Registries.ITEM.getId(stack.getItem()).getNamespace(), Registries.ITEM.getId(stack.getItem()).getPath(), getHoneyType(stack) == null ? "none" : HoneyType.getName(getHoneyType(stack)).toLowerCase()));
+		if (getHoneyType(stack) != null || noneTooltip) tooltip.add(honeyTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
 	}
 
 	static Multiset<HoneyType> getEquippedHoneyQuarters(@Nullable LivingEntity entity, Set<HoneyType> decrement) {

@@ -1,13 +1,11 @@
 package garden.hestia.pollinators_paradise.item;
 
-import garden.hestia.pollinators_paradise.HoneyType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
@@ -15,18 +13,17 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 
 public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 	private final int bottleCapacity;
 	private final int bottlePoints;
-	private final Map<HoneyType, MutableText> tooltips;
+	private final boolean noneTooltip;
 
-	public HoneyableShearsItem(Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, MutableText> tooltips) {
+	public HoneyableShearsItem(Settings settings, int bottleCapacity, int bottlePoints, boolean noneTooltip) {
 		super(settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
-		this.tooltips = tooltips;
+		this.noneTooltip = noneTooltip;
 	}
 
 	@Override
@@ -66,13 +63,7 @@ public class HoneyableShearsItem extends ShearsItem implements Honeyable {
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if (getHoneyType(stack) != null)
-		{
-			MutableText honeyTooltip = tooltips.get(getHoneyType(stack));
-			if (honeyTooltip != null) {
-				tooltip.add(honeyTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
-			}
-		}
+		Honeyable.super.appendTooltip(stack, tooltip, noneTooltip);
 		tooltip.add(Text.translatable("tooltip.pollinators_paradise.apiarist_shears.gentle").setStyle(Style.EMPTY.withColor(0xdd7e68)));
 	}
 }

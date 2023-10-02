@@ -1,6 +1,5 @@
 package garden.hestia.pollinators_paradise.item;
 
-import garden.hestia.pollinators_paradise.HoneyType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -8,15 +7,12 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class HoneyableArmorItem extends ArmorItem implements Honeyable {
@@ -34,24 +30,14 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 	};
 	private final int bottleCapacity;
 	private final int bottlePoints;
-	private final Map<HoneyType, MutableText> tooltips;
-	private final MutableText noneTooltip;
+	private final boolean noneTooltip;
 
 
-	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, MutableText> tooltips, @Nullable MutableText noneTooltip) {
+	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, boolean noneTooltip) {
 		super(material, slot, settings);
 		this.bottleCapacity = bottleCapacity;
 		this.bottlePoints = bottlePoints;
-		this.tooltips = tooltips;
 		this.noneTooltip = noneTooltip;
-	}
-
-	public HoneyableArmorItem(ArmorMaterial material, ArmorSlot slot, Settings settings, int bottleCapacity, int bottlePoints, Map<HoneyType, MutableText> tooltips) {
-		super(material, slot, settings);
-		this.bottleCapacity = bottleCapacity;
-		this.bottlePoints = bottlePoints;
-		this.tooltips = tooltips;
-		this.noneTooltip = null;
 	}
 
 	@Override
@@ -76,14 +62,7 @@ public class HoneyableArmorItem extends ArmorItem implements Honeyable {
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if (getHoneyType(stack) == null) {
-			if (noneTooltip != null) tooltip.add(noneTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
-			return;
-		}
-		MutableText honeyTooltip = tooltips.get(getHoneyType(stack));
-		if (honeyTooltip != null) {
-			tooltip.add(honeyTooltip.setStyle(Style.EMPTY.withColor(getItemBarColor(stack))));
-		}
+		Honeyable.super.appendTooltip(stack, tooltip, noneTooltip);
 	}
 
 	@Override
