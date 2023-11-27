@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -49,6 +50,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 
 	@Shadow
 	public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+	@Shadow public abstract float getMovementSpeed();
 
 	@Inject(method = "tick", at = @At(value = "TAIL"))
 	public void veilTick(CallbackInfo ci) {
@@ -76,7 +79,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -174,7 +176,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Pollinat
 		} else {
 			faithWalkingTicks = 0;
 		}
+	}
 
+	@Redirect(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isOnGround()Z"))
+	private boolean bobWhileFaithWalking(PlayerEntity instance) {
+		return isOnGround() || (faithWalkingTicks > 0 && isSprinting() && getPitch() < 60.0F);
 	}
 
 	@Inject(method = "jump", at = @At(value = "TAIL"))
